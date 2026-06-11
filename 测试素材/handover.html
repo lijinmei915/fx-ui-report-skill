@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>客户交接简报 — 宁德时代</title>
+<script>
+(function(){
+  const P = {
+    'calendar':       '<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+    'clock':          '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    'user':           '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+    'users':          '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    'activity':       '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
+    'alert-circle':   '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+    'alert-triangle': '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+    'bar-chart-2':    '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',
+    'target':         '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+    'database':       '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>',
+    'check':          '<polyline points="20 6 9 17 4 12"/>',
+    'check-circle':   '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
+    'x-circle':       '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>',
+    'ban':            '<circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>',
+    'info':           '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>',
+    'zap':            '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+    'message-square': '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+    'search':         '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
+    'list-checks':    '<path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><line x1="13" y1="6" x2="21" y2="6"/><line x1="13" y1="12" x2="21" y2="12"/><line x1="13" y1="18" x2="21" y2="18"/>',
+    'file-text':      '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+    'trending-up':    '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>'
+  };
+  window.lucide = {
+    createIcons: function() {
+      document.querySelectorAll('i[data-lucide]').forEach(function(el) {
+        const name = el.getAttribute('data-lucide');
+        if (!P[name]) return;
+        const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+        svg.setAttribute('viewBox','0 0 24 24');
+        svg.setAttribute('fill','none');
+        svg.setAttribute('stroke','currentColor');
+        svg.setAttribute('stroke-width','2');
+        svg.setAttribute('stroke-linecap','round');
+        svg.setAttribute('stroke-linejoin','round');
+        svg.style.cssText = el.style.cssText;
+        svg.innerHTML = P[name];
+        el.replaceWith(svg);
+      });
+    }
+  };
+})();
+</script>
+<style>
+:root {
+  --seed-primary:#FF8000; --seed-success:#22C55E; --seed-warning:#F59E0B;
+  --seed-danger:#EF4444;  --seed-info:#2563EB;    --seed-bg:#FFFCF7;
+  --map-primary-50:#FFF7E6; --map-primary-100:#FFE9C0; --map-primary-500:#FF8000; --map-primary-700:#D96500;
+  --map-success-50:#F0FDF4; --map-success-100:#DCFCE7; --map-success-500:#22C55E; --map-success-700:#15803D;
+  --map-warning-50:#FFFBEB; --map-warning-100:#FEF3C7; --map-warning-500:#F59E0B; --map-warning-700:#B45309;
+  --map-danger-50:#FFF1F2;  --map-danger-100:#FEE2E2;  --map-danger-500:#EF4444;  --map-danger-700:#B91C1C;
+  --map-info-50:#EFF6FF;    --map-info-100:#DBEAFE;    --map-info-500:#2563EB;    --map-info-700:#1D4ED8;
+  --map-neutral-50:#F8F9FA; --map-neutral-100:#F2F3F5; --map-neutral-200:#EAEBEE; --map-neutral-300:#DEE1E8;
+  --map-neutral-400:#C1C5CE;--map-neutral-600:#91959E; --map-neutral-700:#545861; --map-neutral-900:#181C25;
+  --map-text-xs:11px; --map-text-sm:12px; --map-text-md:14px; --map-text-lg:15px; --map-text-xl:16px;
+  --map-radius-sm:8px; --map-radius-md:12px; --map-radius-lg:16px; --map-radius-xl:20px; --map-radius-full:9999px;
+  --text-1:var(--map-neutral-900); --text-2:var(--map-neutral-700); --text-3:var(--map-neutral-600); --text-4:var(--map-neutral-400);
+  --bg-page:var(--seed-bg); --bg-card:#FFFFFF; --bg-subtle:var(--map-neutral-100); --bg-inset:var(--map-neutral-50);
+  --border-base:var(--map-neutral-300); --border-subtle:var(--map-neutral-200);
+  --brand:var(--map-primary-500); --brand-subtle:var(--map-primary-50);
+  --brand-shadow:rgba(255,128,0,0.25); --brand-gradient-end:var(--map-primary-100);
+  --success:var(--map-success-500); --success-bg:var(--map-success-50); --success-soft:var(--map-success-100);
+  --warning:var(--map-warning-500); --warning-bg:var(--map-warning-50); --warning-soft:var(--map-warning-100);
+  --danger:var(--map-danger-500);   --danger-bg:var(--map-danger-50);   --danger-soft:var(--map-danger-100);
+  --info:var(--map-info-500);       --info-bg:var(--map-info-50);       --info-soft:var(--map-info-100);
+  --radius:var(--map-radius-lg); --radius-sm:var(--map-radius-md); --radius-lg:var(--map-radius-xl); --radius-full:var(--map-radius-full);
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px; --space-6:24px; --space-8:32px; --space-10:40px;
+  --font:'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;
+  --motion-fast:100ms; --motion-mid:200ms; --motion-slow:300ms;
+  --motion-easing:cubic-bezier(0.215,0.61,0.355,1);
+  --chart-6:#55D48C;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#F0F2F5;padding:40px 24px;font-family:var(--font);color:var(--text-1);line-height:1.5;-webkit-text-size-adjust:100%}
+.page{background:var(--bg-page);border-radius:20px;padding:0 32px 60px;max-width:1160px;margin:0 auto;overflow:hidden;position:relative;box-shadow:0 4px 32px rgba(0,0,0,0.06)}
+
+/* ── 报告头 ── */
+.report-header{position:relative;overflow:hidden;margin:0 -32px 16px;padding:32px 32px 40px;background:linear-gradient(180deg,var(--map-primary-700) 0%,var(--map-primary-500) 35%,var(--map-primary-100) 75%,var(--bg-page) 100%);border-radius:var(--radius-lg) var(--radius-lg) 0 0}
+.header-deco{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.header-body{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;position:relative;z-index:10}
+.header-eyebrow{font-size:12px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,0.85)}
+.report-header h1{font-size:34px;font-weight:700;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,0.12);letter-spacing:-0.02em}
+.header-meta{display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;background:rgba(255,255,255,0.35);color:rgba(0,0,0,0.7);backdrop-filter:blur(16px);border-radius:var(--radius-full);padding:8px 20px;font-size:13px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.6),0 2px 12px rgba(0,0,0,0.08)}
+.header-meta span{display:flex;align-items:center;gap:6px}
+.header-meta .divider{width:4px;height:4px;border-radius:50%;background:rgba(0,0,0,0.3)}
+.score-card{background:var(--bg-card);border-radius:var(--radius);padding:16px 28px 18px;display:inline-flex;flex-direction:column;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,0.10),0 1px 4px rgba(0,0,0,0.06)}
+.sc-num{font-size:40px;font-weight:900;color:var(--text-1);line-height:1;letter-spacing:-0.03em}
+.sc-label{font-size:12px;color:var(--text-3);line-height:1.4;margin-top:-6px}
+.sc-tags{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}
+
+/* ── Section 标题 ── */
+.section-title{display:flex;align-items:center;font-size:16px;font-weight:600;color:var(--text-1);margin:44px 0 24px}
+.section-title::before{content:'';display:inline-block;width:6px;height:12px;background:var(--brand);border-radius:3px;margin-right:12px;flex-shrink:0;box-shadow:0 0 0 3px var(--brand-subtle)}
+.section-title::after{content:'';flex:1;height:1px;margin-left:20px;background:linear-gradient(90deg,var(--border-base) 0%,transparent 100%)}
+
+/* ── KPI 卡片 ── */
+.kpi-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.kpi-card{background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-subtle);padding:24px;position:relative;transition:transform var(--motion-mid) var(--motion-easing)}
+.kpi-card:hover{transform:translateY(-2px)}
+.kpi-icon{position:absolute;top:20px;right:20px;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff}
+.kpi-icon svg{width:16px;height:16px}
+.kpi-icon.c-orange{background:linear-gradient(135deg,#FF8000,#FFB347);box-shadow:0 4px 12px rgba(255,128,0,0.30)}
+.kpi-icon.c-purple{background:linear-gradient(135deg,#8B5CF6,#C4B5FD);box-shadow:0 4px 12px rgba(139,92,246,0.30)}
+.kpi-icon.c-danger{background:linear-gradient(135deg,var(--danger),#FCA5A5);box-shadow:0 4px 12px rgba(239,68,68,0.25)}
+.kpi-label{font-size:13px;font-weight:500;color:var(--text-2);margin-bottom:12px}
+.kpi-value{font-size:32px;font-weight:700;color:var(--text-1)}
+.kpi-unit{font-size:14px;color:var(--text-3);margin-left:6px}
+.kpi-note{font-size:12px;color:var(--text-3);margin-top:8px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+
+/* ── Badge ── */
+.badge{display:inline-flex;align-items:center;gap:4px;border-radius:var(--radius-full);padding:2px 10px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.badge-success{background:var(--success-soft);color:var(--success)}
+.badge-warning{background:var(--warning-soft);color:var(--warning)}
+.badge-info{background:var(--info-soft);color:var(--info)}
+.badge-danger{background:var(--danger-soft);color:var(--danger)}
+.badge-default{background:var(--bg-subtle);color:var(--text-3)}
+
+/* ── 数据表 ── */
+.table-card{background:var(--bg-card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border-subtle)}
+.data-table{width:100%;border-collapse:collapse;font-size:13px}
+.data-table thead tr{background:var(--bg-subtle)}
+.data-table th{padding:16px 20px;font-size:13px;font-weight:600;color:var(--text-2);border-bottom:2px solid var(--border-subtle);text-align:left}
+.data-table th.text-right{text-align:right}
+.data-table td{padding:16px 20px;border-bottom:1px dashed var(--border-subtle);color:var(--text-1);vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--brand-subtle);transition:background var(--motion-fast)}
+.cell-clamp{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.table-card th.text-right{text-align:right}
+
+/* ── Icon Row ── */
+.icon-row-list{display:flex;flex-direction:column;gap:12px}
+.icon-row-item{display:flex;align-items:flex-start;gap:16px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-subtle);padding:20px 24px;transition:background var(--motion-mid),transform var(--motion-mid) var(--motion-easing)}
+.icon-row-item:hover{background:var(--bg-subtle);transform:translateX(2px)}
+.icon-row-lead{flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff}
+.icon-row-lead.icon{width:32px;height:32px;border-radius:8px}
+.icon-row-lead.icon svg{width:16px;height:16px}
+.icon-row-lead.num{width:28px;height:28px;border-radius:8px;font-size:13px;font-weight:700;margin-top:4px;background:linear-gradient(135deg,var(--map-primary-500),var(--brand-gradient-end));box-shadow:0 2px 8px var(--brand-shadow)}
+.icon-row-lead.danger{background:linear-gradient(135deg,var(--danger),#FCA5A5);box-shadow:0 4px 12px rgba(239,68,68,0.25)}
+.icon-row-lead.warning{background:linear-gradient(135deg,var(--warning),#FCD34D);box-shadow:0 4px 12px rgba(245,158,11,0.25)}
+.icon-row-lead.info{background:linear-gradient(135deg,var(--info),#93C5FD);box-shadow:0 4px 12px rgba(37,99,235,0.25)}
+.icon-row-lead.success{background:linear-gradient(135deg,var(--success),#86EFAC);box-shadow:0 4px 12px rgba(34,197,94,0.25)}
+.icon-row-body{flex:1;min-width:0}
+.icon-row-title{font-size:16px;font-weight:700;color:var(--text-1);margin-bottom:4px;display:block}
+.icon-row-text{font-size:14px;line-height:1.65;color:var(--text-3);margin:0}
+.icon-row-callout{padding:16px 20px;background:var(--brand-subtle);border-radius:var(--radius);border:1px solid var(--border-subtle);display:flex;align-items:flex-start;gap:14px}
+.icon-row-callout.danger{background:var(--danger-bg);border-color:rgba(239,68,68,0.15)}
+.icon-row-callout.info{background:var(--info-bg);border-color:rgba(37,99,235,0.15)}
+.icon-row-callout-lead{width:38px;height:38px;border-radius:10px;flex-shrink:0;background:linear-gradient(135deg,var(--map-primary-500),var(--brand-gradient-end));color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px var(--brand-shadow)}
+.icon-row-callout.danger .icon-row-callout-lead{background:linear-gradient(135deg,var(--danger),#FCA5A5);box-shadow:0 4px 12px rgba(239,68,68,0.25)}
+.icon-row-callout.info .icon-row-callout-lead{background:linear-gradient(135deg,var(--info),#93C5FD);box-shadow:0 4px 12px rgba(37,99,235,0.25)}
+.icon-row-callout-lead svg{width:18px;height:18px}
+.icon-row-callout-body{flex:1;min-width:0}
+.icon-row-callout-title{font-size:15px;font-weight:700;color:var(--text-1);line-height:1.5;margin-bottom:6px}
+.icon-row-callout-text{font-size:14px;color:var(--text-3);line-height:1.65}
+.icon-row-card{background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-subtle);padding:20px 24px}
+.icon-row-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.icon-row-items{list-style:none;display:flex;flex-direction:column;gap:8px}
+.icon-row-items li{font-size:14px;color:var(--text-1);line-height:1.6;padding-left:14px;position:relative}
+.icon-row-items li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--text-4)}
+
+/* ── 摘要块 ── */
+.summary-block{background:var(--bg-card);border:1px solid var(--border-subtle);border-left:4px solid var(--brand);border-radius:var(--radius);padding:20px 24px;font-size:15px;font-weight:500;color:var(--text-1);line-height:1.7}
+
+/* ── 人员卡 ── */
+.person-list{display:flex;flex-direction:column;gap:12px}
+.person-card{display:flex;align-items:center;gap:14px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-subtle);padding:16px 20px}
+.person-avatar{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0}
+.person-avatar.eb{background:linear-gradient(135deg,#FF522A,#FCA5A5)}
+.person-avatar.unknown{background:var(--bg-subtle);color:var(--text-3);border:2px dashed var(--border-base);font-size:18px}
+.person-info{flex:1;min-width:0}
+.person-name{font-size:16px;font-weight:700;color:var(--text-1);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.person-role{font-size:13px;font-weight:400;color:var(--text-3)}
+.person-note{font-size:14px;color:var(--text-3);margin-top:2px}
+
+/* ── KV 网格 ── */
+.inner-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.inner-card{background:var(--bg-inset);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:14px 16px}
+.inner-card.danger{background:var(--danger-bg);border-color:rgba(239,68,68,0.15)}
+.inner-card.warning{background:var(--warning-bg);border-color:rgba(245,158,11,0.15)}
+.inner-card.info{background:var(--info-bg);border-color:rgba(37,99,235,0.15)}
+.inner-card.full{grid-column:1/-1}
+.inner-label{font-size:11px;color:var(--text-3);font-weight:500;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.3px}
+.inner-value{font-size:14px;font-weight:600;color:var(--text-1);line-height:1.5}
+.inner-value.dim{font-weight:400;color:var(--text-3)}
+
+/* ── 时间轴 ── */
+.timeline{display:flex;flex-direction:column;gap:12px}
+.timeline-item{display:flex;gap:16px;align-items:center}
+.timeline-left{flex-shrink:0;width:28px;display:flex;justify-content:center;align-items:center;align-self:stretch;position:relative}
+.timeline-item:not(:first-child) .timeline-left::before{content:'';position:absolute;width:2px;top:-6px;height:calc(50% + 6px);background:var(--border-subtle);left:50%;transform:translateX(-1px)}
+.timeline-item:not(:last-child) .timeline-left::after{content:'';position:absolute;width:2px;top:50%;bottom:-6px;background:var(--border-subtle);left:50%;transform:translateX(-1px)}
+.timeline-dot{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;position:relative;z-index:1}
+.dot-done{background:linear-gradient(135deg,var(--success),#86EFAC);box-shadow:0 2px 8px rgba(34,197,94,0.3)}
+.dot-warn{background:linear-gradient(135deg,var(--warning),#FCD34D);box-shadow:0 2px 8px rgba(245,158,11,0.3)}
+.timeline-body{flex:1;min-width:0;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-subtle);padding:16px 20px}
+.timeline-date{font-size:11px;color:var(--text-3);font-weight:500;margin-bottom:4px;letter-spacing:0.3px}
+.timeline-title{font-size:15px;font-weight:700;color:var(--text-1);margin-bottom:8px;line-height:1.4}
+.timeline-impact{font-size:13px;color:var(--text-3);line-height:1.6;padding-left:10px;border-left:3px solid var(--border-base)}
+
+/* ── 高亮 ── */
+.hl-danger{background:var(--danger-soft);color:var(--danger);border-radius:3px;padding:1px 4px;font-weight:600}
+.hl-warning{background:var(--warning-soft);color:var(--warning);border-radius:3px;padding:1px 4px;font-weight:600}
+.hl-info{background:var(--info-soft);color:var(--info);border-radius:3px;padding:1px 4px;font-weight:600}
+.hl-success{background:var(--success-soft);color:var(--success);border-radius:3px;padding:1px 4px;font-weight:600}
+.hl-default{background:var(--bg-subtle);color:var(--text-2);border-radius:3px;padding:1px 4px;font-weight:600}
+
+/* ── 方法论折叠 ── */
+details{background:var(--bg-card);border-radius:var(--radius-sm);border:1px solid var(--border-subtle)}
+summary{padding:16px 20px;font-size:14px;font-weight:600;color:var(--text-2);cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
+summary::before{content:'›';font-size:18px;color:var(--text-3);transition:transform var(--motion-mid);display:inline-block}
+details[open] summary::before{transform:rotate(90deg)}
+.methodology-body{padding:16px 20px;font-size:13px;color:var(--text-3);line-height:1.7;border-top:1px dashed var(--border-subtle)}
+
+/* ── Footer ── */
+.footer-bar{border-top:1px solid var(--border-base);padding:24px 0 0;display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--text-3);margin-top:44px}
+.footer-dot{width:6px;height:6px;border-radius:50%;background:var(--brand);display:inline-block;margin-right:5px}
+
+/* ── 布局辅助 ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.two-col-wide{display:grid;grid-template-columns:3fr 2fr;gap:16px;align-items:start}
+
+/* ── 响应式 ── */
+@media(max-width:860px){
+  body{padding:16px 12px}
+  .page{padding:0 16px 40px}
+  .report-header{margin:0 -16px 16px;padding:24px 16px 32px}
+  .kpi-grid-3{grid-template-columns:1fr 1fr}
+  .two-col,.two-col-wide{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .kpi-grid-3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══ 报告头 ═══ -->
+<div class="report-header">
+  <div class="header-deco">
+    <svg width="100%" height="100%" viewBox="0 0 1160 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="980" cy="-20" r="220" style="fill:var(--map-primary-100);opacity:0.45"/>
+      <circle cx="1100" cy="160" r="140" fill="rgba(255,255,255,0.12)"/>
+      <circle cx="60" cy="40" r="160" fill="rgba(255,255,255,0.08)"/>
+      <path d="M600,220 Q750,100 1000,140 Q1100,160 1160,120" stroke="rgba(255,255,255,0.18)" stroke-width="2" fill="none"/>
+      <path d="M500,240 Q680,120 920,170 Q1060,190 1160,160" stroke="rgba(255,255,255,0.10)" stroke-width="1.5" fill="none"/>
+      <circle cx="860" cy="40" r="3" fill="rgba(255,255,255,0.3)"/>
+      <circle cx="920" cy="70" r="2" fill="rgba(255,255,255,0.2)"/>
+      <circle cx="200" cy="80" r="2.5" fill="rgba(255,255,255,0.25)"/>
+    </svg>
+  </div>
+  <div class="header-body">
+    <div class="header-eyebrow">Customer Handover · ShareCRM</div>
+    <h1>客户交接简报 · 宁德时代</h1>
+    <div class="header-meta">
+      <span><i data-lucide="calendar" style="width:14px;height:14px"></i>数据截止 2026-05-27</span>
+      <span class="divider"></span>
+      <span><i data-lucide="user" style="width:14px;height:14px"></i>原负责人：赵丹 Mandy</span>
+      <span class="divider"></span>
+      <span><i data-lucide="users" style="width:14px;height:14px"></i>接手人：待指定</span>
+    </div>
+    <div class="score-card">
+      <div class="sc-num">25</div>
+      <div class="sc-label">交接准备度 / 100</div>
+      <div class="sc-tags">
+        <span class="badge badge-danger">Memory 空白</span>
+        <span class="badge badge-warning">承诺逾期风险</span>
+        <span class="badge badge-default">待接手</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 交接摘要 ═══ -->
+<div class="section-title">交接摘要</div>
+<div class="summary-block">
+  客户 <mark class="hl-default">宁德时代新能源科技股份有限公司</mark>，全球动力电池龙头，来源转介绍，<mark class="hl-warning">转介绍人信息未知</mark>。客户 Memory <mark class="hl-danger">完全空白</mark>，仅一次电话触达记录；<mark class="hl-danger">首个承诺（发送材料）可能已逾期7天</mark>，兑现状态未知。接手人须优先与原 AE 赵丹 Mandy 完成口头交接，<mark class="hl-info">24 小时内确认并补发材料</mark>后再联系客户。
+</div>
+
+<!-- ═══ 交接准备度 ═══ -->
+<div class="section-title">交接准备度</div>
+<div class="kpi-grid-3">
+  <div class="kpi-card">
+    <div class="kpi-icon c-purple"><i data-lucide="database"></i></div>
+    <div class="kpi-label">信息完整度</div>
+    <div><span class="kpi-value">25</span><span class="kpi-unit">/ 100</span></div>
+    <div class="kpi-note"><span class="badge badge-danger" style="font-size:10.5px;padding:1px 8px">极低</span>Memory 空白，仅 1 次互动</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-icon c-orange"><i data-lucide="activity"></i></div>
+    <div class="kpi-label">关系温度</div>
+    <div><span class="kpi-value">35</span><span class="kpi-unit">/ 100</span></div>
+    <div class="kpi-note"><span class="badge badge-warning" style="font-size:10.5px;padding:1px 8px">偏低</span>仅王总一个触点，+1℃</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-icon c-danger"><i data-lucide="alert-triangle"></i></div>
+    <div class="kpi-label">承诺逾期风险</div>
+    <div><span class="kpi-value">85</span><span class="kpi-unit">/ 100</span></div>
+    <div class="kpi-note"><span class="badge badge-danger" style="font-size:10.5px;padding:1px 8px">高危</span>首个承诺可能已逾期 7 天</div>
+  </div>
+</div>
+
+<!-- ═══ 客户概况 ═══ -->
+<div class="section-title">客户概况</div>
+<div class="two-col-wide">
+
+  <div class="inner-grid">
+    <div class="inner-card">
+      <div class="inner-label">公司名称</div>
+      <div class="inner-value">宁德时代新能源科技股份有限公司</div>
+    </div>
+    <div class="inner-card">
+      <div class="inner-label">行业</div>
+      <div class="inner-value">生产/加工/制造 · 汽车/摩托车（动力电池）</div>
+    </div>
+    <div class="inner-card">
+      <div class="inner-label">客户级别</div>
+      <div class="inner-value"><span class="badge badge-warning">重要客户</span></div>
+    </div>
+    <div class="inner-card warning">
+      <div class="inner-label">成交状态</div>
+      <div class="inner-value">未成交 · 无商机</div>
+    </div>
+    <div class="inner-card">
+      <div class="inner-label">客户来源</div>
+      <div class="inner-value">转介绍（介绍人未知）</div>
+    </div>
+    <div class="inner-card">
+      <div class="inner-label">所在地</div>
+      <div class="inner-value">福建省</div>
+    </div>
+    <div class="inner-card full">
+      <div class="inner-label">业务定位</div>
+      <div class="inner-value dim">全球动力电池龙头，新能源行业标杆客户。若成功签约，具有极高的行业标杆效应和复制价值。当前处于极早期培育阶段，无商机记录。</div>
+    </div>
+    <div class="inner-card full info">
+      <div class="inner-label">王总首次触达关注点</div>
+      <div class="inner-value dim">统一客户数据 · 提升跨部门协同 · 支撑全球业务扩张</div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:14px 16px">
+      <div class="inner-label">整体关系温度</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <span style="font-size:12px;color:var(--text-3)">敌对 → 铁杆</span>
+        <span style="font-size:18px;font-weight:800;color:var(--warning)">+1℃</span>
+      </div>
+      <div style="height:6px;background:var(--bg-subtle);border-radius:3px;overflow:hidden">
+        <div style="height:100%;width:55%;background:linear-gradient(to right,var(--danger),var(--warning),var(--success));border-radius:3px"></div>
+      </div>
+      <div style="font-size:11px;color:var(--text-3);margin-top:6px">趋势：升温（首次触达反应积极），仅一次互动，基础极浅</div>
+    </div>
+    <div class="person-card">
+      <div class="person-avatar eb">王</div>
+      <div class="person-info">
+        <div class="person-name">王总 · 采购经理<span class="person-role">EB 候选 · 关键决策人</span></div>
+        <div class="person-note">当前唯一触点，首次触达态度积极开放</div>
+      </div>
+      <span class="badge badge-warning">+1℃</span>
+    </div>
+    <div class="person-card">
+      <div class="person-avatar unknown">?</div>
+      <div class="person-info">
+        <div class="person-name" style="color:var(--text-3)">TB / UX / Coach</div>
+        <div class="person-note">均缺失，接手后需逐步识别</div>
+      </div>
+      <span class="badge badge-default">未触达</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ 博弈编年 ═══ -->
+<div class="section-title">博弈编年</div>
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="timeline-left">
+      <div class="timeline-dot dot-done"><i data-lucide="check" style="width:14px;height:14px"></i></div>
+    </div>
+    <div class="timeline-body">
+      <div class="timeline-date">2026-05-12 · 客户创建</div>
+      <div class="timeline-title">来源转介绍，赵丹 Mandy 领取建档</div>
+      <div class="timeline-impact">标记为"重要客户"，级别高于普通客户。<strong>转介绍人身份未知</strong>——这是接手人必须向原 AE 确认的关键信息，介绍人可能是关键信任桥梁，不可绕过。</div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-left">
+      <div class="timeline-dot dot-warn"><i data-lucide="alert-triangle" style="width:13px;height:13px"></i></div>
+    </div>
+    <div class="timeline-body">
+      <div class="timeline-date">2026-05-13 · 首次电话触达</div>
+      <div class="timeline-title">王总态度开放积极，承诺发送材料</div>
+      <div class="timeline-impact">王总认可新能源行业精细化运营的重要性，提及三个关注点：<strong>统一客户数据、提升跨部门协同、支撑全球业务扩张</strong>。我方承诺本周内（截止 2026-05-20）发送材料并预约方案交流。<strong>至今已过 14 天，兑现状态未知。</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 竞品历史 ═══ -->
+<div class="section-title">竞品历史</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+  <div class="summary-block">
+    暂无明确竞品记录。首次触达中王总提到<strong>"现有系统多、数据分散"</strong>，暗示客户可能在使用多套系统或自研工具，<mark class="hl-warning">但未提及具体竞品名称</mark>。竞品情况须接手人向原 AE 核对后再判断。
+  </div>
+  <div class="icon-row-card">
+    <div class="icon-row-header">
+      <div class="icon-row-lead icon info"><i data-lucide="search"></i></div>
+      <span class="icon-row-title" style="font-size:14px">接手人需向原 AE 核对</span>
+    </div>
+    <ul class="icon-row-items">
+      <li>客户现有使用哪些系统？是否有 CRM 相关工具？</li>
+      <li>客户是否在同时评估其他供应商？</li>
+      <li>转介绍人是否与竞品有关联？</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══ 待兑现承诺 ═══ -->
+<div class="section-title">待兑现承诺</div>
+<div class="table-card">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>承诺方</th>
+        <th>承诺内容</th>
+        <th>截止日期</th>
+        <th>状态</th>
+        <th>接手处理</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="badge badge-info">我方</span></td>
+        <td><div class="cell-clamp">发送公司简介、新能源行业 CRM 方案、2–3 个同行业案例</div></td>
+        <td style="white-space:nowrap">2026-05-20</td>
+        <td><span class="badge badge-danger">逾期 7 天</span></td>
+        <td><div class="cell-clamp">立即向原 AE 确认；若未发，24h 内补发并说明交接原因</div></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-info">我方</span></td>
+        <td><div class="cell-clamp">预约 30 分钟方案交流，演示客户主数据管理、跨部门协同、海外客户管理</div></td>
+        <td style="white-space:nowrap">待定</td>
+        <td><span class="badge badge-warning">未知</span></td>
+        <td><div class="cell-clamp">发送材料后 2–3 天内跟进预约</div></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-info">我方</span></td>
+        <td><div class="cell-clamp">抄送对接人，建立轻量沟通群</div></td>
+        <td style="white-space:nowrap">待定</td>
+        <td><span class="badge badge-warning">未知</span></td>
+        <td><div class="cell-clamp">确认是否已建群，群内有哪些人</div></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ 风险洞察 ═══ -->
+<div class="section-title">风险洞察</div>
+<div class="icon-row-list">
+  <div class="icon-row-item">
+    <div class="icon-row-lead icon danger"><i data-lucide="alert-circle"></i></div>
+    <div class="icon-row-body">
+      <span class="icon-row-title">首个承诺可能已逾期7天</span>
+      <p class="icon-row-text">我方承诺于 2026-05-20 前发送材料，截至数据日已超期 7 天以上，兑现状态未知。这是接手后<strong>最紧急的风险项</strong>。接手人须 24h 内联系原 AE 确认状态；若未发，当天补发并主动说明交接原因，绝不回避逾期事实。</p>
+    </div>
+  </div>
+  <div class="icon-row-item">
+    <div class="icon-row-lead icon warning"><i data-lucide="alert-triangle"></i></div>
+    <div class="icon-row-body">
+      <span class="icon-row-title">Memory 空白，客户认知极浅</span>
+      <p class="icon-row-text">仅一次互动记录，无后续跟进和客户深度信息。<strong>不要在未了解背景的情况下直接联系客户</strong>。先找原 AE 做 15 分钟口头交接：王总联系方式、材料发送状态、转介绍人信息、沟通偏好。</p>
+    </div>
+  </div>
+  <div class="icon-row-item">
+    <div class="icon-row-lead icon info"><i data-lucide="bar-chart-2"></i></div>
+    <div class="icon-row-body">
+      <span class="icon-row-title">仅一个联系人，关系单一</span>
+      <p class="icon-row-text">当前只有王总（采购经理）一个触点，TB / UX / Coach 角色均缺失。过度依赖单一通道风险极高。在推进过程中需主动探测和识别其他利益相关人，阶段一只能通过王总渠道进入，<strong>不要绕过王总联系其他人</strong>。</p>
+    </div>
+  </div>
+  <div class="icon-row-item">
+    <div class="icon-row-lead icon success"><i data-lucide="target"></i></div>
+    <div class="icon-row-body">
+      <span class="icon-row-title">行业标杆效应：高价值战略客户</span>
+      <p class="icon-row-text">宁德时代是全球动力电池龙头，新能源行业标杆。若成功签约，具有极高的行业复制价值。这是早期培育期客户，<strong>不要急于推进商务或报价</strong>。正确策略是建立行业信任、提供专业方案，耐心培育长期关系。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 接手建议 ═══ -->
+<div class="section-title">接手建议</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+
+  <div class="icon-row-list">
+    <div class="icon-row-item">
+      <div class="icon-row-lead num">1</div>
+      <div class="icon-row-body">
+        <span class="icon-row-title">与原 AE 赵丹 Mandy 做 15 分钟口头交接</span>
+        <p class="icon-row-text">Memory 空白，必须补全：王总联系方式、材料发送状态、转介绍人信息、沟通偏好。准备好问题清单，高效完成。<strong>完成标准：清楚知道下一步联系谁、说什么。</strong></p>
+      </div>
+    </div>
+    <div class="icon-row-item">
+      <div class="icon-row-lead num">2</div>
+      <div class="icon-row-body">
+        <span class="icon-row-title">确认并兑现材料发送承诺</span>
+        <p class="icon-row-text">已逾期 7 天，是首个承诺。若未发送，当天补发并诚恳说明交接原因。<strong>完成标准：材料已发送，客户已收到。</strong></p>
+      </div>
+    </div>
+    <div class="icon-row-item">
+      <div class="icon-row-lead num">3</div>
+      <div class="icon-row-body">
+        <span class="icon-row-title">预约方案交流</span>
+        <p class="icon-row-text">发送材料后 2–3 天内跟进预约，确认下周内 30 分钟会议。<strong>围绕王总三个关注点</strong>（统一客户数据、跨部门协同、全球扩张）准备演示内容。</p>
+      </div>
+    </div>
+    <div class="icon-row-item">
+      <div class="icon-row-lead num">4</div>
+      <div class="icon-row-body">
+        <span class="icon-row-title">补充客户画像</span>
+        <p class="icon-row-text">宁德时代是全球动力电池龙头，需了解客户规模、现有系统、采购流程，为后续方案演示做好行业专业度准备。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="icon-row-callout danger">
+    <div class="icon-row-callout-lead">
+      <i data-lucide="ban" style="width:18px;height:18px"></i>
+    </div>
+    <div class="icon-row-callout-body">
+      <div class="icon-row-callout-title">不能踩的坑</div>
+      <div class="icon-row-callout-text">
+        不要在未确认材料发送状态的情况下联系王总——客户第一反应会是"你们怎么还没发"；
+        不要用通用 CRM 话术——王总关注的是新能源行业场景（客户数据统一、跨部门协同、全球业务扩张）；
+        不要绕过王总联系其他人——当前只有王总一个触点；
+        不要急于推进商务或报价——客户还在早期认知阶段，标的价值在于标杆效应而非速度。
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="icon-row-card">
+      <div class="icon-row-header">
+        <div class="icon-row-lead icon warning"><i data-lucide="message-square"></i></div>
+        <span class="icon-row-title" style="font-size:14px">需原 AE 当面交代</span>
+      </div>
+      <ul class="icon-row-items">
+        <li>转介绍人是谁？与王总什么关系？是否需要帮忙推动？</li>
+        <li>材料是否已发送？发了哪些？王总有没有反馈？</li>
+        <li>王总的沟通风格和偏好（电话 / 微信 / 邮件）？</li>
+        <li>首次触达中还有哪些未记录的关键信息？</li>
+        <li>为什么标记为"重要客户"？基于行业地位还是有其他判断？</li>
+      </ul>
+    </div>
+    <div class="icon-row-card">
+      <div class="icon-row-header">
+        <div class="icon-row-lead icon danger"><i data-lucide="x-circle"></i></div>
+        <span class="icon-row-title" style="font-size:14px">敏感点注意事项</span>
+      </div>
+      <ul class="icon-row-items">
+        <li>转介绍关系——介绍人可能是关键信任桥梁，未确认身份前不要主动联系客户</li>
+        <li>新能源行业专业性——王总关注行业方案和案例，不要用通用话术</li>
+        <li>逾期承诺——若材料未发，需主动承认并给出明确补救方案，不要回避</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ 数据说明 ═══ -->
+<div style="margin-top:44px">
+  <details>
+    <summary>数据来源与说明</summary>
+    <div class="methodology-body">
+      参考来源：纷享销客 ShareCRM 客户 / 联系人 / 跟进记录。Memory 为空，所有博弈历史、关系变化和承诺状态仅基于单次 CRM 互动记录，信息量极为有限。<strong>强烈建议接手人先与原 AE 赵丹 Mandy 完成口头交接后再联系客户。</strong>
+      客户 ID：6a0305b244cdb1000759f458 · 原负责人：赵丹 Mandy · 数据截止：2026-05-27
+    </div>
+  </details>
+</div>
+
+<!-- ═══ Footer ═══ -->
+<div class="footer-bar">
+  <span>数据来源：纷享销客 ShareCRM · 仅供内部使用</span>
+  <span><span class="footer-dot"></span>fx-ui Report · 客户交接简报</span>
+</div>
+
+</div>
+<script>lucide.createIcons();</script>
+</body>
+</html>

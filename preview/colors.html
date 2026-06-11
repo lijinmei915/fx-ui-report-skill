@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>fx-ui Report — 色板预览</title>
+<style>
+:root {
+  --bg:#F7F8FA;--surface:#FFFFFF;--surface-sub:#F2F3F5;
+  --fg-1:#181C25;--fg-2:#545861;--fg-3:#91959E;--fg-4:#C1C5CE;
+  --border:#DEE1E8;--border-soft:#EAEBEE;
+  --primary:#FF8000;--primary-soft:#FFF7E6;--primary-hover:#FF9B29;--primary-click:#D96500;
+  --success: #22C55E;--success-soft: #DCFCE7;
+  --warning: #F59E0B;--warning-soft: #FEF3C7;
+  --danger: #EF4444;--danger-soft: #FEE2E2;
+  --info: #2563EB;--info-soft: #DBEAFE;
+  --chart-1:#FF7383;--chart-2:#FF7752;--chart-3:#FF9B29;--chart-4:#FFDA54;--chart-5:#DDF2BB;
+  --chart-6:#55D48C;--chart-7:#5BCFC1;--chart-8:#40B6FF;--chart-9:#368DFF;--chart-10:#976AEB;
+  --list-orange:#FFF7E6;--list-blue:#E6F4FF;
+  --radius:10px;--font:'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--fg-1);padding:40px 24px 80px}
+h1{font-size:20px;font-weight:700;margin-bottom:4px}
+.sub{font-size:12px;color:var(--fg-3);margin-bottom:32px}
+.group{margin-bottom:32px}
+.group-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-3);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.swatches{display:flex;flex-wrap:wrap;gap:10px}
+.swatch{width:100px}
+.swatch-color{height:48px;border-radius:8px;border:1px solid rgba(0,0,0,.06);margin-bottom:6px}
+.swatch-name{font-size:11px;font-weight:600;color:var(--fg-1);margin-bottom:2px}
+.swatch-value{font-size:10px;color:var(--fg-3)}
+.chart-swatches{display:flex;gap:8px;flex-wrap:wrap}
+.chart-swatch{display:flex;flex-direction:column;align-items:center;gap:4px}
+.chart-color{width:36px;height:36px;border-radius:8px;border:1px solid rgba(0,0,0,.06)}
+.chart-label{font-size:10px;color:var(--fg-3);text-align:center}
+</style>
+</head>
+<body>
+<h1>fx-ui Report 色板</h1>
+<p class="sub">报告页所有颜色来自这里，不得使用未登记的颜色</p>
+
+<div class="group">
+  <div class="group-title">页面结构</div>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="background:var(--bg);border:1px solid var(--border)"></div><div class="swatch-name">--bg</div><div class="swatch-value">#F7F8FA</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--surface)"></div><div class="swatch-name">--surface</div><div class="swatch-value">#FFFFFF</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--surface-sub)"></div><div class="swatch-name">--surface-sub</div><div class="swatch-value">#F2F3F5</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--border)"></div><div class="swatch-name">--border</div><div class="swatch-value">#DEE1E8</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--border-soft)"></div><div class="swatch-name">--border-soft</div><div class="swatch-value">#EAEBEE</div></div>
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-title">文字四级（H4 仅装饰性）</div>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="background:var(--fg-1)"></div><div class="swatch-name">--fg-1</div><div class="swatch-value">#181C25 · 标题</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--fg-2)"></div><div class="swatch-name">--fg-2</div><div class="swatch-value">#545861 · 次级</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--fg-3)"></div><div class="swatch-name">--fg-3</div><div class="swatch-value">#91959E · 辅助</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--fg-4)"></div><div class="swatch-name">--fg-4</div><div class="swatch-value">#C1C5CE · 装饰</div></div>
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-title">品牌色</div>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="background:var(--primary)"></div><div class="swatch-name">--primary</div><div class="swatch-value">#FF8000</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--primary-soft)"></div><div class="swatch-name">--primary-soft</div><div class="swatch-value">#FFF7E6</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--primary-hover)"></div><div class="swatch-name">--primary-hover</div><div class="swatch-value">#FF9B29</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--primary-click)"></div><div class="swatch-name">--primary-click</div><div class="swatch-value">#D96500</div></div>
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-title">功能色（实底 + 浅底成对使用）</div>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="background:var(--success)"></div><div class="swatch-name">--success</div><div class="swatch-value">#30C776</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--success-soft)"></div><div class="swatch-name">--success-soft</div><div class="swatch-value">#DCFAE6</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--warning)"></div><div class="swatch-name">--warning</div><div class="swatch-value">#FF7C19</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--warning-soft)"></div><div class="swatch-name">--warning-soft</div><div class="swatch-value">#FFF5E6</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--danger)"></div><div class="swatch-name">--danger</div><div class="swatch-value">#FF522A</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--danger-soft)"></div><div class="swatch-name">--danger-soft</div><div class="swatch-value">#FFDCCC</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--info)"></div><div class="swatch-name">--info</div><div class="swatch-value">#0C6CFF</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--info-soft)"></div><div class="swatch-name">--info-soft</div><div class="swatch-value">#E6F4FF</div></div>
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-title">BI 图表色板（Figma「BI常用颜色」·各色系视觉均衡阶）</div>
+  <div class="chart-swatches">
+    <div class="chart-swatch"><div class="chart-color" style="background:var(--chart-1)"></div><div class="chart-label">chart-1<br>#FF7383</div></div>
+    <div class="chart-swatch"><div class="chart-color" style="background:var(--chart-2)"></div><div class="chart-label">chart-2<br>#FF7752</div></div>
+    <div class="chart-swatch"><div class="chart-color" style="background:var(--chart-3)"></div><div class="chart-label">chart-3<br>#FF9B29</div></div>
+    <div class="chart-swatch"><div class="chart-color" style="background:var(--chart-4)"></div><div class="chart-label">chart-4<br>#FFDA54</div></div>
+    <div class="chart-swatch"><div class="chart-color" style="background:var(--chart-5)"></div><div class="chart-label">chart-5<br>#DDF2BB</div></div>
+    <div class="chart-swatch"><div class="chart-color" style="background:var(--chart-6)"></div><div class="chart-label">chart-6<br>#55D48C</div></div>
+    <div class="chart-swatch"><div class="chart-color" style="background:var(--chart-7)"></div><div class="chart-label">chart-7<br>#5BCFC1</div></div>
+    <div class="chart-swatch"><div class="chart-color" style="background:var(--chart-8)"></div><div class="chart-label">chart-8<br>#40B6FF</div></div>
+    <div class="chart-swatch"><div class="chart-color" style="background:var(--chart-9)"></div><div class="chart-label">chart-9<br>#368DFF</div></div>
+    <div class="chart-swatch"><div class="chart-color" style="background:var(--chart-10)"></div><div class="chart-label">chart-10<br>#976AEB</div></div>
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-title">列表高亮</div>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="background:var(--list-orange)"></div><div class="swatch-name">--list-orange</div><div class="swatch-value">#FFF7E6</div></div>
+    <div class="swatch"><div class="swatch-color" style="background:var(--list-blue)"></div><div class="swatch-name">--list-blue</div><div class="swatch-value">#E6F4FF</div></div>
+  </div>
+</div>
+
+</body>
+</html>

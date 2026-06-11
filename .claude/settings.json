@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"\nimport sys, json\ntry:\n    data = json.load(sys.stdin)\n    path = data.get('tool_input', {}).get('file_path', '')\n    targets = ['components.html', 'DESIGN.md', 'tokens.css', 'design-tokens.json']\n    hit = next((t for t in targets if t in path), None)\n    if hit:\n        other = [t for t in targets if t != hit]\n        print(f'[fx-ui sync] {hit} 已修改 → 检查是否需要同步: {\", \".join(other)}')\nexcept Exception:\n    pass\n\""
+          }
+        ]
+      }
+    ]
+  }
+}

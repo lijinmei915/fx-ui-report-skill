@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026年第23周销售周报 | fx-ui</title>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  :root {
+    --bg:           #F7F8FA;
+    --surface:      #FFFFFF;
+    --surface-sub:  #F2F3F5;
+    --fg-1:         #181C25;
+    --fg-2:         #545861;
+    --fg-3:         #91959E;
+    --fg-4:         #C1C5CE;
+    --border:       #DEE1E8;
+    --border-soft:  #EAEBEE;
+    --primary:      #FF8000;
+    --primary-soft: #FFF7E6;
+    --primary-hover:#FF9B29;
+    --success: #22C55E;
+    --success-soft: #DCFCE7;
+    --warning: #F59E0B;
+    --warning-soft: #FEF3C7;
+    --danger: #EF4444;
+    --danger-soft: #FEE2E2;
+    --info: #2563EB;
+    --info-soft: #DBEAFE;
+    --chart-1:  #FF7383; --chart-2:  #FF7752; --chart-3:  #FF9B29;
+    --chart-4:  #FFDA54; --chart-5:  #DDF2BB; --chart-6:  #55D48C;
+    --chart-7:  #5BCFC1; --chart-8:  #40B6FF; --chart-9:  #368DFF;
+    --chart-10: #976AEB;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+    background: #F0F2F5;
+    color: var(--fg-1);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding: 40px 24px;
+  }
+
+  .page {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 32px 40px;
+    background: #FFFCF7;
+    border-radius: 20px;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Header */
+  .report-header {
+    position: relative;
+    margin: 0 -32px 16px;
+    padding: 32px 32px 40px;
+    background: linear-gradient(180deg, #F06A00 0%, #FF8800 35%, #FFEBD6 75%, #FFFCF7 100%);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 20px 20px 0 0;
+  }
+  .report-header .header-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .report-header .header-body {
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    gap: 16px;
+    position: relative;
+    z-index: 10;
+  }
+  .report-header .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 8px;
+  }
+  .report-header h1 {
+    font-size: 34px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.12);
+  }
+  .report-header .header-summary {
+    font-size: 14px;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.6;
+    max-width: 600px;
+    text-align: center;
+  }
+  .report-header .meta {
+    font-size: 13px;
+    color: rgba(0,0,0,0.7);
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.35);
+    padding: 8px 20px;
+    border-radius: 40px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .report-header .meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .report-header .meta .divider {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.3);
+    margin: 0 6px;
+    display: inline-block;
+  }
+
+  /* Section title */
+  .section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--fg-1);
+    margin: 44px 0 24px;
+    display: flex;
+    align-items: center;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 12px;
+    background: var(--primary);
+    border-radius: 3px;
+    margin-right: 12px;
+    box-shadow: 0 0 0 3px var(--primary-soft);
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(222,225,232,0.8) 0%, transparent 100%);
+    margin-left: 20px;
+  }
+  .section-title .section-note {
+    font-size: 12px;
+    color: var(--fg-3);
+    font-weight: 400;
+    margin-left: 10px;
+  }
+
+  /* Context grid (2x2 meta cards) */
+  .context-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .context-card {
+    background: var(--surface);
+    border: 1px solid rgba(222,225,232,0.5);
+    border-radius: 16px;
+    padding: 20px 24px;
+    box-shadow: 0 4px 20px -2px rgba(0,0,0,0.04);
+  }
+  .context-card .ctx-label {
+    font-size: 12px;
+    color: var(--fg-3);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .context-card .ctx-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--fg-1);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  /* Summary grid (2x3 conclusion cards) */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid rgba(222,225,232,0.5);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px -2px rgba(0,0,0,0.04), 0 2px 6px -1px rgba(0,0,0,0.02);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -4px rgba(0,0,0,0.06), 0 4px 8px -2px rgba(0,0,0,0.03);
+  }
+  .summary-card .s-icon {
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .summary-card .s-icon svg { width: 16px; height: 16px; color: #fff; }
+  .summary-card .s-label {
+    font-size: 12px;
+    color: var(--fg-3);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .summary-card .s-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--fg-1);
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .summary-card .s-value.up { color: var(--success); }
+  .summary-card .s-value.down { color: var(--danger); }
+  .summary-card .s-note {
+    font-size: 12px;
+    color: var(--fg-3);
+    margin-top: 4px;
+  }
+
+  /* Badge */
+  .badge { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 600; line-height: 18px; white-space: nowrap; }
+  .badge-danger   { background: var(--danger-soft);  color: var(--danger);  }
+  .badge-warning  { background: var(--warning-soft); color: var(--warning); }
+  .badge-success  { background: var(--success-soft); color: var(--success); }
+  .badge-info     { background: var(--info-soft);    color: var(--info);    }
+  .badge-default  { background: var(--surface-sub);  color: var(--fg-2);    }
+  .badge-primary  { background: var(--primary-soft); color: var(--primary); }
+
+  /* Insights */
+  .insights { display: flex; flex-direction: column; gap: 12px; }
+  .insight { display: flex; gap: 16px; align-items: flex-start; background: var(--surface); border: 1px solid rgba(222,225,232,0.5); border-radius: 16px; padding: 20px 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.02); transition: background 0.2s, transform 0.2s; }
+  .insight:hover { background: #FAFBFC; transform: translateX(2px); }
+  .insight-icon { flex-shrink: 0; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+  .insight-icon svg { width: 16px; height: 16px; }
+  .insight-icon.danger  { background: linear-gradient(135deg, var(--danger)  0%, #FCA5A5 100%); color: #fff; box-shadow: 0 4px 12px rgba(239,68,68,0.25); }
+  .insight-icon.warning { background: linear-gradient(135deg, var(--warning) 0%, #FCD34D 100%); color: #fff; box-shadow: 0 4px 12px rgba(245,158,11,0.25); }
+  .insight-icon.info    { background: linear-gradient(135deg, var(--info)    0%, #93C5FD 100%); color: #fff; box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+  .insight-icon.success { background: linear-gradient(135deg, var(--success) 0%, #86EFAC 100%); color: #fff; box-shadow: 0 4px 12px rgba(34,197,94,0.25); }
+  .insight-body { font-size: 14px; line-height: 1.6; color: var(--fg-1); padding-top: 7px; }
+  .insight-body strong { font-weight: 600; }
+
+  /* Method */
+  .method-box { margin-top: 24px; background: #FAFBFC; border: 1px solid rgba(222,225,232,0.5); border-radius: 12px; overflow: hidden; }
+  .method-box summary { cursor: pointer; padding: 16px 20px; font-size: 14px; font-weight: 600; color: var(--fg-2); list-style: none; display: flex; align-items: center; gap: 8px; user-select: none; }
+  .method-box summary::before { content: '›'; font-size: 18px; color: var(--fg-3); transition: transform .2s; line-height: 1; display: inline-block; padding-bottom: 2px; }
+  .method-box[open] summary::before { transform: rotate(90deg); }
+  .method-box .method-content { padding: 0 20px 16px; font-size: 13px; color: var(--fg-3); line-height: 1.7; border-top: 1px dashed var(--border-soft); padding-top: 16px; }
+
+  /* Footer */
+  .report-footer { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-soft); display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--fg-3); }
+  .report-footer .fx-brand { display: flex; align-items: center; gap: 8px; color: var(--fg-3); font-weight: 500; letter-spacing: 0.02em; }
+  .report-footer .fx-brand::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
+
+  @media (max-width: 860px) {
+    .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    .context-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .summary-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="report-header">
+    <div class="header-deco">
+      <svg width="100%" height="100%" viewBox="0 0 1160 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="980" cy="-20" r="220" fill="rgba(255,220,120,0.28)"/>
+        <circle cx="1100" cy="160" r="140" fill="rgba(255,255,255,0.12)"/>
+        <path d="M600,180 Q750,80 1000,120 Q1100,140 1160,100" stroke="rgba(255,255,255,0.18)" stroke-width="2" fill="none"/>
+        <path d="M500,200 Q680,100 920,150 Q1060,170 1160,140" stroke="rgba(255,255,255,0.10)" stroke-width="1.5" fill="none"/>
+        <circle cx="860" cy="40" r="3" fill="rgba(255,255,255,0.3)"/>
+        <circle cx="920" cy="60" r="2" fill="rgba(255,255,255,0.2)"/>
+        <circle cx="800" cy="70" r="2" fill="rgba(255,255,255,0.2)"/>
+      </svg>
+    </div>
+    <div class="header-body">
+      <div>
+        <div class="eyebrow">线索经营洞察 · Sales Weekly</div>
+        <h1>2026年第23周销售周报</h1>
+      </div>
+      <div class="header-summary">
+        本周线索盘子稳中有升，新增线索 3 条，销售活动活跃（50+ 条记录），但线索转化率待提升。
+      </div>
+      <div class="meta">
+        <span>
+          <i data-lucide="calendar" style="width:14px;height:14px"></i>
+          2026-06-02 ~ 2026-06-08
+        </span>
+        <span class="divider"></span>
+        <span>
+          <i data-lucide="users" style="width:14px;height:14px"></i>
+          全公司
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 分析背景 -->
+  <div class="section-title">分析背景</div>
+  <div class="context-grid">
+    <div class="context-card">
+      <div class="ctx-label">分析周期</div>
+      <div class="ctx-value">2026-06-02 ~ 2026-06-08</div>
+    </div>
+    <div class="context-card">
+      <div class="ctx-label">分析范围</div>
+      <div class="ctx-value">全公司</div>
+    </div>
+    <div class="context-card">
+      <div class="ctx-label">样本量</div>
+      <div class="ctx-value">3条线索 / 50+销售记录</div>
+    </div>
+    <div class="context-card">
+      <div class="ctx-label">时间口径</div>
+      <div class="ctx-value">创建时间</div>
+    </div>
+  </div>
+
+  <!-- 一页结论摘要 -->
+  <div class="section-title">
+    一页结论摘要
+    <span class="section-note">管理层先看这部分</span>
+  </div>
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="s-icon" style="background: linear-gradient(135deg, var(--success) 0%, #86EFAC 100%); box-shadow: 0 4px 12px rgba(34,197,94,0.25)">
+        <i data-lucide="trending-up"></i>
+      </div>
+      <div class="s-label">线索盘面</div>
+      <div class="s-value up">+50%</div>
+      <div><span class="badge badge-success">确认</span></div>
+    </div>
+    <div class="summary-card">
+      <div class="s-icon" style="background: linear-gradient(135deg, var(--info) 0%, #93C5FD 100%); box-shadow: 0 4px 12px rgba(37,99,235,0.25)">
+        <i data-lucide="arrow-up-right"></i>
+      </div>
+      <div class="s-label">主要变化</div>
+      <div class="s-value">线索量上升</div>
+      <div><span class="badge badge-success">确认</span></div>
+    </div>
+    <div class="summary-card">
+      <div class="s-icon" style="background: linear-gradient(135deg, var(--primary) 0%, #FFB452 100%); box-shadow: 0 4px 12px rgba(255,128,0,0.25)">
+        <i data-lucide="clipboard-list"></i>
+      </div>
+      <div class="s-label">核心主题</div>
+      <div class="s-value">需求调研/产品介绍</div>
+      <div><span class="badge badge-warning">推断</span></div>
+    </div>
+    <div class="summary-card">
+      <div class="s-icon" style="background: linear-gradient(135deg, var(--danger) 0%, #FCA5A5 100%); box-shadow: 0 4px 12px rgba(239,68,68,0.25)">
+        <i data-lucide="alert-triangle"></i>
+      </div>
+      <div class="s-label">主要风险</div>
+      <div class="s-value down">转化率偏低</div>
+      <div><span class="badge badge-success">确认</span></div>
+    </div>
+    <div class="summary-card">
+      <div class="s-icon" style="background: linear-gradient(135deg, var(--chart-7) 0%, #40B6FF 100%); box-shadow: 0 4px 12px rgba(91,207,193,0.25)">
+        <i data-lucide="zap"></i>
+      </div>
+      <div class="s-label">主要机会</div>
+      <div class="s-value">销售活动活跃</div>
+      <div><span class="badge badge-success">确认</span></div>
+    </div>
+    <div class="summary-card">
+      <div class="s-icon" style="background: linear-gradient(135deg, var(--fg-3) 0%, var(--fg-4) 100%); box-shadow: 0 4px 12px rgba(145,149,158,0.2)">
+        <i data-lucide="info"></i>
+      </div>
+      <div class="s-label">信息完整度</div>
+      <div class="s-value">部分</div>
+      <div class="s-note">部分数据受系统限制</div>
+    </div>
+  </div>
+
+  <!-- 优先关注 -->
+  <div class="section-title">优先关注</div>
+  <div class="insights">
+    <div class="insight">
+      <div class="insight-icon warning">
+        <i data-lucide="alert-triangle"></i>
+      </div>
+      <div class="insight-body"><strong>转化率待提升</strong>：本周线索量环比上升 50%，但转化率仍偏低，需加强转化跟进，建立系统性跟进节奏。</div>
+    </div>
+    <div class="insight">
+      <div class="insight-icon info">
+        <i data-lucide="activity"></i>
+      </div>
+      <div class="insight-body"><strong>销售活动活跃</strong>：本周销售活动记录 50+ 条，团队活跃度良好，需关注活动质量与转化效果的匹配度。</div>
+    </div>
+    <div class="insight">
+      <div class="insight-icon danger">
+        <i data-lucide="alert-circle"></i>
+      </div>
+      <div class="insight-body"><strong>样本量偏小</strong>：本周新增线索仅 3 条，样本量不足，结论可信度受限，建议结合历史趋势综合判断。</div>
+    </div>
+    <div class="insight">
+      <div class="insight-icon success">
+        <i data-lucide="target"></i>
+      </div>
+      <div class="insight-body"><strong>核心主题建议</strong>：本周销售活动以需求调研和产品介绍为主，建议针对高意向线索加速推进至方案报价阶段。</div>
+    </div>
+  </div>
+
+  <!-- 方法论 -->
+  <details class="method-box">
+    <summary>数据说明 · Methodology</summary>
+    <div class="method-content">
+      分析周期：2026-06-02 ~ 2026-06-08；时间口径为创建时间。样本量：3条线索 / 50+条销售活动记录。分析范围：全公司。线索盘面环比基准为上周同口径数据。部分数据受系统权限限制，信息完整度为"部分"。
+    </div>
+  </details>
+
+  <!-- Footer -->
+  <div class="report-footer">
+    <span>线索经营洞察 · 2026年第23周</span>
+    <span class="fx-brand">fx-ui Design Re</span>
+  </div>
+
+</div>
+<script>lucide.createIcons();</script>
+</body>
+</html>

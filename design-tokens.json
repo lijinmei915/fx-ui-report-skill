@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 3,
+  "format": "fx-ui/design-tokens",
+  "updatedAt": "2026-06-10",
+  "note": "4层推导结构：Seed → Map → Alias → Component。组件 CSS 只引用 Alias 层，不直接用 Seed/Map。",
+
+  "seed": [
+    { "name": "--seed-primary",     "value": "#FF8000",  "note": "品牌橙" },
+    { "name": "--seed-success",     "value": "#22C55E",  "note": "Green-500" },
+    { "name": "--seed-warning",     "value": "#F59E0B",  "note": "Amber-500" },
+    { "name": "--seed-danger",      "value": "#EF4444",  "note": "Red-500" },
+    { "name": "--seed-info",        "value": "#2563EB",  "note": "Blue-600" },
+    { "name": "--seed-neutral",     "value": "#545861",  "note": "中性色基准点" },
+    { "name": "--seed-bg",          "value": "#FFFCF7",  "note": "页面底色（暖白）" },
+    { "name": "--seed-radius",      "value": "16px",     "note": "卡片标准圆角" },
+    { "name": "--seed-font-size",   "value": "14px",     "note": "正文基准字号" },
+    { "name": "--seed-font",        "value": "'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif" }
+  ],
+
+  "map": {
+    "note": "从 Seed 推导，不直接用于组件 CSS",
+    "primary":  { "50":"#FFF7E6","100":"#FFE9C0","500":"#FF8000","700":"#D96500" },
+    "success":  { "50":"#F0FDF4","100":"#DCFCE7","500":"#22C55E","700":"#15803D" },
+    "warning":  { "50":"#FFFBEB","100":"#FEF3C7","500":"#F59E0B","700":"#B45309" },
+    "danger":   { "50":"#FFF1F2","100":"#FEE2E2","500":"#EF4444","700":"#B91C1C" },
+    "info":     { "50":"#EFF6FF","100":"#DBEAFE","500":"#2563EB","700":"#1D4ED8" },
+    "neutral":  { "50":"#F8F9FA","100":"#F2F3F5","200":"#EAEBEE","300":"#DEE1E8","400":"#C1C5CE","600":"#91959E","700":"#545861","900":"#181C25" },
+    "fontSize": { "xs":"11px","sm":"12px","md":"14px","lg":"15px","xl":"16px","2xl":"20px","heading":"34px" },
+    "radius":   { "sm":"8px","md":"12px","lg":"16px","xl":"20px" }
+  },
+
+  "alias": [
+    { "name": "--text-1",         "from": "map.neutral-900",  "value": "#181C25", "note": "主文字：标题、正文" },
+    { "name": "--text-2",         "from": "map.neutral-700",  "value": "#545861", "note": "次级说明、表头" },
+    { "name": "--text-3",         "from": "map.neutral-600",  "value": "#91959E", "note": "辅助信息、meta" },
+    { "name": "--text-4",         "from": "map.neutral-400",  "value": "#C1C5CE", "note": "仅装饰性" },
+
+    { "name": "--bg-page",        "from": "seed.bg",          "value": "#FFFCF7", "note": "页面底色" },
+    { "name": "--bg-card",        "value": "#FFFFFF",                              "note": "卡片白底" },
+    { "name": "--bg-subtle",      "from": "map.neutral-100",  "value": "#F2F3F5", "note": "弱背景：表头、折叠区" },
+    { "name": "--bg-inset",       "from": "map.neutral-50",   "value": "#F8F9FA", "note": "内部卡片背景" },
+
+    { "name": "--border-base",    "from": "map.neutral-300",  "value": "#DEE1E8", "note": "标准边框" },
+    { "name": "--border-subtle",  "from": "map.neutral-200",  "value": "#EAEBEE", "note": "弱边框" },
+
+    { "name": "--brand",          "from": "map.primary-500",  "value": "#FF8000", "note": "品牌色" },
+    { "name": "--brand-subtle",   "from": "map.primary-50",   "value": "#FFF7E6", "note": "品牌浅底" },
+
+    { "name": "--success",        "from": "map.success-500",  "value": "#22C55E" },
+    { "name": "--success-bg",     "from": "map.success-50",   "value": "#F0FDF4" },
+    { "name": "--success-soft",   "from": "map.success-100",  "value": "#DCFCE7", "note": "badge/icon 用" },
+    { "name": "--warning",        "from": "map.warning-500",  "value": "#F59E0B" },
+    { "name": "--warning-bg",     "from": "map.warning-50",   "value": "#FFFBEB" },
+    { "name": "--warning-soft",   "from": "map.warning-100",  "value": "#FEF3C7", "note": "badge/icon 用" },
+    { "name": "--danger",         "from": "map.danger-500",   "value": "#EF4444" },
+    { "name": "--danger-bg",      "from": "map.danger-50",    "value": "#FFF1F2" },
+    { "name": "--danger-soft",    "from": "map.danger-100",   "value": "#FEE2E2", "note": "badge/icon 用" },
+    { "name": "--info",           "from": "map.info-500",     "value": "#2563EB" },
+    { "name": "--info-bg",        "from": "map.info-50",      "value": "#EFF6FF" },
+    { "name": "--info-soft",      "from": "map.info-100",     "value": "#DBEAFE", "note": "badge/icon 用" },
+
+    { "name": "--radius",         "from": "map.radius-lg",    "value": "16px",   "note": "独立卡片圆角" },
+    { "name": "--radius-sm",      "from": "map.radius-md",    "value": "12px",   "note": "内部卡片圆角" },
+
+    { "name": "--space-1",  "value": "4px"  },
+    { "name": "--space-2",  "value": "8px"  },
+    { "name": "--space-3",  "value": "12px" },
+    { "name": "--space-4",  "value": "16px" },
+    { "name": "--space-5",  "value": "20px" },
+    { "name": "--space-6",  "value": "24px" },
+    { "name": "--space-8",  "value": "32px" },
+    { "name": "--space-10", "value": "40px" },
+
+    { "name": "--font",     "from": "seed.font", "value": "'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif" }
+  ],
+
+  "component": {
+    "note": "组件独立 token，覆盖 alias 层。在 components.html 各组件 CSS 块内定义。",
+    "examples": {
+      "kpi-card":   { "--kpi-bg": "var(--bg-card)",   "--kpi-radius": "var(--radius)" },
+      "inner-card": { "--inner-bg": "var(--bg-inset)", "--inner-radius": "var(--radius-sm)" }
+    }
+  },
+
+  "semanticRules": {
+    "hl-danger":  "已确认负面事实（丢单、流失、违约）",
+    "hl-warning": "潜在风险（未必发生，需关注）",
+    "hl-info":    "行动建议、指令性内容",
+    "hl-success": "已确认正面成果",
+    "hl-default": "中性强调，无语义",
+    "hl-primary": "已废弃，不再使用"
+  }
+}

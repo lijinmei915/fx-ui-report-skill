@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>客户简报 — 帝迈生物 | 见客前 | Briefing Pro</title>
+  <link rel="stylesheet" href="../styles/briefing.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     桌面端：顶部固定信息栏（≥1024px）
+     全宽布局，卡片自动拉伸到窗口宽度
+═══════════════════════════════════════════════════════════ -->
+<header class="topbar desktop-only">
+
+  <!-- 左侧：客户名称 + 基本标签 -->
+  <div class="topbar__left">
+    <div class="topbar__customer">帝迈生物</div>
+    <div class="topbar__meta">
+      <span class="badge badge--yellow">🟡 准备中</span>
+      <span>POC阶段</span>
+      <span>·</span>
+      <span>30万</span>
+      <span>·</span>
+      <span style="color:var(--yellow)">赢率 65%</span>
+    </div>
+  </div>
+
+  <div class="topbar__divider"></div>
+
+  <!-- 中间：关键信息块 -->
+  <div class="topbar__center">
+    <div class="topbar__info-block">
+      <div class="topbar__info-label">行业·规模</div>
+      <div class="topbar__info-value">医疗器械·IVD · ~800人</div>
+    </div>
+    <div class="topbar__divider"></div>
+    <div class="topbar__info-block">
+      <div class="topbar__info-label">预算状态</div>
+      <div class="topbar__info-value" style="color:var(--orange)">申请中</div>
+    </div>
+    <div class="topbar__divider"></div>
+    <div class="topbar__info-block">
+      <div class="topbar__info-label">Coach</div>
+      <div class="topbar__info-value">林姐 · 运营VP <span class="badge badge--green" style="font-size:10px;padding:1px 5px">强力支持</span></div>
+    </div>
+    <div class="topbar__divider"></div>
+    <div class="topbar__info-block">
+      <div class="topbar__info-label">致命风险</div>
+      <div class="topbar__info-value" style="color:var(--red)">🔴 上次承诺超30天未兑现</div>
+    </div>
+  </div>
+
+  <!-- 右侧：就绪度 + 主题切换 -->
+  <div class="topbar__right">
+    <div class="topbar__score">
+      <div>
+        <div class="topbar__score-label">就绪度</div>
+        <div class="topbar__score-num" style="color:var(--yellow)">63</div>
+      </div>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" style="position:static">
+      <span class="theme-icon">🌙</span> <span class="theme-label">深色</span>
+    </button>
+  </div>
+
+</header>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     主内容区
+═══════════════════════════════════════════════════════════ -->
+<main class="main-content">
+
+  <!-- 桌面端：会前结论 -->
+  <section class="pre-summary desktop-only">
+    <div class="pre-summary__header">
+      <span class="pre-summary__label">🧭 会前结论</span>
+      <span class="badge badge--yellow">探测预算</span>
+    </div>
+    <div class="pre-summary__conclusion">
+      今天不推签约，先让林姐说清楚 POC 结论为什么拖了 30 天；最大风险是预算仍在申请中，现场不能跳过预算批复直接谈合同。
+    </div>
+    <div class="pre-summary__grid">
+      <div class="pre-summary__item">
+        <div class="pre-summary__item-label">今天主目标</div>
+        <div class="pre-summary__item-value">探明预算批复时间</div>
+      </div>
+      <div class="pre-summary__item">
+        <div class="pre-summary__item-label">最大风险</div>
+        <div class="pre-summary__item-value">上次承诺超 30 天未兑现</div>
+      </div>
+      <div class="pre-summary__item">
+        <div class="pre-summary__item-label">最关键的人</div>
+        <div class="pre-summary__item-value">林姐 · 运营 VP</div>
+      </div>
+      <div class="pre-summary__item">
+        <div class="pre-summary__item-label">第一句话</div>
+        <div class="pre-summary__item-value">“上次您说一周内给结论，后来发生了什么？”</div>
+      </div>
+      <div class="pre-summary__item pre-summary__item--avoid">
+        <div class="pre-summary__item-label">绝对不要做</div>
+        <div class="pre-summary__item-value">不要强推签约，不承诺无网移动端能力</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 桌面端：顶部醒目预警 -->
+  <div class="pc-top-alert desktop-only">
+    <div style="font-size:20px;flex-shrink:0">⚠️</div>
+    <div>
+      <div class="pc-top-alert__title">🔴 致命风险：预算申请中，今天不能推签约</div>
+      <div class="pc-top-alert__body">
+        上次承诺（POC中期汇报后1周内给结论，2025-03-28）已超30天未兑现。
+        今天目标不是"收割"，而是"诊断卡点 + 锁定预算批复时间"。
+      </div>
+      <div class="pc-top-alert__action">→ 今天 P0：探明预算状态，不强推签约</div>
+    </div>
+  </div>
+
+  <!-- ════ 移动端：状态栏 ════ -->
+  <div class="mobile-status-bar mobile-only">
+    <div class="mobile-status-bar__left">
+      <div class="mobile-status-bar__customer">帝迈生物</div>
+      <div class="mobile-status-bar__meta">
+        <span class="badge badge--yellow">🟡 准备中</span>
+        <span>POC阶段</span>
+        <span>·</span>
+        <span>30万</span>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <div class="mobile-status-bar__score">
+        <span style="color:var(--yellow)">63</span><span class="mobile-status-bar__score-unit">分</span>
+      </div>
+      <div style="font-size:10px;color:var(--text-lo)">就绪度</div>
+    </div>
+  </div>
+
+  <!-- 移动端：会前结论 -->
+  <section class="pre-summary mobile-only">
+    <div class="pre-summary__header">
+      <span class="pre-summary__label">🧭 会前结论</span>
+      <span class="badge badge--yellow">探测预算</span>
+    </div>
+    <div class="pre-summary__conclusion">
+      今天不推签约，先问清 POC 结论为什么拖了 30 天。
+    </div>
+    <div class="pre-summary__grid">
+      <div class="pre-summary__item">
+        <div class="pre-summary__item-label">第一句话</div>
+        <div class="pre-summary__item-value">“上次您说一周内给结论，后来发生了什么？”</div>
+      </div>
+      <div class="pre-summary__item pre-summary__item--avoid">
+        <div class="pre-summary__item-label">绝对不要做</div>
+        <div class="pre-summary__item-value">不要强推签约，不承诺无网能力</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 移动端：预警横幅（与桌面端顶部预警内容同步）-->
+  <div class="alert-banner mobile-only">
+    <div class="alert-banner__icon">⚠️</div>
+    <div style="flex:1">
+      <div class="alert-banner__title">🔴 致命风险：预算申请中，今天不能推签约</div>
+      <div class="alert-banner__body">上次承诺（POC中期汇报后1周内给结论）已超30天未兑现。</div>
+      <div class="alert-banner__action">→ 今天 P0：探明预算状态，不强推签约</div>
+    </div>
+  </div>
+
+  <!-- ════ 就绪度 三色仪表 ════ -->
+  <div class="score-section">
+    <div class="score-section__title">📊 准备度仪表</div>
+    <div class="score-gauges--mobile">
+
+      <div class="gauge gauge--green">
+        <div class="gauge__header">
+          <span class="gauge__label">信息完整度</span>
+          <span class="gauge__value">73</span>
+        </div>
+        <div class="gauge__bar"><div class="gauge__fill" style="width:73%;background:var(--green)"></div></div>
+        <div style="font-size:11px;color:var(--text-lo);margin-top:4px">L2决策链有盲区</div>
+      </div>
+
+      <div class="gauge gauge--green">
+        <div class="gauge__header">
+          <span class="gauge__label">痛点匹配度</span>
+          <span class="gauge__value">85</span>
+        </div>
+        <div class="gauge__bar"><div class="gauge__fill" style="width:85%;background:var(--green)"></div></div>
+        <div style="font-size:11px;color:var(--text-lo);margin-top:4px">2个E1级痛点</div>
+      </div>
+
+      <div class="gauge gauge--yellow">
+        <div class="gauge__header">
+          <span class="gauge__label">竞争风险度</span>
+          <span class="gauge__value" style="color:var(--orange)">62</span>
+        </div>
+        <div class="gauge__bar"><div class="gauge__fill" style="width:62%;background:var(--orange)"></div></div>
+        <div style="font-size:11px;color:var(--text-lo);margin-top:4px">预算申请中，致命风险</div>
+      </div>
+
+    </div>
+
+    <!-- 赢率校准说明（桌面端）-->
+    <div class="desktop-only" style="margin-top:10px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);display:flex;align-items:center;gap:10px">
+      <span class="badge badge--yellow">赢率校准</span>
+      <div style="font-size:12px;color:var(--text-mid)">
+        CRM赢率：<strong style="color:var(--yellow)">65%</strong>（AE填写）→ 校准值 <strong>+0</strong>（40-69%区间，中性）
+      </div>
+      <div style="margin-left:auto;font-size:12px;color:var(--text-lo)">综合得分 <strong style="color:var(--text-hi)">63</strong> + 0 = <strong style="color:var(--yellow)">63</strong></div>
+    </div>
+  </div>
+
+  <div class="divider desktop-only" style="margin-top:20px"></div>
+
+  <!-- ════ 桌面端：行动看板（目标 + 预警 + 人力地图 + 时间线）══════════ -->
+  <div class="desktop-only pc-section">
+
+    <!-- 左栏：今日目标 + 底线 -->
+    <div class="strategy-column">
+
+      <!-- 今日目标 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header__title">🎯 今日目标</span>
+          <span class="badge badge--blue">POC验收准备</span>
+        </div>
+        <div class="card-body">
+          <div class="objective-item objective-item--primary">
+            <div class="objective-item__check">☑</div>
+            <div class="objective-item__text">打开"30天没结论"这个结<br>问林姐："上次您说一周内给结论，后来发生了什么？"</div>
+            <div class="badge badge--blue">P0</div>
+          </div>
+          <div class="objective-item">
+            <div class="objective-item__check"></div>
+            <div class="objective-item__text">探明预算批复时间<br>"这个预算现在是走到哪一步了？预计什么时候能批复？"</div>
+            <div class="badge badge--yellow">P0</div>
+          </div>
+          <div class="objective-item">
+            <div class="objective-item__check"></div>
+            <div class="objective-item__text">确认必选条件（无网移动端）<br>会前联系SE确认，现场不拍胸脯</div>
+            <div class="badge badge--yellow">P0</div>
+          </div>
+          <div class="objective-only">
+            <strong>如果今天只能做一件事：</strong>
+            <span>让林姐亲口说出"这个项目现在卡在哪里"</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底线 + 必选条件 -->
+      <div class="底线-section" style="padding:0">
+        <div class="底线-grid">
+          <div class="底线-card" style="border-left:3px solid var(--red)">
+            <div class="底线-card__label">🚫 底线</div>
+            <div class="底线-card__content">
+              不推签约（预算申请中）<br>
+              不承诺无网移动端（未确认）<br>
+              不替备件数据问题背锅
+            </div>
+          </div>
+          <div class="底线-card" style="border-left:3px solid var(--blue)">
+            <div class="底线-card__label">✅ 必选条件</div>
+            <div class="底线-card__content">
+              移动端在无网环境下可用<br>
+              <span style="color:var(--yellow);font-size:12px">⚠️ 需会前联系SE确认能力边界</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 右栏：三件事预警 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header__title">⚠️ 今天必须守住的 3 件事</span>
+      </div>
+      <div class="card-body" style="padding:0 16px">
+
+        <div class="warning-item">
+          <div class="warning-item__header">
+            <div class="warning-item__num num--red">1</div>
+            <div class="warning-item__title">上次承诺未兑现，林姐可能有压力</div>
+          </div>
+          <div class="warning-item__action">先接球："我知道上次的事，今天想先了解一下发生了什么" — <strong>不要解释，先倾听</strong></div>
+        </div>
+
+        <div class="warning-item">
+          <div class="warning-item__header">
+            <div class="warning-item__num num--yellow">2</div>
+            <div class="warning-item__title">小周（Gatekeeper）今天可能再次施压</div>
+          </div>
+          <div class="warning-item__action">不与小周正面冲突，直接问林姐："小周对这个项目有什么看法？"</div>
+        </div>
+
+        <div class="warning-item">
+          <div class="warning-item__header">
+            <div class="warning-item__num num--blue">3</div>
+            <div class="warning-item__title">必选条件（无网移动端）尚未确认</div>
+          </div>
+          <div class="warning-item__action"><strong>会前联系SE</strong>，现场不拍胸脯，诚实说明能力边界</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 人力地图：桌面端前置，避免关键信息藏在展开区 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header__title">👥 人力地图</span>
+        <span class="badge badge--blue">今天打法</span>
+      </div>
+      <div class="card-body">
+        <div class="people-map people-map--stacked">
+          <div class="person-card">
+            <div class="person-avatar person-avatar--coach">林</div>
+            <div class="person-body">
+              <div class="person-main">
+                <span class="person-name">林姐</span>
+                <span class="person-role person-role--coach">Coach · 运营VP</span>
+              </div>
+              <div class="person-title">强支持者，但上次承诺已拖延</div>
+              <div class="person-play">先让她说出 POC 结论卡在哪里，再请她帮忙明确预算批复路径。</div>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="person-avatar person-avatar--gatekeeper">周</div>
+            <div class="person-body">
+              <div class="person-main">
+                <span class="person-name">小周</span>
+                <span class="person-role person-role--gatekeeper">Gatekeeper</span>
+              </div>
+              <div class="person-title">关键节点常出现，可能过滤信息或压需求</div>
+              <div class="person-play">不正面冲突，转问林姐“小周对这个项目最担心什么”。</div>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="person-avatar person-avatar--unknown">EB</div>
+            <div class="person-body">
+              <div class="person-main">
+                <span class="person-name">预算拍板人</span>
+                <span class="person-role person-role--unknown">EB · 待确认</span>
+              </div>
+              <div class="person-title">预算仍在申请中，最终审批人不清</div>
+              <div class="person-play">直接问“这笔预算最后需要谁点头，当前走到哪一步了？”</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 博弈时间线：桌面端前置，只保留影响今天打法的节点 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header__title">📅 博弈时间线</span>
+        <span class="badge badge--yellow">多轮跟进</span>
+      </div>
+      <div class="card-body">
+        <div class="game-timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot timeline-dot--done">✓</div>
+            <div class="timeline-body">
+              <div class="timeline-date">2024-01</div>
+              <div class="timeline-title">林姐明确服务进度不可视是核心痛点</div>
+              <div class="timeline-impact">今天影响：先回到业务场景，不要从产品功能开场。</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot timeline-dot--warn">!</div>
+            <div class="timeline-body">
+              <div class="timeline-date">2025-03-28</div>
+              <div class="timeline-title">POC 中期汇报后承诺 1 周内给结论</div>
+              <div class="timeline-impact">今天影响：承诺已超 30 天，先诊断卡点，不推动签约。</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot timeline-dot--now">今</div>
+            <div class="timeline-body">
+              <div class="timeline-date">今天</div>
+              <div class="timeline-title">预算申请中，必选条件仍需确认</div>
+              <div class="timeline-impact">今天动作：确认预算批复人、批复时间和无网移动端能力边界。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /desktop-only pc-section -->
+
+  <!-- ════ 平板（768-1024px）：与桌面端结构相同但padding更小 ════ -->
+  <div class="mobile-only">
+
+    <!-- 今日目标 -->
+    <div class="objective-section">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header__title">🎯 今日目标</span>
+          <span class="badge badge--blue">POC验收准备</span>
+        </div>
+        <div class="card-body">
+          <div class="objective-item objective-item--primary">
+            <div class="objective-item__check">☑</div>
+            <div class="objective-item__text">打开"30天没结论"这个结<br><span style="font-weight:400;color:var(--text-mid)">问林姐："上次您说一周内给结论，后来发生了什么？"</span></div>
+          </div>
+          <div class="objective-item">
+            <div class="objective-item__check"></div>
+            <div class="objective-item__text">探明预算批复时间</div>
+          </div>
+          <div class="objective-item">
+            <div class="objective-item__check"></div>
+            <div class="objective-item__text">确认必选条件（无网移动端）</div>
+          </div>
+          <div class="objective-only">
+            <strong>如果今天只能做一件事：</strong>
+            <span>让林姐亲口说出"这个项目现在卡在哪里"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 三件事预警 -->
+    <div class="warning-section">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header__title">⚠️ 今天必须守住的 3 件事</span>
+        </div>
+        <div class="card-body">
+
+          <div class="warning-item">
+            <div class="warning-item__header">
+              <div class="warning-item__num num--red">1</div>
+              <div class="warning-item__title">上次承诺未兑现，林姐可能有压力</div>
+            </div>
+            <div class="warning-item__action">先接球，不要解释，<strong>先倾听</strong></div>
+          </div>
+
+          <div class="warning-item">
+            <div class="warning-item__header">
+              <div class="warning-item__num num--yellow">2</div>
+              <div class="warning-item__title">小周（Gatekeeper）今天可能再次施压</div>
+            </div>
+            <div class="warning-item__action">不与小周正面冲突，直接问林姐</div>
+          </div>
+
+          <div class="warning-item">
+            <div class="warning-item__header">
+              <div class="warning-item__num num--blue">3</div>
+              <div class="warning-item__title">必选条件（无网移动端）尚未确认</div>
+            </div>
+            <div class="warning-item__action"><strong>会前联系SE</strong>，不拍胸脯</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /mobile-only -->
+
+  <!-- ════ 折叠展开 ════ -->
+  <div class="expand-toggle">
+    <button class="expand-toggle__btn expand-toggle__btn--desktop desktop-only" aria-expanded="false" onclick="toggleSections()">▾ 展开补充信息（痛点矩阵）</button>
+    <button class="expand-toggle__btn expand-toggle__btn--mobile mobile-only" aria-expanded="false" onclick="toggleSections()">▾ 展开补充信息（人力地图 / 博弈时间线 / 基础信息 / 痛点）</button>
+  </div>
+
+  <div class="hidden-section" id="detail-sections">
+
+    <!-- 人力地图：移动端折叠展示，桌面端已前置到行动看板 -->
+    <div class="detail-section mobile-only">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header__title">👥 人力地图</span>
+          <span class="badge badge--blue">今天打法</span>
+        </div>
+        <div class="card-body">
+          <div class="people-map">
+            <div class="person-card">
+              <div class="person-avatar person-avatar--coach">林</div>
+              <div class="person-body">
+                <div class="person-main">
+                  <span class="person-name">林姐</span>
+                  <span class="person-role person-role--coach">Coach · 运营VP</span>
+                </div>
+                <div class="person-title">强支持者，但上次承诺已拖延</div>
+                <div class="person-play">今天打法：先让她说出 POC 结论卡在哪里，再请她帮忙明确预算批复路径。</div>
+              </div>
+            </div>
+            <div class="person-card">
+              <div class="person-avatar person-avatar--gatekeeper">周</div>
+              <div class="person-body">
+                <div class="person-main">
+                  <span class="person-name">小周</span>
+                  <span class="person-role person-role--gatekeeper">Gatekeeper</span>
+                </div>
+                <div class="person-title">关键节点常出现，可能过滤信息或压需求</div>
+                <div class="person-play">今天打法：不正面冲突，转问林姐“小周对这个项目最担心什么”。</div>
+              </div>
+            </div>
+            <div class="person-card">
+              <div class="person-avatar person-avatar--unknown">EB</div>
+              <div class="person-body">
+                <div class="person-main">
+                  <span class="person-name">预算拍板人</span>
+                  <span class="person-role person-role--unknown">EB · 待确认</span>
+                </div>
+                <div class="person-title">预算仍在申请中，最终审批人不清</div>
+                <div class="person-play">今天打法：直接问“这笔预算最后需要谁点头，当前走到哪一步了？”</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 博弈时间线：移动端折叠展示，桌面端已前置到行动看板 -->
+    <div class="detail-section mobile-only">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header__title">📅 博弈时间线</span>
+          <span class="badge badge--yellow">多轮跟进触发</span>
+        </div>
+        <div class="card-body">
+          <div class="game-timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot timeline-dot--done">✓</div>
+              <div class="timeline-body">
+                <div class="timeline-date">2024-01</div>
+                <div class="timeline-title">林姐明确服务进度不可视是核心痛点</div>
+                <div class="timeline-impact">今天影响：先回到这个业务场景，不要从产品功能开场。</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot timeline-dot--warn">!</div>
+              <div class="timeline-body">
+                <div class="timeline-date">2025-03-28</div>
+                <div class="timeline-title">POC 中期汇报后承诺 1 周内给结论</div>
+                <div class="timeline-impact">今天影响：承诺已超 30 天，必须先诊断卡点而不是推动签约。</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot timeline-dot--now">今</div>
+              <div class="timeline-body">
+                <div class="timeline-date">今天</div>
+                <div class="timeline-title">预算申请中，必选条件仍需确认</div>
+                <div class="timeline-impact">今天动作：确认预算批复人、批复时间和无网移动端能力边界。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-section desktop-only" style="padding-top:8px">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header__title">🎯 痛点优先级矩阵</span>
+        </div>
+        <div class="card-body">
+          <div class="pain-item">
+            <div class="pain-item__row1">
+              <div class="pain-item__text">服务工程师在外作业，总部看不到进度</div>
+              <div class="badge badge--green">P1 · E1</div>
+            </div>
+            <div class="pain-meta">客户原话（2024-01，林姐）· 活跃 · 立即主打</div>
+          </div>
+          <div class="pain-item">
+            <div class="pain-item__row1">
+              <div class="pain-item__text">各区域服务数据要1周后才能汇总总部</div>
+              <div class="badge badge--green">P1 · E1</div>
+            </div>
+            <div class="pain-meta">客户原话（2024-03，POC汇报）· 活跃</div>
+          </div>
+          <div class="pain-item">
+            <div class="pain-item__row1">
+              <div class="pain-item__text">备件库存数据初始化困难</div>
+              <div class="badge badge--yellow">P2 · E2</div>
+            </div>
+            <div class="pain-meta">行为推断 · POC遇阻点，待验证</div>
+          </div>
+          <div class="pain-item">
+            <div class="pain-item__row1">
+              <div class="pain-item__text">经销商数据格式不统一，难以统一管理</div>
+              <div class="badge badge--yellow">P2 · E3</div>
+            </div>
+            <div class="pain-meta">年报推断 · 假设 · 未来扩展话题</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 移动端展开：基础信息 -->
+    <div class="detail-section mobile-only">
+      <div class="card" style="margin-bottom:12px">
+        <div class="card-header"><span class="card-header__title">📋 基础信息</span></div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div><div style="font-size:10px;color:var(--text-lo)">行业</div><div style="font-size:13px;font-weight:700">医疗器械·IVD</div></div>
+            <div><div style="font-size:10px;color:var(--text-lo)">规模</div><div style="font-size:13px;font-weight:700">~800人</div></div>
+            <div><div style="font-size:10px;color:var(--text-lo)">营收</div><div style="font-size:13px;font-weight:700">~10亿级</div></div>
+            <div><div style="font-size:10px;color:var(--text-lo)">来源</div><div style="font-size:13px;font-weight:700">客户主动咨询</div></div>
+            <div><div style="font-size:10px;color:var(--text-lo)">成交状态</div><div style="font-size:13px;font-weight:700">未成交</div></div>
+            <div><div style="font-size:10px;color:var(--text-lo)">赢率</div><div style="font-size:13px;font-weight:700;color:var(--yellow)">65%</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:12px">
+        <div class="card-header"><span class="card-header__title">🎯 痛点优先级</span></div>
+        <div class="card-body">
+          <div class="pain-item">
+            <div class="pain-item__row1">
+              <div class="pain-item__text">服务工程师在外作业，总部看不到进度</div>
+              <div class="badge badge--green">P1</div>
+            </div>
+            <div class="pain-meta">E1级 · 客户原话（2024-01，林姐）</div>
+          </div>
+          <div class="pain-item">
+            <div class="pain-item__row1">
+              <div class="pain-item__text">各区域服务数据要1周后才能汇总总部</div>
+              <div class="badge badge--green">P1</div>
+            </div>
+            <div class="pain-meta">E1级 · 客户原话（2024-03，POC汇报）</div>
+          </div>
+          <div class="pain-item">
+            <div class="pain-item__row1">
+              <div class="pain-item__text">备件库存数据初始化困难</div>
+              <div class="badge badge--yellow">P2</div>
+            </div>
+            <div class="pain-meta">E2级 · 行为推断 · 待验证</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /hidden-section -->
+
+  <section class="reference-note">
+    <div class="reference-note__title">📎 参考来源</div>
+    <div class="reference-note__body">
+      CRM 客户/商机/联系人/跟进记录、客户 Memory、必要公开信息及行业/竞品参考。正文中的推断项仅用于会前准备，需在现场验证。
+    </div>
+  </section>
+
+  <div class="bottom-spacer mobile-only"></div>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════
+     底部操作栏
+═══════════════════════════════════════════════════════════ -->
+<div class="action-bar">
+  <button class="action-btn action-btn--secondary" onclick="copyBrief()">📋 复制简报</button>
+  <button class="action-btn action-btn--primary" onclick="confirmGo()">✅ 确认出发</button>
+</div>
+
+<!-- 移动端主题切换（固定右上角）-->
+<button class="theme-toggle mobile-only" onclick="toggleTheme()">
+  <span class="theme-icon">🌙</span> <span class="theme-label">深色</span>
+</button>
+
+<script>
+  function toggleSections() {
+    const el = document.getElementById('detail-sections');
+    const buttons = document.querySelectorAll('.expand-toggle__btn');
+    if (el.classList.contains('is-visible')) {
+      el.classList.remove('is-visible');
+      buttons.forEach(btn => {
+        btn.textContent = btn.classList.contains('expand-toggle__btn--desktop')
+          ? '▾ 展开补充信息（痛点矩阵）'
+          : '▾ 展开补充信息（人力地图 / 博弈时间线 / 基础信息 / 痛点）';
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    } else {
+      el.classList.add('is-visible');
+      buttons.forEach(btn => {
+        btn.textContent = '▴ 收起';
+        btn.setAttribute('aria-expanded', 'true');
+      });
+    }
+  }
+
+  function toggleTheme() {
+    const isLight = document.documentElement.classList.toggle('light');
+    document.querySelectorAll('.theme-icon').forEach(el => { el.textContent = isLight ? '☀️' : '🌙'; });
+    document.querySelectorAll('.theme-label').forEach(el => { el.textContent = isLight ? '浅色' : '深色'; });
+  }
+
+  function copyBrief() {
+    const text = '帝迈生物 · Briefing Pro · 就绪度 63 🟡';
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.action-btn--secondary');
+        btn.textContent = '✅ 已复制';
+        setTimeout(() => { btn.textContent = '📋 复制简报'; }, 2000);
+      });
+    }
+  }
+
+  function confirmGo() {
+    const btn = document.querySelector('.action-btn--primary');
+    btn.textContent = '✅ 出发准备完毕';
+    btn.style.background = 'var(--green)';
+    setTimeout(() => {
+      btn.textContent = '✅ 确认出发';
+      btn.style.background = '';
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>

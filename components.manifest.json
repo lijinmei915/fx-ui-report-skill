@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 2,
+  "brandId": "fx-ui-report",
+  "updatedAt": "2026-06-11",
+  "note": "AI 读此文件获取组件目录、HTML 模板与用法（note）。CSS 唯一真身在 components.html（starter.html 已内置全部 CSS），本文件不含 css 字段。human 看 components.html 预览效果。改组件须同步本文件与 components.html，并跑 python3 check-sync.py。",
+  "components": [
+    {
+      "id": "report-header",
+      "label": "报告头",
+      "note": "margin:0 -32px 16px 撑满页宽；header-deco 内含 hd-blob×3 极光 + hd-noise 噪点 + SVG 装饰（hd-* 动画 class 勿改名）；内容包在 header-body；score-card 为可选插槽，无数据删整块",
+      "html": "<div class=\"report-header\"><div class=\"header-deco\"><div class=\"hd-blob hd-blob-1\"></div><div class=\"hd-blob hd-blob-2\"></div><div class=\"hd-blob hd-blob-3\"></div><div class=\"hd-noise\"></div><svg width=\"100%\" height=\"100%\" viewBox=\"0 0 1160 200\" preserveAspectRatio=\"xMidYMid slice\"><circle class=\"hd-circle-bg\" cx=\"980\" cy=\"-20\" r=\"220\" fill=\"rgba(255,255,255,0.10)\"/><circle class=\"hd-circle-sm\" cx=\"1100\" cy=\"160\" r=\"140\" fill=\"rgba(255,255,255,0.12)\"/><path class=\"hd-line-1\" d=\"M600,180 Q750,80 1000,120 Q1100,140 1160,100\" stroke=\"rgba(255,255,255,0.18)\" stroke-width=\"2\" fill=\"none\"/><path class=\"hd-line-2\" d=\"M500,200 Q680,100 920,150 Q1060,170 1160,140\" stroke=\"rgba(255,255,255,0.10)\" stroke-width=\"1.5\" fill=\"none\"/><circle class=\"hd-dot hd-dot-1\" cx=\"860\" cy=\"40\" r=\"3\" fill=\"rgba(255,255,255,0.3)\"/><circle class=\"hd-dot hd-dot-2\" cx=\"920\" cy=\"60\" r=\"2\" fill=\"rgba(255,255,255,0.2)\"/><circle class=\"hd-dot hd-dot-3\" cx=\"800\" cy=\"70\" r=\"2\" fill=\"rgba(255,255,255,0.2)\"/></svg></div><div class=\"header-body\"><div class=\"header-eyebrow\">EYEBROW · YEAR</div><h1>报告标题</h1><div class=\"header-meta\"><span>数据截止 YYYY-MM-DD</span><span class=\"divider\"></span><span>制表人：姓名</span></div><!-- score-card 可选，无数据时删除 --></div></div>"
+    },
+    {
+      "id": "score-card",
+      "label": "头部评分卡（可选插槽）",
+      "note": "放在 header-body 末尾，作为可选插槽。无数据时删除整个 div。不用毛玻璃——橙色渐变背景对比度不足，必须用白底卡片。",
+      "html": "<div class=\"score-card\"><div class=\"sc-num\">42</div><div class=\"sc-label\">就绪度评分</div><div class=\"sc-tags\"><span class=\"badge badge-warning\">不足</span><span class=\"badge badge-default\">谈判审核</span><span class=\"badge badge-success\">赢率 80%</span></div></div>"
+    },
+    {
+      "id": "section-title",
+      "label": "Section 标题",
+      "html": "<div class=\"section-title\">标题文字</div>",
+      "variants": [
+        {
+          "id": "section-title--with-subtitle",
+          "label": "带副标题",
+          "html": "<div class=\"section-title\">标题文字<span class=\"section-subtitle\">副标题说明</span></div>"
+        }
+      ]
+    },
+    {
+      "id": "kpi-card",
+      "label": "KPI 卡片",
+      "html": "<div class=\"kpi-grid\"><div class=\"kpi-card\"><div class=\"kpi-icon\"><!-- lucide icon --></div><div class=\"kpi-label\">指标名称</div><div class=\"kpi-value\">123<span class=\"kpi-unit\">万</span></div><div class=\"kpi-note\">备注文字</div></div></div>"
+    },
+    {
+      "id": "chart-card",
+      "label": "图表容器",
+      "html": "<div class=\"chart-card\"><div class=\"chart-card-title\">图表标题</div><div class=\"chart-card-sub\">副标题说明</div><canvas id=\"myChart\" height=\"200\"></canvas></div>"
+    },
+    {
+      "id": "data-table",
+      "label": "数据表",
+      "note": "文字列统一 fg-1；数字/金额列加 .text-right（右对齐+600+tabular-nums）；日期列加 .nowrap；颜色只给 badge，不染 td 文字",
+      "html": "<div class=\"table-card\"><table class=\"data-table\"><thead><tr><th>名称</th><th class=\"text-right\">金额</th><th class=\"nowrap\">日期</th><th>状态</th></tr></thead><tbody><tr><td><span class=\"cell-clamp\">客户名称</span></td><td class=\"text-right\">100,000</td><td class=\"nowrap\">2026-05-01</td><td><span class=\"badge badge-success\">正常</span></td></tr></tbody></table></div>"
+    },
+    {
+      "id": "badge",
+      "label": "Badge 标签",
+      "note": "实底色，无描边。语义：success=正面/达标，warning=风险/待确认，danger=负面/高风险，info=信息/分析，default=中性",
+      "html": "<span class=\"badge badge-success\">成功</span> <span class=\"badge badge-warning\">风险</span> <span class=\"badge badge-danger\">危险</span> <span class=\"badge badge-info\">信息</span> <span class=\"badge badge-default\">中性</span>"
+    },
+    {
+      "id": "icon-row",
+      "label": "图标行列表",
+      "note": "左槽 icon-row-lead：.icon=40×40图标，.num=28×28序号；颜色语义 .danger/.warning/.info/.success/.primary；body=title+text（图标变体）或 head+quote（数字变体）",
+      "html": "<div class=\"icon-row-list\"><div class=\"icon-row-item\"><div class=\"icon-row-lead icon danger\"><!-- lucide icon --></div><div class=\"icon-row-body\"><span class=\"icon-row-title\">标题</span><p class=\"icon-row-text\">正文说明</p></div></div></div>",
+      "variants": [
+        {
+          "id": "icon-row--num",
+          "label": "数字序号变体（基础）",
+          "html": "<div class=\"icon-row-list\"><div class=\"icon-row-item\"><div class=\"icon-row-lead num\">1</div><div class=\"icon-row-body\"><span class=\"icon-row-title\">行动标题</span><p class=\"icon-row-text\">具体说明</p></div></div></div>"
+        },
+        {
+          "id": "icon-row--num-quote",
+          "label": "数字序号变体（带引导语）",
+          "html": "<div class=\"icon-row-list\"><div class=\"icon-row-item\"><div class=\"icon-row-lead num\">1</div><div class=\"icon-row-body\"><div class=\"icon-row-head\"><strong>行动标题</strong><span class=\"badge badge-danger\">P0</span></div><div class=\"icon-row-quote\">\"要说的话\"</div></div></div></div>"
+        },
+        {
+          "id": "icon-row--callout",
+          "label": "聚焦块（callout）",
+          "note": "颜色变体：默认橙色，加 .danger/.warning/.info/.success 切换色系。内容三层：callout-title（标题）+ callout-text（正文，可选）+ callout-action（行动线，可选）。",
+          "html": "<div class=\"icon-row-callout danger\"><div class=\"icon-row-callout-lead\"><!-- lucide icon --></div><div class=\"icon-row-callout-body\"><div class=\"icon-row-callout-title\">标题文字</div><div class=\"icon-row-callout-text\">正文说明（可选）</div><div class=\"icon-row-callout-action\"><!-- lucide icon --> 行动描述（可选）</div></div></div>"
+        },
+        {
+          "id": "icon-row--list",
+          "label": "清单列表（图标头 + 无序列表）",
+          "html": "<div class=\"icon-row-card\"><div class=\"icon-row-header\"><div class=\"icon-row-lead icon danger\"><i data-lucide=\"x-circle\"></i></div><span class=\"icon-row-title\">分组标题</span></div><ul class=\"icon-row-items\"><li>条目一</li><li>条目二</li><li>条目三</li></ul></div>"
+        }
+      ]
+    },
+    {
+      "id": "summary-block",
+      "label": "摘要块",
+      "html": "<div class=\"summary-block\">摘要正文，1-3句核心结论。</div>"
+    },
+    {
+      "id": "person-card",
+      "label": "人员卡",
+      "note": "avatar 颜色：eb=danger渐变，coach=success渐变，tb=info渐变，gk=warning渐变。person-role 只放真实职位头衔；描述性文字（如'关键节点常出现'）放 person-note，不放 role。name 行只保留姓名+badge+职位。",
+      "html": "<div class=\"person-list\"><div class=\"person-card\"><div class=\"person-avatar eb\">张</div><div class=\"person-info\"><div class=\"person-name\">张三 <span class=\"badge badge-warning\">EB</span></div><div class=\"person-role\">总经理 · 最终决策人</div><div class=\"person-note\">今天目标：确认预算审批权</div></div></div></div>"
+    },
+    {
+      "id": "inner-grid",
+      "label": "内部卡片网格",
+      "note": "内部卡片网格。inner-card 是内部卡片规范：灰底+细边框+小圆角，无投影，嵌套在其他卡片/区块内使用。独立浮于页面的卡片（如 KPI）才用白底+阴影。颜色变体 danger/warning/success/info 加在 inner-card 上，左侧 4px 彩色边框。字段名和数量不限，按实际内容填。",
+      "html": "<div class=\"inner-grid\"><div class=\"inner-card\"><div class=\"inner-label\">字段名</div><div class=\"inner-value\">内容文字</div></div><div class=\"inner-card danger\"><div class=\"inner-label\">风险字段</div><div class=\"inner-value\">风险内容</div></div></div>"
+    },
+    {
+      "id": "timeline",
+      "label": "时间轴",
+      "note": "四态：dot-done=已完成(success绿+check)；dot-danger=已过期/未完成(danger红+x-circle)；dot-now=进行中(primary橙+calendar)；dot-todo=未进行(hollow灰圈，无图标)。dot-warn保留给时间线外的风险场景。连接线用::before/::after各延伸6px在gap中段接合。timeline-left必须同时有align-self:stretch和align-items:center。",
+      "html": "<div class=\"timeline\"><div class=\"timeline-item\"><div class=\"timeline-left\"><div class=\"timeline-dot dot-done\"><!-- check icon --></div></div><div class=\"timeline-body\"><div class=\"timeline-date\">2024-01</div><div class=\"timeline-title\">里程碑标题</div><div class=\"timeline-impact\">今天影响：对今天准备的具体影响。</div></div></div><div class=\"timeline-item\"><div class=\"timeline-left\"><div class=\"timeline-dot dot-now\"><!-- calendar icon --></div></div><div class=\"timeline-body\"><div class=\"timeline-date\">今天</div><div class=\"timeline-title\">当前节点</div><div class=\"timeline-impact\">今天动作：具体动作。</div></div></div></div>"
+    },
+    {
+      "id": "highlight",
+      "label": "正文高亮 hl-*",
+      "note": "danger=已确认负面；warning=潜在风险；info=行动建议（蓝）；success=已确认正面；default=中性强调",
+      "html": "这是<span class=\"hl-danger\">已确认风险</span>，需要<span class=\"hl-info\">立即行动</span>，目前<span class=\"hl-success\">回款正常</span>。"
+    },
+    {
+      "id": "methodology",
+      "label": "方法论折叠",
+      "html": "<details><summary>数据说明 / 方法论</summary><div class=\"methodology-body\">说明文字内容</div></details>"
+    },
+    {
+      "id": "icon-box",
+      "label": "图标盒 Icon Box",
+      "note": "装饰性图标容器，内放一个 lucide <i>。三维组合：级 l1(渐变实底)/l2(soft 色底)/l3(无底) × 尺寸 sm/md/lg × 色 orange/blue/green/purple/danger/warning/success/info。",
+      "html": "<div class=\"icon-box l1 md orange\"><i data-lucide=\"zap\"></i></div>"
+    },
+    {
+      "id": "footer",
+      "label": "Footer",
+      "html": "<div class=\"footer-bar\"><span>数据来源说明 · 截止日期</span><span class=\"footer-brand\"><span class=\"footer-dot\"></span>fx-ui Design System</span></div>"
+    }
+  ]
+}

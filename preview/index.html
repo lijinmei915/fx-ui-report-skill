@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商机预测报告 · 2026年5月 | fx-ui</title>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  /* ── fx-ui Design Token ────────────────────────────────── */
+  :root {
+    --bg:           #F7F8FA;   /* background */
+    --surface:      #FFFFFF;   /* card */
+    --surface-sub:  #F2F3F5;   /* muted */
+    --fg-1:         #181C25;   /* text H1 */
+    --fg-2:         #545861;   /* text H2 */
+    --fg-3:         #91959E;   /* text H3 */
+    --fg-4:         #C1C5CE;   /* text H4 */
+    --border:       #DEE1E8;
+    --border-soft:  #EAEBEE;
+
+    --primary:      #FF8000;   /* brand orange */
+    --primary-soft: #FFF7E6;   /* orange-01 */
+    --primary-hover:#FF9B29;   /* orange-05 */
+
+    --success: #22C55E;   /* green-06 */
+    --success-soft: #DCFCE7;   /* green-02 */
+    --warning: #F59E0B;
+    --warning-soft: #FEF3C7;
+    --danger: #EF4444;
+    --danger-soft: #FEE2E2;
+    --info: #2563EB;
+    --info-soft: #DBEAFE;
+
+    /* chart tokens (Figma BI色) */
+    --chart-1:  #FF7383;
+    --chart-2:  #FF7752;
+    --chart-3:  #FF9B29;
+    --chart-4:  #FFDA54;
+    --chart-5:  #DDF2BB;
+    --chart-6:  #55D48C;
+    --chart-7:  #5BCFC1;
+    --chart-8:  #40B6FF;
+    --chart-9:  #368DFF;
+    --chart-10: #976AEB;
+
+    --radius:    10px;
+    --radius-sm: 6px;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 2px 6px rgba(0,0,0,0.04);
+    --shadow:    0 2px 8px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--fg-1);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 1160px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  /* ── Header ────────────────────────────────────────────── */
+  .report-header {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .report-header .header-accent {
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary) 0%, #FFB452 100%);
+  }
+  .report-header .header-body {
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .report-header .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 6px;
+  }
+  .report-header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--fg-1);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+  .report-header .meta {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--fg-3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 20px;
+  }
+  .report-header .meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .report-header .meta svg { color: var(--fg-4); }
+  .report-header .header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .report-header .status-chip {
+    background: var(--success-soft);
+    color: var(--success);
+    border: 1px solid rgba(34,197,94,.2);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .report-header .status-chip::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--success);
+  }
+  .report-header .update-time {
+    font-size: 11px;
+    color: var(--fg-3);
+  }
+
+  /* ── Section heading ───────────────────────────────────── */
+  .section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--fg-1);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin: 28px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 3px; height: 14px;
+    background: var(--primary);
+    border-radius: 2px;
+  }
+
+  /* ── KPI Grid ──────────────────────────────────────────── */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card .kpi-spark {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    opacity: .55;
+  }
+  .kpi-card .kpi-label {
+    font-size: 12px;
+    color: var(--fg-1);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .kpi-card .kpi-label .icon-wrap {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    background: var(--primary-soft);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .kpi-card .kpi-label svg { width: 12px; height: 12px; color: var(--primary); }
+  .kpi-card .kpi-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--fg-1);
+    margin-top: 8px;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .kpi-card .kpi-value small {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--fg-3);
+    margin-left: 6px;
+    letter-spacing: 0;
+  }
+  .kpi-card .kpi-sub {
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--fg-3);
+  }
+
+  /* ── Chart cards ────────────────────────────────────────── */
+  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    /* no shadow */
+  }
+  .chart-card .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg-1);
+    margin-bottom: 4px;
+  }
+  .chart-card .card-sub {
+    font-size: 11px;
+    color: var(--fg-3);
+    margin-bottom: 14px;
+  }
+
+  /* ── Table ──────────────────────────────────────────────── */
+  .table-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    /* no shadow */
+    overflow: hidden;
+  }
+  .table-card table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .table-card thead tr {
+    background: var(--surface-sub);
+    border-bottom: 1px solid var(--border);
+  }
+  .table-card th {
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--fg-2);
+    white-space: nowrap;
+    text-align: left;
+  }
+  .table-card td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border-soft);
+    color: var(--fg-1);
+    vertical-align: middle;
+  }
+  .table-card tr:last-child td { border-bottom: none; }
+  .table-card tbody tr:hover td { background: var(--primary-soft); }
+  .text-right { text-align: right; }
+  .text-center { text-align: center; }
+  .amount { font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  /* ── Badge ──────────────────────────────────────────────── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 18px;
+    white-space: nowrap;
+  }
+  .badge-danger   { background: var(--danger-soft);  color: var(--danger);  }
+  .badge-warning  { background: var(--warning-soft); color: var(--warning); }
+  .badge-success  { background: var(--success-soft); color: var(--success); }
+  .badge-info     { background: var(--info-soft);    color: var(--info);    }
+  .badge-default  { background: var(--surface-sub);  color: var(--fg-2);    }
+  .badge-primary  { background: var(--primary-soft); color: var(--primary); }
+
+  /* ── Insights ───────────────────────────────────────────── */
+  .insights { display: flex; flex-direction: column; gap: 10px; }
+  .insight {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    /* no shadow */
+  }
+  .insight-icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .insight-icon svg { width: 14px; height: 14px; }
+  .insight-icon.danger  { background: var(--danger);  color: #fff; }
+  .insight-icon.warning { background: var(--warning); color: #fff; }
+  .insight-icon.info    { background: var(--info);    color: #fff; }
+  .insight-icon.primary { background: var(--primary); color: #fff; }
+  .insight-body { font-size: 13.5px; line-height: 1.65; color: var(--fg-1); }
+  .insight-body strong { font-weight: 600; }
+
+  /* ── Methodology ────────────────────────────────────────── */
+  .method-box {
+    margin-top: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .method-box summary {
+    cursor: pointer;
+    padding: 12px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg-2);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+  }
+  .method-box summary::before {
+    content: '›';
+    font-size: 16px;
+    color: var(--fg-3);
+    transition: transform .15s;
+    line-height: 1;
+  }
+  .method-box[open] summary::before { transform: rotate(90deg); }
+  .method-box .method-content {
+    padding: 0 18px 14px;
+    font-size: 12.5px;
+    color: var(--fg-3);
+    line-height: 1.7;
+    border-top: 1px solid var(--border-soft);
+    padding-top: 12px;
+  }
+
+  /* ── Footer ─────────────────────────────────────────────── */
+  .report-footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: var(--fg-3);
+  }
+  .report-footer .fx-brand {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--fg-3);
+    font-weight: 500;
+  }
+  .report-footer .fx-brand::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+  }
+
+  @media (max-width: 860px) {
+    .kpi-grid   { grid-template-columns: repeat(2, 1fr); }
+    .chart-row  { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="report-header">
+    <div class="header-accent"></div>
+    <div class="header-body">
+      <div>
+        <div class="eyebrow">Opportunity Forecast · ShareCRM</div>
+        <h1>商机预测报告 · 2026 年 5 月</h1>
+        <div class="meta">
+          <span>
+            <i data-lucide="calendar" style="width:12px;height:12px"></i>
+            数据截止 2026-05-28 12:03
+          </span>
+          <span>
+            <i data-lucide="user" style="width:12px;height:12px"></i>
+            制表人：赵丹 Mandy
+          </span>
+        </div>
+      </div>
+      <div class="header-right">
+        <span class="status-chip">数据已更新</span>
+        <span class="update-time">纷享销客 ShareCRM</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="section-title">核心指标</div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">
+        <span class="icon-wrap"><i data-lucide="clipboard-check"></i></span>
+        进行中商机
+      </div>
+      <div class="kpi-value">192<small>个</small></div>
+      <div class="kpi-sub">赢单 220 · 输单 2</div>
+      <svg class="kpi-spark" width="80" height="36" viewBox="0 0 80 36">
+        <path d="M0,28 L14,24 L28,30 L42,18 L56,22 L70,14 L80,10" fill="none" stroke="#FF8000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M0,28 L14,24 L28,30 L42,18 L56,22 L70,14 L80,10 L80,36 L0,36Z" fill="#FF8000" fill-opacity="0.12"/>
+      </svg>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">
+        <span class="icon-wrap"><i data-lucide="credit-card"></i></span>
+        Pipeline 总金额
+      </div>
+      <div class="kpi-value">6,007<small>万</small></div>
+      <div class="kpi-sub">所有进行中商机合计</div>
+      <svg class="kpi-spark" width="80" height="36" viewBox="0 0 80 36">
+        <path d="M0,32 L14,28 L28,24 L42,20 L56,14 L70,10 L80,6" fill="none" stroke="#FF8000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M0,32 L14,28 L28,24 L42,20 L56,14 L70,10 L80,6 L80,36 L0,36Z" fill="#FF8000" fill-opacity="0.12"/>
+      </svg>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">
+        <span class="icon-wrap"><i data-lucide="clock"></i></span>
+        加权预测金额
+      </div>
+      <div class="kpi-value">2,645<small>万</small></div>
+      <div class="kpi-sub">金额 × 赢率加权</div>
+      <svg class="kpi-spark" width="80" height="36" viewBox="0 0 80 36">
+        <path d="M0,30 L14,26 L28,28 L42,20 L56,16 L70,12 L80,8" fill="none" stroke="#FF8000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M0,30 L14,26 L28,28 L42,20 L56,16 L70,12 L80,8 L80,36 L0,36Z" fill="#FF8000" fill-opacity="0.12"/>
+      </svg>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">
+        <span class="icon-wrap"><i data-lucide="trending-up"></i></span>
+        加权赢率
+      </div>
+      <div class="kpi-value">44.0<small>%</small></div>
+      <div class="kpi-sub">预测金额 ÷ 总金额</div>
+      <svg class="kpi-spark" width="80" height="36" viewBox="0 0 80 36">
+        <path d="M0,26 L14,20 L28,28 L42,16 L56,22 L70,14 L80,16" fill="none" stroke="#FF8000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M0,26 L14,20 L28,28 L42,16 L56,22 L70,14 L80,16 L80,36 L0,36Z" fill="#FF8000" fill-opacity="0.12"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="section-title">商机阶段 & 负责人分布</div>
+  <div class="chart-row">
+    <div class="chart-card">
+      <div class="card-title">各阶段商机数量与金额</div>
+      <div class="card-sub">柱：数量（个），折线：总金额（万）</div>
+      <div style="position:relative;height:220px"><canvas id="chart-stage"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="card-title">负责人 Pipeline 金额占比</div>
+      <div class="card-sub">圆环面积代表该负责人 Pipeline 权重</div>
+      <div style="position:relative;height:220px"><canvas id="chart-owner"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="section-title">未来 30 天预计成交商机 <span style="font-size:11px;color:var(--fg-3);font-weight:400;text-transform:none;letter-spacing:0">2026-05-28 ~ 2026-06-28</span></div>
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>商机名称</th>
+          <th>客户名称</th>
+          <th class="text-right">商机金额</th>
+          <th class="text-right">预测金额</th>
+          <th class="text-center">赢率</th>
+          <th>阶段</th>
+          <th>结单日期</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>输变电设备招标项目</td>
+          <td style="color:var(--fg-2)">国家电网浙江电力公司</td>
+          <td class="text-right amount">800 万</td>
+          <td class="text-right amount" style="color:var(--fg-2)">144 万</td>
+          <td class="text-center"><span class="badge badge-danger">18%</span></td>
+          <td><span class="badge badge-default">方案/报价</span></td>
+          <td style="color:var(--fg-3)">2026-06-03</td>
+        </tr>
+        <tr>
+          <td>河北延庆科技城完美生态网络科技有限公司</td>
+          <td style="color:var(--fg-2)">重庆海淀创新港时代印刷有限公司</td>
+          <td class="text-right amount">100 万</td>
+          <td class="text-right amount" style="color:var(--success)">80 万</td>
+          <td class="text-center"><span class="badge badge-success">80%</span></td>
+          <td><span class="badge badge-success">谈判审核</span></td>
+          <td style="color:var(--fg-3)">2026-05-31</td>
+        </tr>
+        <tr>
+          <td>陕西丰台科技城长江广告智能科技有限公司</td>
+          <td style="color:var(--fg-2)">海南宝山工业园卓越新能源网络科技有限公司</td>
+          <td class="text-right amount">100 万</td>
+          <td class="text-right amount" style="color:var(--success)">80 万</td>
+          <td class="text-center"><span class="badge badge-success">80%</span></td>
+          <td><span class="badge badge-success">谈判审核</span></td>
+          <td style="color:var(--fg-3)">2026-06-02</td>
+        </tr>
+        <tr>
+          <td>山西朝阳金融街华山传媒科技有限公司</td>
+          <td style="color:var(--fg-2)">云南宁河中心黄河信息数据科技有限公司</td>
+          <td class="text-right amount">100 万</td>
+          <td class="text-right amount" style="color:var(--fg-2)">60 万</td>
+          <td class="text-center"><span class="badge badge-info">60%</span></td>
+          <td><span class="badge badge-default">方案/报价</span></td>
+          <td style="color:var(--fg-3)">2026-05-28</td>
+        </tr>
+        <tr>
+          <td>山东长宁开发区现代咨询云计算有限公司</td>
+          <td style="color:var(--fg-2)">山东普陀中心现代工程信息技术有限公司</td>
+          <td class="text-right amount">100 万</td>
+          <td class="text-right amount" style="color:var(--fg-2)">60 万</td>
+          <td class="text-center"><span class="badge badge-info">60%</span></td>
+          <td><span class="badge badge-default">方案/报价</span></td>
+          <td style="color:var(--fg-3)">2026-05-29</td>
+        </tr>
+        <tr>
+          <td>山西宝坻金融街夏荷皮革智能科技有限公司</td>
+          <td style="color:var(--fg-2)">广东武清物流园泰山商业网络科技有限公司</td>
+          <td class="text-right amount">100 万</td>
+          <td class="text-right amount" style="color:var(--fg-2)">60 万</td>
+          <td class="text-center"><span class="badge badge-info">60%</span></td>
+          <td><span class="badge badge-default">方案/报价</span></td>
+          <td style="color:var(--fg-3)">2026-06-01</td>
+        </tr>
+        <tr>
+          <td>广西海淀创新港大地云计算数据科技有限公司</td>
+          <td style="color:var(--fg-2)">山东大兴商务港华山工业数码科技有限公司</td>
+          <td class="text-right amount">100 万</td>
+          <td class="text-right amount" style="color:var(--fg-2)">30 万</td>
+          <td class="text-center"><span class="badge badge-warning">30%</span></td>
+          <td><span class="badge badge-warning">需求确定</span></td>
+          <td style="color:var(--fg-3)">2026-06-03</td>
+        </tr>
+        <tr>
+          <td>安徽静安开发区理想建筑电子科技有限公司</td>
+          <td style="color:var(--fg-2)">湖北平谷总部基地新纪元仓储股份有限公司</td>
+          <td class="text-right amount">100 万</td>
+          <td class="text-right amount" style="color:var(--fg-2)">30 万</td>
+          <td class="text-center"><span class="badge badge-warning">30%</span></td>
+          <td><span class="badge badge-warning">需求确定</span></td>
+          <td style="color:var(--fg-3)">2026-06-04</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Insights -->
+  <div class="section-title">洞察 · Insights</div>
+  <div class="insights">
+    <div class="insight">
+      <div class="insight-icon danger">
+        <i data-lucide="alert-circle"></i>
+      </div>
+      <div class="insight-body"><strong>人员交接风险</strong>：贾攀攀、xt1、肖俊三人已停用，名下合计 162 个商机处于无人负责状态，建议立即安排交接，避免客户跟进断层。</div>
+    </div>
+    <div class="insight">
+      <div class="insight-icon warning">
+        <i data-lucide="alert-triangle"></i>
+      </div>
+      <div class="insight-body"><strong>Pipeline 集中度偏高</strong>：王建新一人持有 68%（4,090 万）的 Pipeline 金额，且最大单笔「国家电网浙江电力公司 800 万」当前赢率仅 18%，需要重点攻坚。</div>
+    </div>
+    <div class="insight">
+      <div class="insight-icon info">
+        <i data-lucide="file-text"></i>
+      </div>
+      <div class="insight-body"><strong>方案/报价阶段是成交主力池</strong>：该阶段 51 个商机合计 2,581 万，金额占比最高；谈判审核阶段虽有 69 个商机，但平均金额仅 16.6 万/个，呈现"小额堆积"特征。</div>
+    </div>
+    <div class="insight">
+      <div class="insight-icon primary">
+        <i data-lucide="activity"></i>
+      </div>
+      <div class="insight-body"><strong>测试数据需清理</strong>：xt1 名下 151 个商机均为测试数据（金额合计仅 1.4 万），建议批量清理以保证 Pipeline 数据准确性。</div>
+    </div>
+  </div>
+
+  <!-- Methodology -->
+  <details class="method-box" style="margin-top:24px">
+    <summary>方法论 · Methodology</summary>
+    <div class="method-content">
+      预测金额 = 商机金额 × 当前阶段加权赢率；加权赢率为预测金额占总金额的比例。"未来 30 天预计成交"按结单日期落在 2026-05-28 ~ 2026-06-28 区间筛选。数据来源：纷享销客 ShareCRM 导出，截止 2026-05-28 12:03。
+    </div>
+  </details>
+
+  <!-- Footer -->
+  <div class="report-footer">
+    <span>纷享销客 ShareCRM · 商机预测报告系统</span>
+    <span class="fx-brand">fx-ui Design System</span>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script>
+  const fxTokens = {
+    chart3: '#FF9B29',
+    chart6: '#55D48C',
+    chart8: '#40B6FF',
+    chart9: '#368DFF',
+    chart10: '#976AEB',
+    fg1: '#181C25',
+    fg3: '#91959E',
+    border: '#DEE1E8',
+    surface: '#F2F3F5',
+    primary: '#FF8000',
+    danger: '#FF522A',
+  };
+
+  Chart.defaults.font.family = "'PingFang SC', 'Microsoft YaHei', sans-serif";
+  Chart.defaults.font.size   = 12;
+  Chart.defaults.color       = fxTokens.fg3;
+
+  // Stage chart — composed bar + line
+  new Chart(document.getElementById('chart-stage'), {
+    type: 'bar',
+    data: {
+      labels: ['验证客户', '需求确定', '方案/报价', '谈判审核'],
+      datasets: [
+        {
+          label: '商机数量（个）',
+          data: [17, 55, 51, 69],
+          backgroundColor: fxTokens.primary,
+          borderRadius: 4,
+          borderSkipped: false,
+          yAxisID: 'y',
+        },
+        {
+          label: '总金额（万）',
+          data: [908, 1375, 2581, 1143],
+          type: 'line',
+          borderColor: fxTokens.chart9,
+          backgroundColor: fxTokens.chart9 + '22',
+          pointBackgroundColor: fxTokens.chart9,
+          pointRadius: 4,
+          borderWidth: 2,
+          tension: 0.35,
+          fill: false,
+          yAxisID: 'y1',
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 10, usePointStyle: true, padding: 14 } },
+        tooltip: { backgroundColor: '#fff', titleColor: fxTokens.fg1, bodyColor: fxTokens.fg3, borderColor: fxTokens.border, borderWidth: 1, padding: 10, boxShadow: '0 2px 8px rgba(0,0,0,.08)' }
+      },
+      scales: {
+        x:  { grid: { display: false }, border: { display: false }, ticks: { color: fxTokens.fg3 } },
+        y:  { beginAtZero: true, grid: { color: fxTokens.border + '88', drawTicks: false }, border: { display: false }, ticks: { color: fxTokens.fg3 }, title: { display: true, text: '数量（个）', color: fxTokens.fg3 } },
+        y1: { beginAtZero: true, position: 'right', grid: { drawOnChartArea: false }, border: { display: false }, ticks: { color: fxTokens.fg3 }, title: { display: true, text: '金额（万）', color: fxTokens.fg3 } }
+      }
+    }
+  });
+
+  // Owner donut
+  new Chart(document.getElementById('chart-owner'), {
+    type: 'doughnut',
+    data: {
+      labels: ['王建新（4090万）', '赵丹Mandy（1864万）', '肖俊·停用（50万）', '张曼（2万）', 'xt1·测试（1万）'],
+      datasets: [{
+        data: [4090, 1864, 50, 2.3, 1.4],
+        backgroundColor: [fxTokens.primary, fxTokens.chart9, fxTokens.danger, fxTokens.chart6, fxTokens.fg3],
+        borderWidth: 2,
+        borderColor: '#fff',
+        hoverOffset: 6,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '62%',
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { boxWidth: 10, usePointStyle: true, padding: 10, font: { size: 11 } }
+        },
+        tooltip: {
+          backgroundColor: '#fff',
+          titleColor: fxTokens.fg1,
+          bodyColor: fxTokens.fg3,
+          borderColor: fxTokens.border,
+          borderWidth: 1,
+          padding: 10,
+          callbacks: {
+            label: (ctx) => ` ${ctx.label}  ${ctx.formattedValue} 万`
+          }
+        }
+      }
+    }
+  });
+</script>
+<script>lucide.createIcons();</script>
+</body>
+</html>

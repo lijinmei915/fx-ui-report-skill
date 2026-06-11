@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>客户交接简报 — 帝迈生物 | 团队交接</title>
+  <link rel="stylesheet" href="../styles/handover.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     桌面端：顶部信息栏
+═══════════════════════════════════════════════════════════ -->
+<header class="topbar desktop-only">
+
+  <div class="topbar__left">
+    <div class="topbar__customer">帝迈生物</div>
+    <div class="topbar__meta">
+      <span class="badge badge--yellow">🟡 待交接</span>
+      <span>POC阶段</span>
+      <span>·</span>
+      <span>30万</span>
+      <span>·</span>
+      <span>接手人：待指定</span>
+    </div>
+  </div>
+
+  <div class="topbar__divider"></div>
+
+  <div class="topbar__center">
+    <div class="topbar__info-block">
+      <div class="topbar__info-label">行业·规模</div>
+      <div class="topbar__info-value">医疗器械·IVD · ~800人</div>
+    </div>
+    <div class="topbar__divider"></div>
+    <div class="topbar__info-block">
+      <div class="topbar__info-label">交接原因</div>
+      <div class="topbar__info-value" style="color:var(--blue)">AE工作调动</div>
+    </div>
+    <div class="topbar__divider"></div>
+    <div class="topbar__info-block">
+      <div class="topbar__info-label">Coach</div>
+      <div class="topbar__info-value">林姐 · 运营VP <span class="badge badge--green" style="font-size:10px;padding:1px 5px">强力支持</span></div>
+    </div>
+    <div class="topbar__divider"></div>
+    <div class="topbar__info-block">
+      <div class="topbar__info-label">待接替AE</div>
+      <div class="topbar__info-value">张三（接手人待确认）</div>
+    </div>
+  </div>
+
+  <div class="topbar__right">
+    <div class="topbar__score">
+      <div>
+        <div class="topbar__score-label">交接状态</div>
+        <div class="topbar__score-num" style="color:var(--green);font-size:18px">待接手</div>
+      </div>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" style="position:static">
+      <span id="theme-icon">🌙</span> <span id="theme-label">深色</span>
+    </button>
+  </div>
+
+</header>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     主内容区
+═══════════════════════════════════════════════════════════ -->
+<main class="main-content">
+
+  <!-- ════ 移动端：状态栏 ════ -->
+  <div class="mobile-status-bar mobile-only">
+    <div class="mobile-status-bar__left">
+      <div class="mobile-status-bar__customer">帝迈生物</div>
+      <div class="mobile-status-bar__meta">
+        <span class="badge badge--yellow">🟡 待交接</span>
+        <span>POC阶段</span>
+        <span>·</span>
+        <span>30万</span>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <div class="mobile-status-bar__score">
+        <span style="color:var(--green);font-size:16px">待接手</span>
+      </div>
+      <div style="font-size:10px;color:var(--text-lo)">交接状态</div>
+    </div>
+  </div>
+
+  <!-- ════ 移动端：交接预警横幅 ════ -->
+  <div class="alert-banner mobile-only" style="background:var(--blue-bg);border-color:var(--blue-bd)">
+    <div class="alert-banner__icon" style="font-size:18px">📦</div>
+    <div style="flex:1">
+      <div class="alert-banner__title" style="color:var(--blue)">AE工作调动，请尽快完成交接</div>
+      <div class="alert-banner__body">该商机已跟进6个月，关键节点在POC验收阶段，Coach关系良好但Gatekeeper有小周需注意。</div>
+      <div class="alert-banner__action" style="color:var(--blue)">→ 接手前必读：博弈编年 + 关系温度 + 交接备注</div>
+    </div>
+  </div>
+
+  <!-- ════ 交接信号概览 ════ -->
+  <div class="score-section">
+    <div class="score-section__title">交接准备度</div>
+    <div class="score-gauges--mobile">
+
+      <div class="gauge gauge--green">
+        <div class="gauge__header">
+          <span class="gauge__label">信息完整度</span>
+          <span class="gauge__value">82</span>
+        </div>
+        <div class="gauge__bar"><div class="gauge__fill" style="width:82%;background:var(--green)"></div></div>
+        <div style="font-size:11px;color:var(--text-lo);margin-top:4px">有完整博弈编年</div>
+      </div>
+
+      <div class="gauge gauge--green">
+        <div class="gauge__header">
+          <span class="gauge__label">关系温度</span>
+          <span class="gauge__value">78</span>
+        </div>
+        <div class="gauge__bar"><div class="gauge__fill" style="width:78%;background:var(--green)"></div></div>
+        <div style="font-size:11px;color:var(--text-lo);margin-top:4px">林姐强力支持</div>
+      </div>
+
+      <div class="gauge gauge--yellow">
+        <div class="gauge__header">
+          <span class="gauge__label">竞品风险</span>
+          <span class="gauge__value" style="color:var(--orange)">45</span>
+        </div>
+        <div class="gauge__bar"><div class="gauge__fill" style="width:45%;background:var(--orange)"></div></div>
+        <div style="font-size:11px;color:var(--text-lo);margin-top:4px">竞品A在谈，关注</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider" style="margin-top:16px"></div>
+
+  <!-- ════ 桌面端：主体三栏/两栏布局 ════ -->
+  <div class="desktop-only pc-section">
+
+    <!-- 第一行：客户画像 + 关系温度 -->
+    <div class="handover-grid handover-grid--top">
+
+      <!-- 客户画像 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header__title">👤 客户画像</span>
+          <span class="badge badge--blue">接手必读</span>
+        </div>
+        <div class="card-body">
+          <div class="sidebar-info-grid">
+            <div>
+              <div class="sidebar-info-item__label">公司名称</div>
+              <div class="sidebar-info-item__value">帝迈生物技术有限公司</div>
+            </div>
+            <div>
+              <div class="sidebar-info-item__label">行业</div>
+              <div class="sidebar-info-item__value">医疗器械·体外诊断（IVD）</div>
+            </div>
+            <div>
+              <div class="sidebar-info-item__label">规模</div>
+              <div class="sidebar-info-item__value">~800人</div>
+            </div>
+            <div>
+              <div class="sidebar-info-item__label">营收量级</div>
+              <div class="sidebar-info-item__value">~10亿级</div>
+            </div>
+            <div class="sidebar-info-item--full">
+              <div class="sidebar-info-item__label">业务描述</div>
+              <div class="sidebar-info-item__value sidebar-info-item__value--dim">
+                专注体外诊断仪器研发生产，销售网络覆盖全国，
+                近年布局服务数字化转型，重点提升服务工程师管理效率。
+              </div>
+            </div>
+            <div class="sidebar-info-item--full">
+              <div class="sidebar-info-item__label">战略优先级</div>
+              <div class="sidebar-info-item__value sidebar-info-item__value--dim">
+                2024年战略主题：服务数字化 + 经销商渠道整合
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 关系温度 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header__title">🌡️ 关系温度</span>
+          <span class="badge badge--green">整体良好</span>
+        </div>
+        <div class="card-body">
+
+          <!-- 总体温度 -->
+          <div style="margin-bottom:14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <span style="font-size:12px;color:var(--text-mid)">整体关系</span>
+              <span style="font-size:14px;font-weight:800;color:var(--green)">+2.5℃</span>
+            </div>
+            <div class="temp-gauge">
+              <span style="font-size:11px;color:var(--text-lo)">敌对</span>
+              <div class="temp-gauge__bar">
+                <div class="temp-gauge__fill" style="width:75%;background:linear-gradient(to right,var(--red),var(--yellow),var(--green))"></div>
+              </div>
+              <span style="font-size:11px;color:var(--text-lo)">铁杆</span>
+            </div>
+          </div>
+
+          <!-- 各KP温度 -->
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span class="kp--coach" style="width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800">林</span>
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:var(--text-hi)">林姐（运营VP）</div>
+                  <div style="font-size:11px;color:var(--text-lo)">Coach · 强力支持</div>
+                </div>
+              </div>
+              <span style="font-size:13px;font-weight:800;color:var(--green)">+3℃</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span class="kp--eb" style="width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800">李</span>
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:var(--text-hi)">李总（IT总监）</div>
+                  <div style="font-size:11px;color:var(--text-lo)">TB · 技术评估人</div>
+                </div>
+              </div>
+              <span style="font-size:13px;font-weight:800;color:var(--green)">+1℃</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span class="kp--gatekeeper" style="width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800">周</span>
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:var(--text-hi)">小周（采购助理）</div>
+                  <div style="font-size:11px;color:var(--text-lo)">Gatekeeper · 注意节奏</div>
+                </div>
+              </div>
+              <span style="font-size:13px;font-weight:800;color:var(--yellow)">0℃</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 第二行：博弈编年 + 竞品历史 -->
+    <div class="handover-grid">
+
+      <!-- 博弈编年 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header__title">📅 博弈编年（近6个月）</span>
+          <span class="badge badge--green">关键节点</span>
+        </div>
+        <div class="card-body" style="padding:12px 16px">
+          <div class="timeline">
+
+            <div class="timeline-item">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0">
+                <div class="timeline-item__dot" style="background:var(--green)"></div>
+                <div style="width:1px;flex:1;background:var(--border);margin-top:4px"></div>
+              </div>
+              <div class="timeline-item__content">
+                <div class="timeline-item__date">2024-09 | 初次接触</div>
+                <div class="timeline-item__title">客户主动咨询，服务数字化需求</div>
+                <div class="timeline-item__desc">
+                  客户通过官网联系，需求明确：服务工程师在外作业总部看不到进度。
+                  林姐亲自接待，沟通顺畅，建立初步信任。
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0">
+                <div class="timeline-item__dot" style="background:var(--blue)"></div>
+                <div style="width:1px;flex:1;background:var(--border);margin-top:4px"></div>
+              </div>
+              <div class="timeline-item__content">
+                <div class="timeline-item__date">2024-10 | 技术交流</div>
+                <div class="timeline-item__title">POC方案评审，李总（IT）介入</div>
+                <div class="timeline-item__desc">
+                  正式进入POC阶段，李总提出API开放程度要求，延长POC两个月，
+                  我方提供定制接口方案解决。
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0">
+                <div class="timeline-item__dot" style="background:var(--yellow)"></div>
+                <div style="width:1px;flex:1;background:var(--border);margin-top:4px"></div>
+              </div>
+              <div class="timeline-item__content">
+                <div class="timeline-item__date">2025-03-28 | POC汇报</div>
+                <div class="timeline-item__title">中期汇报顺利，承诺一周内给结论 ⚠️</div>
+                <div class="timeline-item__desc">
+                  POC效果良好，林姐当场表示"一周内给结论"。后续未兑现，
+                  原因推断为内部预算审批流程。
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0">
+                <div class="timeline-item__dot" style="background:var(--orange)"></div>
+              </div>
+              <div class="timeline-item__content">
+                <div class="timeline-item__date">2025-04 | AE调动告知</div>
+                <div class="timeline-item__title">交接触发，当前状态：待接替</div>
+                <div class="timeline-item__desc">
+                  POC延期一个月，预算申请中。竞品A开始接触（信息不完整）。
+                  接手人需重新与林姐建立信任。
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 竞品历史 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header__title">⚔️ 竞品历史</span>
+          <span class="badge badge--yellow">需关注</span>
+        </div>
+        <div class="card-body" style="padding:0">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>竞品</th>
+                <th>介入时间</th>
+                <th>竞争阶段</th>
+                <th>应对策略</th>
+                <th>结果</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>竞品A</td>
+                <td>2024-11</td>
+                <td>POC并行</td>
+                <td>差异化功能演示</td>
+                <td style="color:var(--green)">✅ 我方领先</td>
+              </tr>
+              <tr>
+                <td>竞品B</td>
+                <td>2025-02</td>
+                <td>价格对比</td>
+                <td>ROI案例说服</td>
+                <td style="color:var(--green)">✅ 我方守住</td>
+              </tr>
+              <tr>
+                <td>竞品A</td>
+                <td>2025-04</td>
+                <td>重新接触</td>
+                <td>待跟进</td>
+                <td style="color:var(--yellow)">⚠️ 信息不完整</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="padding:12px 16px">
+            <div style="font-size:12px;color:var(--text-lo);line-height:1.5">
+              <strong style="color:var(--yellow)">⚠️ 接手人注意：</strong>
+              竞品A 4月重新接触客户，尚未确认对方接触了谁、推了什么方案。
+              建议尽快约见林姐，探明竞品动态。
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /desktop-only pc-section -->
+
+  <!-- ════ 移动端 / 平板：单列布局 ════ -->
+  <div class="mobile-only" style="padding:0 16px 16px;display:flex;flex-direction:column;gap:16px">
+
+    <!-- 客户画像（移动端） -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header__title">👤 客户画像</span>
+        <span class="badge badge--blue">接手必读</span>
+      </div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div><div style="font-size:10px;color:var(--text-lo)">公司</div><div style="font-size:13px;font-weight:700">帝迈生物</div></div>
+          <div><div style="font-size:10px;color:var(--text-lo)">行业</div><div style="font-size:13px;font-weight:700">医疗器械·IVD</div></div>
+          <div><div style="font-size:10px;color:var(--text-lo)">规模</div><div style="font-size:13px;font-weight:700">~800人</div></div>
+          <div><div style="font-size:10px;color:var(--text-lo)">营收</div><div style="font-size:13px;font-weight:700">~10亿级</div></div>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-mid);line-height:1.5">
+          2024战略：服务数字化 + 经销商渠道整合
+        </div>
+      </div>
+    </div>
+
+    <!-- 关系温度（移动端） -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header__title">🌡️ 关系温度</span>
+        <span class="badge badge--green">整体良好</span>
+      </div>
+      <div class="card-body">
+        <div style="margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+            <span style="font-size:11px;color:var(--text-lo)">整体关系</span>
+            <span style="font-size:13px;font-weight:800;color:var(--green)">+2.5℃</span>
+          </div>
+          <div class="temp-gauge">
+            <span style="font-size:10px;color:var(--text-lo)">敌</span>
+            <div class="temp-gauge__bar">
+              <div class="temp-gauge__fill" style="width:75%;background:linear-gradient(to right,var(--red),var(--yellow),var(--green))"></div>
+            </div>
+            <span style="font-size:10px;color:var(--text-lo)">铁杆</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="kp--coach" style="width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800">林</span>
+              <span style="font-size:12px;color:var(--text-hi)">林姐（运营VP）</span>
+            </div>
+            <span style="font-size:12px;font-weight:800;color:var(--green)">+3℃</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="kp--eb" style="width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800">李</span>
+              <span style="font-size:12px;color:var(--text-hi)">李总（IT总监）</span>
+            </div>
+            <span style="font-size:12px;font-weight:800;color:var(--green)">+1℃</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="kp--gatekeeper" style="width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800">周</span>
+              <span style="font-size:12px;color:var(--text-hi)">小周（采购助理）</span>
+            </div>
+            <span style="font-size:12px;font-weight:800;color:var(--yellow)">0℃</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 博弈编年（移动端） -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header__title">📅 博弈编年</span>
+      </div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:10px">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px"></div>
+            <div>
+              <div style="font-size:11px;color:var(--text-lo);margin-bottom:1px">2024-09 初次接触</div>
+              <div style="font-size:13px;font-weight:700;color:var(--text-hi)">客户主动咨询，林姐接待</div>
+              <div style="font-size:12px;color:var(--text-mid);margin-top:2px">需求明确：服务工程师管理效率</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px"></div>
+            <div>
+              <div style="font-size:11px;color:var(--text-lo);margin-bottom:1px">2024-10 POC阶段</div>
+              <div style="font-size:13px;font-weight:700;color:var(--text-hi)">李总介入，API方案通过</div>
+              <div style="font-size:12px;color:var(--text-mid);margin-top:2px">定制接口解决技术对接问题</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--yellow);flex-shrink:0;margin-top:5px"></div>
+            <div>
+              <div style="font-size:11px;color:var(--text-lo);margin-bottom:1px">2025-03 POC汇报 ⚠️</div>
+              <div style="font-size:13px;font-weight:700;color:var(--text-hi)">承诺一周内给结论，未兑现</div>
+              <div style="font-size:12px;color:var(--text-mid);margin-top:2px">推断：内部预算审批流程卡住</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:5px"></div>
+            <div>
+              <div style="font-size:11px;color:var(--text-lo);margin-bottom:1px">2025-04 AE调动</div>
+              <div style="font-size:13px;font-weight:700;color:var(--text-hi)">交接触发，待接替</div>
+              <div style="font-size:12px;color:var(--text-mid);margin-top:2px">竞品A重新接触，需跟进</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 竞品历史（移动端） -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header__title">⚔️ 竞品历史</span>
+        <span class="badge badge--yellow">需关注</span>
+      </div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)">
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--text-hi)">竞品A</div>
+              <div style="font-size:11px;color:var(--text-lo)">2024-11 POC并行 · 2025-04 重新接触</div>
+            </div>
+            <span class="badge badge--yellow" style="white-space:nowrap">⚠️ 监控中</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)">
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--text-hi)">竞品B</div>
+              <div style="font-size:11px;color:var(--text-lo)">2025-02 价格对比</div>
+            </div>
+            <span class="badge badge--green" style="white-space:nowrap">✅ 已守住</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /mobile-only -->
+
+  <!-- ════ 交接备注（通用） ════ -->
+  <div class="detail-section" style="padding-top:0">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header__title">📝 交接备注（接手人必读）</span>
+        <span class="badge badge--red">关键</span>
+      </div>
+      <div class="card-body">
+        <div style="display:grid;gap:14px">
+
+          <div class="handover-card">
+            <div class="handover-card__label">🎯 上次沟通结论</div>
+            <div class="handover-card__content">
+              POC中期汇报（2025-03-28）效果良好，林姐表示"一周内给结论"。
+              实际未兑现，推断原因：<strong>内部预算审批流程卡住</strong>。
+              林姐可能因此受到内部压力，见面时不宜主动提及此事。
+            </div>
+          </div>
+
+          <div class="handover-card">
+            <div class="handover-card__label">💬 Coach 联络注意事项</div>
+            <div class="handover-card__content">
+              林姐是强力支持者，<strong>建立信任的关键是"不施压"</strong>。
+              她上次被承诺一周有结论但拖了一个月，再次接触时：
+              <br>❌ 不要说："上次说的结论现在有了吗？"
+              <br>✅ 要说："这一个月里团队推进得怎么样，有没有什么新情况？"
+            </div>
+          </div>
+
+          <div class="handover-card">
+            <div class="handover-card__label">🚫 Gatekeeper 注意</div>
+            <div class="handover-card__content">
+              小周（采购助理）是Gatekeeper，历史上在关键节点施压。
+              <strong>不要绕过林姐直接与小周沟通</strong>。
+              如小周主动联系，礼貌转回林姐："这个我需要跟林总确认一下"。
+            </div>
+          </div>
+
+          <div class="handover-card">
+            <div class="handover-card__label">⚠️ 竞品A 预警</div>
+            <div class="handover-card__content">
+              竞品A于2025年4月重新接触客户（具体接触了谁、推了什么方案未知）。
+              <strong>接手后第一优先级：约见林姐，探明竞品动态。</strong>
+              近期竞品A在IVD行业有多个案例，需准备差异化反击。
+            </div>
+          </div>
+
+          <div class="handover-card">
+            <div class="handover-card__label">📋 待交接的承诺</div>
+            <div class="handover-card__content">
+              <strong>待兑现：</strong>
+              1）POC中期汇报后提供完整ROI计算模型（已拖延30天）
+              <br>2）竞品对比分析文档（未完成）
+              <br><br>
+              <strong>建议：</strong>接手后主动联系林姐，先道歉拖延期，再推进承诺。
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-spacer mobile-only"></div>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════
+     底部操作栏
+═══════════════════════════════════════════════════════════ -->
+<div class="action-bar">
+  <button class="action-btn action-btn--secondary" onclick="copyHandover()">📋 复制交接摘要</button>
+  <button class="action-btn action-btn--primary" onclick="confirmAccept()">✅ 确认接手</button>
+</div>
+
+<!-- 移动端主题切换 -->
+<button class="theme-toggle mobile-only" onclick="toggleTheme()">
+  <span id="theme-icon">🌙</span> <span id="theme-label">深色</span>
+</button>
+
+<script>
+  function toggleTheme() {
+    const isLight = document.documentElement.classList.toggle('light');
+    document.getElementById('theme-icon').textContent = isLight ? '☀️' : '🌙';
+    document.getElementById('theme-label').textContent = isLight ? '浅色' : '深色';
+  }
+
+  function copyHandover() {
+    const text = '帝迈生物 · 团队交接简报 · 交接状态：待接手';
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.action-btn--secondary');
+        btn.textContent = '✅ 已复制';
+        setTimeout(() => { btn.textContent = '📋 复制交接摘要'; }, 2000);
+      });
+    }
+  }
+
+  function confirmAccept() {
+    const btn = document.querySelector('.action-btn--primary');
+    btn.textContent = '✅ 已确认接手';
+    btn.style.background = 'var(--green)';
+    setTimeout(() => {
+      btn.textContent = '✅ 确认接手';
+      btn.style.background = '';
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>

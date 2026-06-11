@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>见客简报 · 阿里巴巴（广西）有限公司 | fx-ui</title>
+<style>
+  /* ── fx-ui Design Token ────────────────────────────────── */
+  :root {
+    --bg:           #FFFCF7;
+    --surface:      #FFFFFF;
+    --surface-sub:  #F2F3F5;
+    --fg-1:         #181C25;
+    --fg-2:         #545861;
+    --fg-3:         #91959E;
+    --fg-4:         #C1C5CE;
+    --border:       #DEE1E8;
+    --border-soft:  #EAEBEE;
+
+    --primary:      #FF8000;
+    --primary-soft: #FFF7E6;
+    --success:      #30C776;
+    --success-soft: #DCFAE6;
+    --warning:      #FF7C19;
+    --warning-soft: #FFF5E6;
+    --danger:       #FF522A;
+    --danger-soft:  #FFDCCC;
+    --info:         #0C6CFF;
+    --info-soft:    #E6F4FF;
+
+    --chart-1:  #FF7383;
+    --chart-2:  #FF7752;
+    --chart-3:  #FF9B29;
+    --chart-4:  #FFDA54;
+    --chart-5:  #DDF2BB;
+    --chart-6:  #55D48C;
+    --chart-7:  #5BCFC1;
+    --chart-8:  #40B6FF;
+    --chart-9:  #368DFF;
+    --chart-10: #976AEB;
+
+    --radius:    16px;
+    --radius-sm: 12px;
+    --font:      'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font);
+    background: #F0F2F5;
+    color: var(--fg-1);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding: 40px 24px;
+  }
+
+  .page { max-width: 1160px; margin: 0 auto; padding: 0 32px 60px; background: #FFFCF7; border-radius: 20px; box-shadow: 0 4px 32px rgba(0,0,0,0.06); overflow: hidden; position: relative; }
+
+  /* ── Header ────────────────────────────────────────────── */
+  .report-header {
+    position: relative;
+    margin: 0 -32px 24px;
+    padding: 32px 32px 40px;
+    background: linear-gradient(180deg, #F06A00 0%, #FF8800 35%, #FFEBD6 75%, #FFFCF7 100%);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 20px 20px 0 0;
+  }
+  .report-header .header-deco {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  }
+  .report-header .header-body {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; gap: 16px; position: relative; z-index: 10;
+  }
+  .report-header .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: .15em;
+    text-transform: uppercase; color: rgba(255,255,255,0.85); margin-bottom: 8px;
+  }
+  .report-header h1 {
+    font-size: 34px; font-weight: 700; color: #fff;
+    letter-spacing: -0.02em; line-height: 1.2;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.12);
+  }
+  .report-header .meta {
+    font-size: 13px; color: rgba(0,0,0,0.7);
+    display: inline-flex; flex-wrap: wrap; justify-content: center;
+    align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.35);
+    padding: 8px 20px; border-radius: 40px;
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .report-header .meta span { display: flex; align-items: center; gap: 6px; }
+  .report-header .meta .divider {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: rgba(0,0,0,0.3); margin: 0 6px; display: inline-block;
+  }
+  /* ── Header Extra（可选插槽，不存在时头部不受影响） ── */
+  /* ── Header Extra（可选插槽，不存在时头部不受影响） ── */
+  .score-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 16px 28px 18px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .score-card .sc-num {
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--fg-1);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .score-card .sc-label {
+    font-size: 12px;
+    color: var(--fg-3);
+    line-height: 1.4;
+    margin-top: -6px;
+  }
+  .score-card .sc-tags {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* ── Section heading ───────────────────────────────────── */
+  .section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--fg-1);
+    margin: 44px 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 12px;
+    background: var(--primary);
+    border-radius: 3px;
+    box-shadow: 0 0 0 3px var(--primary-soft);
+    flex-shrink: 0;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(222,225,232,0.8) 0%, transparent 100%);
+    margin-left: 20px;
+  }
+  .section-title .sub {
+    font-size: 11px;
+    color: var(--fg-3);
+    font-weight: 400;
+    margin-left: 10px;
+  }
+
+  /* ── KPI / Gauge Grid ──────────────────────────────────── */
+  .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid rgba(222,225,232,0.5);
+    border-radius: var(--radius);
+    padding: 24px;
+    position: relative;
+    box-shadow: 0 4px 20px -2px rgba(0,0,0,0.04), 0 2px 6px -1px rgba(0,0,0,0.02);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px -4px rgba(0,0,0,0.08), 0 4px 10px -2px rgba(0,0,0,0.04);
+  }
+  .kpi-card .kpi-icon {
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary), #FFB452);
+    box-shadow: 0 4px 12px rgba(255,128,0,0.25);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .kpi-card .kpi-icon svg { width: 16px; height: 16px; }
+  .kpi-card .kpi-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--fg-2);
+  }
+  .kpi-card .kpi-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--fg-1);
+    margin-top: 12px;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .kpi-card .kpi-value small {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--fg-3);
+    margin-left: 6px;
+  }
+  .kpi-card .kpi-sub {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--fg-3);
+    line-height: 1.5;
+  }
+  .kpi-card .kpi-bar {
+    margin-top: 12px;
+    height: 6px;
+    background: var(--border-soft);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .kpi-card .kpi-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+
+  /* ── Alert Banner ──────────────────────────────────────── */
+  .alert-banner {
+    background: var(--danger-soft);
+    border: 1px solid rgba(255,82,42,0.2);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+  .alert-banner .alert-icon {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--danger);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .alert-banner .alert-icon svg { width: 18px; height: 18px; }
+  .alert-banner .alert-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--danger);
+    margin-bottom: 6px;
+  }
+  .alert-banner .alert-body {
+    font-size: 13px;
+    color: var(--fg-2);
+    line-height: 1.6;
+  }
+  .alert-banner .alert-action {
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--warning);
+  }
+
+  /* ── Summary Card ──────────────────────────────────────── */
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid rgba(222,225,232,0.5);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 20px -2px rgba(0,0,0,0.04), 0 2px 6px -1px rgba(0,0,0,0.02);
+  }
+  .summary-card .summary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .summary-card .summary-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--warning);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .summary-card .summary-conclusion {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--fg-1);
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .summary-item {
+    background: var(--surface-sub);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+  }
+  .summary-item.danger {
+    background: var(--danger-soft);
+    border-color: rgba(255,82,42,0.2);
+  }
+  .summary-item .item-label {
+    font-size: 11px;
+    color: var(--fg-3);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .summary-item .item-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg-1);
+    line-height: 1.5;
+  }
+
+  /* ── Card ──────────────────────────────────────────────── */
+  .card {
+    background: var(--surface);
+    border: 1px solid rgba(222,225,232,0.5);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 4px 20px -2px rgba(0,0,0,0.04), 0 2px 6px -1px rgba(0,0,0,0.02);
+  }
+  .card-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-soft);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .card-header .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg-1);
+  }
+  .card-body { padding: 20px 24px; }
+
+  /* ── Two Column Grid ───────────────────────────────────── */
+  .col-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .col-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+  /* ── Badge ──────────────────────────────────────────────── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 600;
+    line-height: 18px;
+    white-space: nowrap;
+  }
+  .badge-success  { background: var(--success-soft); color: var(--success); }
+  .badge-warning  { background: var(--warning-soft); color: var(--warning); }
+  .badge-danger   { background: var(--danger-soft);  color: var(--danger);  }
+  .badge-info     { background: var(--info-soft);    color: var(--info);    }
+  .badge-default  { background: var(--surface-sub);  color: var(--fg-2);    }
+  .badge-primary  { background: var(--primary-soft); color: var(--primary); }
+
+  /* ── Objective List ────────────────────────────────────── */
+  .obj-list { display: flex; flex-direction: column; }
+  .obj-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .obj-item:last-child { border-bottom: none; }
+  .obj-item.primary {
+    background: var(--info-soft);
+    border: 1px solid rgba(12,108,255,0.15);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    margin-bottom: 4px;
+  }
+  .obj-item .obj-check {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+    color: var(--fg-4);
+  }
+  .obj-item.primary .obj-check {
+    border-color: var(--info);
+    color: var(--info);
+  }
+  .obj-item .obj-text {
+    flex: 1;
+    min-width: 0;
+    font-size: 13px;
+    color: var(--fg-1);
+    line-height: 1.55;
+  }
+  .obj-item .obj-text .obj-sub {
+    display: block;
+    font-weight: 400;
+    color: var(--fg-2);
+    font-size: 12px;
+    margin-top: 2px;
+  }
+  .obj-only {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: var(--surface-sub);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    color: var(--fg-2);
+    line-height: 1.55;
+  }
+  .obj-only strong { color: var(--fg-1); }
+
+  /* ── Bottom Line Grid ──────────────────────────────────── */
+  .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .bottom-card {
+    background: var(--surface);
+    border: 1px solid rgba(222,225,232,0.5);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+  }
+  .bottom-card.danger  { border-left: 3px solid var(--danger); }
+  .bottom-card.info    { border-left: 3px solid var(--info); }
+  .bottom-card .bc-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--fg-3);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .bottom-card .bc-label svg { flex-shrink: 0; }
+  .bottom-card .bc-content {
+    font-size: 13px;
+    color: var(--fg-1);
+    line-height: 1.7;
+  }
+
+  /* ── Warning List ──────────────────────────────────────── */
+  .warn-list { display: flex; flex-direction: column; }
+  .warn-item {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .warn-item:last-child { border-bottom: none; }
+  .warn-item .warn-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .warn-num {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .warn-num.danger  { background: var(--danger-soft);  color: var(--danger);  border: 1px solid rgba(255,82,42,0.2); }
+  .warn-num.warning { background: var(--warning-soft); color: var(--warning); border: 1px solid rgba(255,124,25,0.2); }
+  .warn-num.info    { background: var(--info-soft);    color: var(--info);    border: 1px solid rgba(12,108,255,0.2); }
+  .warn-item .warn-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg-1);
+    line-height: 1.4;
+    flex: 1;
+    min-width: 0;
+  }
+  .warn-item .warn-action {
+    font-size: 12px;
+    color: var(--fg-2);
+    line-height: 1.55;
+    padding-left: 38px;
+  }
+
+  /* ── People Map ────────────────────────────────────────── */
+  .people-list { display: flex; flex-direction: column; gap: 0; }
+  .person-card {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .person-card:last-child { border-bottom: none; }
+  .person-avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .person-avatar.eb      { background: var(--warning-soft); color: var(--warning); border: 2px solid rgba(255,124,25,0.3); }
+  .person-avatar.unknown { background: var(--surface-sub);  color: var(--fg-3);    border: 2px solid var(--border-soft); }
+  .person-avatar.coach   { background: var(--success-soft); color: var(--success); border: 2px solid rgba(48,199,118,0.3); }
+  .person-body { flex: 1; min-width: 0; }
+  .person-main {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 4px; flex-wrap: wrap;
+  }
+  .person-name { font-size: 14px; font-weight: 600; color: var(--fg-1); }
+  .person-role {
+    font-size: 11px; font-weight: 600;
+    padding: 1px 8px; border-radius: 10px;
+  }
+  .person-role.eb      { background: var(--warning-soft); color: var(--warning); }
+  .person-role.unknown { background: var(--surface-sub);  color: var(--fg-3); }
+  .person-title { font-size: 12px; color: var(--fg-2); margin-bottom: 4px; }
+  .person-play  { font-size: 12px; color: var(--info); font-weight: 500; line-height: 1.45; }
+
+  /* ── Timeline ──────────────────────────────────────────── */
+  .timeline { display: flex; flex-direction: column; gap: 12px; }
+  .timeline-item { display: flex; gap: 16px; align-items: center; }
+  .timeline-left { flex-shrink: 0; width: 28px; display: flex; justify-content: center; align-items: center; align-self: stretch; position: relative; }
+  .timeline-item:not(:first-child) .timeline-left::before { content: ''; position: absolute; width: 2px; top: -6px; height: calc(50% + 6px); background: var(--border-soft); left: 50%; transform: translateX(-1px); }
+  .timeline-item:not(:last-child) .timeline-left::after { content: ''; position: absolute; width: 2px; top: 50%; bottom: -6px; background: var(--border-soft); left: 50%; transform: translateX(-1px); }
+  .timeline-dot { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #fff; position: relative; z-index: 1; }
+  .dot-done   { background: linear-gradient(135deg, var(--success), #86EFAC); box-shadow: 0 2px 8px rgba(34,197,94,0.3); }
+  .dot-danger { background: linear-gradient(135deg, var(--danger), #FCA5A5); box-shadow: 0 2px 8px rgba(239,68,68,0.3); }
+  .dot-warn   { background: linear-gradient(135deg, var(--warning), #FCD34D); box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+  .dot-now    { background: linear-gradient(135deg, var(--primary), #FFB452); box-shadow: 0 2px 8px rgba(255,128,0,0.3); }
+  .dot-todo   { background: var(--surface); border: 2px solid var(--fg-4); color: var(--fg-4); box-shadow: none; }
+  .timeline-body { flex: 1; min-width: 0; background: var(--surface); border-radius: var(--radius); border: 1px solid rgba(222,225,232,0.5); padding: 16px 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.02); }
+  .timeline-date { font-size: 11px; color: var(--fg-3); font-weight: 500; margin-bottom: 4px; letter-spacing: 0.3px; }
+  .timeline-title { font-size: 15px; font-weight: 700; color: var(--fg-1); margin-bottom: 8px; line-height: 1.4; }
+  .timeline-impact { font-size: 13px; color: var(--fg-3); line-height: 1.6; padding-left: 10px; border-left: 3px solid var(--border); }
+
+  /* ── Insights ───────────────────────────────────────────── */
+  .insights { display: flex; flex-direction: column; gap: 12px; }
+  .insight {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: var(--surface);
+    border: 1px solid rgba(222,225,232,0.5);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .insight:hover {
+    background: #FAFBFC;
+    transform: translateX(2px);
+  }
+  .insight-icon {
+    flex-shrink: 0;
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+  }
+  .insight-icon svg { width: 18px; height: 18px; }
+  .insight-body {
+    flex: 1;
+    min-width: 0;
+    padding-top: 6px;
+  }
+  .insight-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--fg-1);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  .insight-text {
+    font-size: 14px;
+    color: var(--fg-2);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── Methodology / Collapse ────────────────────────────── */
+  .method-box {
+    margin-top: 8px;
+    background: var(--surface);
+    border: 1px solid rgba(222,225,232,0.5);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .method-box summary {
+    cursor: pointer;
+    padding: 16px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg-2);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+  }
+  .method-box summary::before {
+    content: '\203A';
+    font-size: 18px;
+    color: var(--fg-3);
+    transition: transform .2s;
+    line-height: 1;
+  }
+  .method-box[open] summary::before { transform: rotate(90deg); }
+  .method-box .method-content {
+    padding: 16px 20px;
+    font-size: 13px;
+    color: var(--fg-3);
+    line-height: 1.7;
+    border-top: 1px dashed var(--border-soft);
+  }
+
+  /* ── Tag Row ────────────────────────────────────────────── */
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+
+  /* ── Decision Grid ─────────────────────────────────────── */
+  .decision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .decision-item {
+    background: var(--surface-sub);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+  }
+  .decision-item.danger {
+    background: var(--danger-soft);
+    border-color: rgba(255,82,42,0.2);
+  }
+  .decision-item .di-label {
+    font-size: 11px;
+    color: var(--fg-3);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .decision-item .di-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg-1);
+  }
+  .decision-item.danger .di-value { color: var(--danger); }
+  .decision-item .di-sub {
+    font-size: 12px;
+    color: var(--fg-2);
+    margin-top: 4px;
+  }
+
+  /* ── Avoid Block ───────────────────────────────────────── */
+  .avoid-block {
+    margin-top: 14px;
+    padding: 14px 18px;
+    background: var(--danger-soft);
+    border: 1px solid rgba(255,82,42,0.2);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    color: var(--danger);
+    font-weight: 600;
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .avoid-block svg { flex-shrink: 0; margin-top: 2px; }
+
+  /* ── Footer ─────────────────────────────────────────────── */
+  .report-footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: var(--fg-3);
+  }
+  .report-footer .fx-brand {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--fg-3);
+    font-weight: 500;
+  }
+  .report-footer .fx-brand::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+  }
+
+  /* ── Highlight ──────────────────────────────────────────── */
+  .hl-danger  { background: var(--danger-soft);  color: var(--danger);  border-radius: 3px; padding: 1px 4px; font-weight: 600; }
+  .hl-warning { background: var(--warning-soft); color: var(--warning); border-radius: 3px; padding: 1px 4px; font-weight: 600; }
+  .hl-primary { background: var(--primary-soft); color: var(--primary); border-radius: 3px; padding: 1px 4px; font-weight: 600; }
+  .hl-success { background: var(--success-soft); color: var(--success); border-radius: 3px; padding: 1px 4px; font-weight: 600; }
+  .hl-info    { background: var(--info-soft);    color: var(--info);    border-radius: 3px; padding: 1px 4px; font-weight: 600; }
+  .hl-default { background: var(--surface-sub);  color: var(--fg-2);    border-radius: 3px; padding: 1px 4px; font-weight: 600; }
+
+  /* ── Responsive ────────────────────────────────────────── */
+  @media (max-width: 860px) {
+    .kpi-grid   { grid-template-columns: repeat(2, 1fr); }
+    .col-2      { grid-template-columns: 1fr; }
+    .col-4      { grid-template-columns: repeat(2, 1fr); }
+    .bottom-grid { grid-template-columns: 1fr; }
+    .decision-grid { grid-template-columns: 1fr; }
+    .report-header { padding: 24px 20px 32px; }
+    .report-header h1 { font-size: 26px; }
+    .report-header .header-score .score-num { font-size: 38px; }
+  }
+  @media (max-width: 480px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+    .col-4    { grid-template-columns: 1fr; }
+    .summary-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- Lucide 内联图标 -->
+<script>
+(function(){
+  const P = {
+    'calendar':       '<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+    'clock':          '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    'user':           '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+    'users':          '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    'clipboard-check':'<path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="m9 12 2 2 4-4"/>',
+    'credit-card':    '<rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>',
+    'trending-up':    '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>',
+    'percent':        '<line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>',
+    'target':         '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+    'briefcase':      '<rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+    'activity':       '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
+    'alert-circle':   '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+    'alert-triangle': '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+    'check':          '<polyline points="20 6 9 17 4 12"/>',
+    'bar-chart-2':    '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',
+    'file-text':      '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>',
+    'trash-2':        '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>',
+    'pen-line':       '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>',
+    'database':       '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>',
+    'check-circle':   '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
+    'shield':         '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+    'map-pin':        '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+    'flag':           '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>',
+    'zap':            '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+    'eye':            '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
+    'x-circle':       '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>',
+    'list-checks':    '<line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><polyline points="3 6 4 6 6 8"/><polyline points="3 12 4 12 6 14"/><polyline points="3 18 4 18 6 20"/>',
+    'info-icon':      '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>',
+  };
+  window.lucide = {
+    createIcons: function() {
+      document.querySelectorAll('i[data-lucide]').forEach(function(el) {
+        const name = el.getAttribute('data-lucide');
+        if (!P[name]) return;
+        const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+        svg.setAttribute('viewBox','0 0 24 24');
+        svg.setAttribute('fill','none');
+        svg.setAttribute('stroke','currentColor');
+        svg.setAttribute('stroke-width','2');
+        svg.setAttribute('stroke-linecap','round');
+        svg.setAttribute('stroke-linejoin','round');
+        svg.style.cssText = el.style.cssText;
+        svg.innerHTML = P[name];
+        el.replaceWith(svg);
+      });
+    }
+  };
+})();
+</script>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══ Header ═══ -->
+  <div class="report-header">
+    <div class="header-deco">
+      <svg width="100%" height="100%" viewBox="0 0 1160 280" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="980" cy="-20" r="220" fill="rgba(255,220,120,0.28)"/>
+        <circle cx="1100" cy="200" r="140" fill="rgba(255,255,255,0.12)"/>
+        <circle cx="60" cy="40" r="160" fill="rgba(255,255,255,0.08)"/>
+        <path d="M600,220 Q750,100 1000,140 Q1100,160 1160,120" stroke="rgba(255,255,255,0.18)" stroke-width="2" fill="none"/>
+        <path d="M500,240 Q680,120 920,170 Q1060,190 1160,160" stroke="rgba(255,255,255,0.10)" stroke-width="1.5" fill="none"/>
+        <circle cx="860" cy="40" r="3" fill="rgba(255,255,255,0.3)"/>
+        <circle cx="920" cy="70" r="2" fill="rgba(255,255,255,0.2)"/>
+      </svg>
+    </div>
+    <div class="header-body">
+      <div>
+        <div class="eyebrow">Pre-Visit Briefing · ShareCRM</div>
+        <h1>见客简报 · 阿里巴巴（广西）有限公司</h1>
+      </div>
+      <div class="meta">
+        <span><i data-lucide="calendar" style="width:14px;height:14px"></i> 数据截止 2026-05-27</span>
+        <span class="divider"></span>
+        <span><i data-lucide="user" style="width:14px;height:14px"></i> 负责人：贺亚飞</span>
+      </div>
+      <!-- header-extra：可选插槽，无数据时整块删除即可 -->
+      <div class="score-card">
+        <div class="sc-num">42</div>
+        <div class="sc-label">就绪度评分</div>
+        <div class="sc-tags">
+          <span class="badge badge-warning">不足</span>
+          <span class="badge badge-default">谈判审核</span>
+          <span class="badge badge-default">1000万</span>
+          <span class="badge badge-success">赢率 80%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 会前结论 ═══ -->
+  <div class="summary-card">
+    <div class="summary-header">
+      <span class="summary-label">
+        <i data-lucide="eye" style="width:14px;height:14px"></i> 会前结论
+      </span>
+      <span class="badge badge-warning">排除障碍</span>
+    </div>
+    <div class="summary-conclusion">
+      今天不急于推续约价格，先确认客户对现有 ERP 系统的真实满意度；最大风险是客户在最近调研中明确表示"京东不错"，打法是先倾听、再对比、锁定续约窗口。
+    </div>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="item-label">今天主目标</div>
+        <div class="item-value">锁定续约意向，确认满意度与时间窗口</div>
+      </div>
+      <div class="summary-item">
+        <div class="item-label">最大风险</div>
+        <div class="item-value">客户明确说"京东不错"，竞品已渗透</div>
+      </div>
+      <div class="summary-item">
+        <div class="item-label">最关键的人</div>
+        <div class="item-value">赵大 · 关键决策人（EB候选）</div>
+      </div>
+      <div class="summary-item">
+        <div class="item-label">第一句话</div>
+        <div class="item-value">"赵总，咱们 ERP 系统上线这段时间，团队用得最顺的功能是哪个？有没有哪里觉得还不够顺手？"</div>
+      </div>
+      <div class="summary-item danger">
+        <div class="item-label">绝对不要做</div>
+        <div class="item-value">不要在未确认满意度前直接谈续约价格或主动让价</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 竞品风险预警 ═══ -->
+  <div class="alert-banner">
+    <div class="alert-icon">
+      <i data-lucide="alert-triangle"></i>
+    </div>
+    <div style="flex:1;min-width:0">
+      <div class="alert-title">竞品风险：客户在需求调研中明确说"京东不错，平台体验很丝滑，京东很好"</div>
+      <div class="alert-body">
+        2026-05-08 需求调研中客户主动提及京东，且用词积极。这不是随口一提，而是有意识的对比信号。今天必须正面回应，不能回避。
+      </div>
+      <div class="alert-action">
+        <i data-lucide="zap" style="width:13px;height:13px"></i> 今天 P0：先让客户展开"京东哪里好"，再引导对比现有系统的差异化价值
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 准备度仪表 ═══ -->
+  <div class="section-title">准备度仪表</div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-icon"><i data-lucide="clipboard-check"></i></div>
+      <div class="kpi-label">信息完整度</div>
+      <div class="kpi-value">55<small>分</small></div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:55%;background:var(--warning)"></div></div>
+      <div class="kpi-sub">决策链不完整、业务痛点证据薄弱</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon"><i data-lucide="target"></i></div>
+      <div class="kpi-label">痛点匹配度</div>
+      <div class="kpi-value">42<small>分</small></div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:42%;background:var(--chart-3)"></div></div>
+      <div class="kpi-sub">仅1个E3级痛点，证据弱</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon"><i data-lucide="alert-circle"></i></div>
+      <div class="kpi-label">竞争风险度</div>
+      <div class="kpi-value">90<small>分</small></div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:90%;background:var(--danger)"></div></div>
+      <div class="kpi-sub">竞品京东已渗透，无应对准备</div>
+    </div>
+  </div>
+
+  <!-- 赢率校准 -->
+  <div style="margin-top:16px;padding:14px 20px;background:var(--surface);border:1px solid rgba(222,225,232,0.5);border-radius:var(--radius);display:flex;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:0 4px 20px -2px rgba(0,0,0,0.04),0 2px 6px -1px rgba(0,0,0,0.02)">
+    <span class="badge badge-success">赢率校准</span>
+    <span style="font-size:13px;color:var(--fg-2)">
+      CRM赢率：<strong style="color:var(--success)">80%</strong>（AE填写）→ 校准值 <strong>+5</strong>（≥70%，正向校准）
+    </span>
+    <span style="margin-left:auto;font-size:13px;color:var(--fg-3)">综合得分 <strong style="color:var(--fg-1)">37</strong> + 5 = <strong style="color:var(--warning)">42</strong></span>
+  </div>
+
+  <!-- ═══ 行动看板 ═══ -->
+  <div class="section-title">行动看板</div>
+  <div class="col-4">
+    <!-- 今日目标 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title" style="display:flex;align-items:center;gap:6px"><i data-lucide="flag" style="width:15px;height:15px"></i> 今日目标</span>
+        <span class="badge badge-warning">排除障碍</span>
+      </div>
+      <div class="card-body">
+        <div class="obj-list">
+          <div class="obj-item primary">
+            <div class="obj-check">&#10003;</div>
+            <div class="obj-text">
+              正面回应京东话题
+              <span class="obj-sub">"赵总提到京东体验不错，具体是哪块让你们觉得顺手？我们看看现有系统能不能做到或做得更好。"</span>
+            </div>
+            <span class="badge badge-danger">P0</span>
+          </div>
+          <div class="obj-item">
+            <div class="obj-check"></div>
+            <div class="obj-text">
+              确认现有系统满意度
+              <span class="obj-sub">问出三个满意点和三个不满意点</span>
+            </div>
+            <span class="badge badge-warning">P0</span>
+          </div>
+          <div class="obj-item">
+            <div class="obj-check"></div>
+            <div class="obj-text">
+              锁定续约时间窗口
+              <span class="obj-sub">"续约内部流程大概要走多久？有没有关键节点需要我配合？"</span>
+            </div>
+            <span class="badge badge-info">P1</span>
+          </div>
+        </div>
+        <div class="obj-only">
+          <strong>如果今天只能做一件事：</strong>
+          让赵大亲口说出"京东到底好在哪，我们系统差在哪"
+        </div>
+      </div>
+    </div>
+
+    <!-- 底线与必选条件 -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="bottom-grid">
+        <div class="bottom-card danger">
+          <div class="bc-label"><i data-lucide="x-circle" style="width:13px;height:13px"></i> 底线</div>
+          <div class="bc-content">
+            不主动报价或让价<br>
+            不贬低京东<br>
+            不承诺无法支撑的定制需求
+          </div>
+        </div>
+        <div class="bottom-card info">
+          <div class="bc-label"><i data-lucide="check-circle" style="width:13px;height:13px"></i> 必选条件</div>
+          <div class="bc-content">
+            确认客户对现有系统的核心诉求<br>
+            <span style="color:var(--warning);font-size:12px">满意度未确认前不推进商务</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 三件事预警 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title" style="display:flex;align-items:center;gap:6px"><i data-lucide="alert-triangle" style="width:15px;height:15px"></i> 今天必须守住的 3 件事</span>
+      </div>
+      <div class="card-body">
+        <div class="warn-list">
+          <div class="warn-item">
+            <div class="warn-header">
+              <div class="warn-num danger">1</div>
+              <div class="warn-title">客户公开表示"京东不错"，竞品已渗透</div>
+            </div>
+            <div class="warn-action">先倾听，不要辩解。问"京东哪块让你们觉得顺手？" — <strong>把对比变成需求挖掘</strong></div>
+          </div>
+          <div class="warn-item">
+            <div class="warn-header">
+              <div class="warn-num warning">2</div>
+              <div class="warn-title">决策链不清晰，EB 未验证，Coach 缺失</div>
+            </div>
+            <div class="warn-action">直接问赵大"续约这块最终是您拍板还是需要上会？"同时探测内部支持者</div>
+          </div>
+          <div class="warn-item">
+            <div class="warn-header">
+              <div class="warn-num info">3</div>
+              <div class="warn-title">商机「阿里erp采购」结单日期已过期，阶段停滞</div>
+            </div>
+            <div class="warn-action">问"咱们续约的时间节奏是怎样的？" — <strong>锁定时间表，避免无限期拖延</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 人力地图 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title" style="display:flex;align-items:center;gap:6px"><i data-lucide="users" style="width:15px;height:15px"></i> 人力地图</span>
+        <span class="badge badge-info">今天打法</span>
+      </div>
+      <div class="card-body">
+        <div class="people-list">
+          <div class="person-card">
+            <div class="person-avatar eb">赵</div>
+            <div class="person-body">
+              <div class="person-main">
+                <span class="person-name">赵大</span>
+                <span class="person-role eb">EB候选 · 关键决策人</span>
+              </div>
+              <div class="person-title">CRM标记为关键决策人，但预算审批权未验证</div>
+              <div class="person-play">直接问预算审批流程，确认是否为最终拍板人。如果今天见不到赵大，把识别 EB 作为首要目标。</div>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="person-avatar unknown">?</div>
+            <div class="person-body">
+              <div class="person-main">
+                <span class="person-name">赵小二 / 赵小歪 / 赵大歪</span>
+                <span class="person-role unknown">角色待确认</span>
+              </div>
+              <div class="person-title">联系人列表中，非关键决策人，角色不明</div>
+              <div class="person-play">如参会，观察发言内容判断 TB/UX；如不参会，暂不主动提及。</div>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="person-avatar unknown">?</div>
+            <div class="person-body">
+              <div class="person-main">
+                <span class="person-name">Coach</span>
+                <span class="person-role unknown">缺失</span>
+              </div>
+              <div class="person-title">当前无内部支持者信号</div>
+              <div class="person-play">今天观察谁主动提供内部信息或帮助推动，判断是否有 Coach 苗子。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 博弈时间线 ═══ -->
+  <div class="section-title">博弈时间线</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+    <span style="display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--fg-2)"><i data-lucide="clock" style="width:14px;height:14px"></i> 关键节点</span>
+    <span class="badge badge-warning">续约谈判</span>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-dot dot-done"><i data-lucide="check" style="width:14px;height:14px"></i></div>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-date">2025-08-28</div>
+        <div class="timeline-title">客户创建，来源未知</div>
+        <div class="timeline-impact">今天影响：确认初始合作背景，判断首次签约的关键推动人是谁。</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-dot dot-done"><i data-lucide="check" style="width:14px;height:14px"></i></div>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-date">2025-10-13</div>
+        <div class="timeline-title">100万订单成交并全额回款</div>
+        <div class="timeline-impact">今天影响：借"上次合作顺利"建立信任开场。</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-dot dot-warn"><i data-lucide="alert-triangle" style="width:13px;height:13px"></i></div>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-date">2026-05-08</div>
+        <div class="timeline-title">需求调研中客户主动提"京东不错，平台体验很丝滑，京东很好"</div>
+        <div class="timeline-impact">今天影响：<span class="hl-danger">这是今天必须正面回应的核心信号</span>，不能回避或敷衍。</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-dot dot-now"><i data-lucide="calendar" style="width:13px;height:13px"></i></div>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-date">今天</div>
+        <div class="timeline-title">续约谈判关键节点，竞品京东已渗透</div>
+        <div class="timeline-impact">今天动作：确认满意度 → 回应京东对比 → 锁定续约时间表 → 识别决策链。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 补充信息（折叠） ═══ -->
+  <details class="method-box" style="margin-top:24px">
+    <summary>补充信息：身份标签 / 决策锚 / 行动清单</summary>
+    <div class="method-content">
+
+      <!-- 10秒身份标签 -->
+      <div style="margin-bottom:20px">
+        <div style="font-size:14px;font-weight:600;color:var(--fg-1);margin-bottom:12px">10秒身份标签</div>
+        <div class="tag-row">
+          <span class="badge badge-info">已成交老客户</span>
+          <span class="badge badge-warning">情绪：中性偏冷</span>
+          <span class="badge badge-primary">续约谈判期</span>
+        </div>
+        <p style="font-size:13px;color:var(--fg-2);line-height:1.7">
+          交通/运输/物流/仓储行业，2025年8月创建，已有一笔100万订单全额回款。当前主商机「阿里erp采购」处于谈判审核阶段（1000万/赢率80%），但最近一次需求调研中客户主动提及竞品京东，续约信号不明确。负责人近期变更为贺亚飞（2026-05-26），转手2次。
+        </p>
+      </div>
+
+      <!-- 决策锚 -->
+      <div style="margin-bottom:20px">
+        <div style="font-size:14px;font-weight:600;color:var(--fg-1);margin-bottom:12px">决策锚</div>
+        <div class="decision-grid">
+          <div class="decision-item">
+            <div class="di-label">今日目标</div>
+            <div class="di-value">排除障碍</div>
+            <div class="di-sub">确认满意度，排除竞品干扰</div>
+          </div>
+          <div class="decision-item danger">
+            <div class="di-label">底线</div>
+            <div class="di-value">不主动报价/让价</div>
+            <div class="di-sub">满意度未确认前不推进商务</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 行动清单 -->
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--fg-1);margin-bottom:12px">今日行动清单</div>
+        <div class="obj-list">
+          <div class="obj-item primary">
+            <div class="obj-check">&#10003;</div>
+            <div class="obj-text"><strong>P0：</strong>问赵大："上次 POC 之后，团队实际用下来，跟之前比最大的变化是什么？"</div>
+          </div>
+          <div class="obj-item">
+            <div class="obj-check"></div>
+            <div class="obj-text"><strong>P1：</strong>正面回应京东："赵总提到京东体验不错，具体是哪块让你们觉得顺手？我们看看现有系统能不能做到或者做得更好。"</div>
+          </div>
+          <div class="obj-item">
+            <div class="obj-check"></div>
+            <div class="obj-text"><strong>P2：</strong>锁定续约窗口："如果咱们决定续约，内部流程大概要走多久？有没有关键节点我需要配合的？"</div>
+          </div>
+        </div>
+        <div class="avoid-block">
+          <i data-lucide="x-circle" style="width:14px;height:14px;flex-shrink:0;margin-top:2px"></i>
+          <span>需要规避：不要主动报价、不要让价、不要贬低京东、不要在满意度未确认前推进商务条款</span>
+        </div>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- ═══ 洞察 ═══ -->
+  <div class="section-title">洞察 · Insights</div>
+  <div class="insights">
+    <div class="insight">
+      <div class="insight-icon" style="background:linear-gradient(135deg,#FF522A,#FF7752);box-shadow:0 4px 12px rgba(255,82,42,0.3)">
+        <i data-lucide="alert-circle"></i>
+      </div>
+      <div class="insight-body">
+        <div class="insight-title">竞品渗透风险</div>
+        <p class="insight-text">客户在需求调研中主动提及京东且用词积极（"平台体验很丝滑"），这是有意识的对比信号。今天必须正面回应，不能回避或敷衍，否则续约窗口可能关闭。</p>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-icon" style="background:linear-gradient(135deg,#FF7C19,#FFAB5C);box-shadow:0 4px 12px rgba(255,124,25,0.3)">
+        <i data-lucide="alert-triangle"></i>
+      </div>
+      <div class="insight-body">
+        <div class="insight-title">决策链不完整</div>
+        <p class="insight-text">EB 未验证（赵大预算审批权待确认），Coach 缺失，联系人列表中赵小二/赵小歪/赵大歪角色不明。决策链健康度低，续约推进存在不确定性。</p>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-icon" style="background:linear-gradient(135deg,#0C6CFF,#40B6FF);box-shadow:0 4px 12px rgba(12,108,255,0.25)">
+        <i data-lucide="bar-chart-2"></i>
+      </div>
+      <div class="insight-body">
+        <div class="insight-title">商机阶段停滞</div>
+        <p class="insight-text">主商机「阿里erp采购」结单日期已过期，处于谈判审核阶段但无实质推进。需锁定续约时间表，避免无限期拖延。</p>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-icon" style="background:#55D48C;box-shadow:0 4px 12px rgba(85,212,140,0.3);color:#fff">
+        <i data-lucide="activity"></i>
+      </div>
+      <div class="insight-body">
+        <div class="insight-title">行动建议</div>
+        <p class="insight-text">今天核心策略是"先倾听、再对比"。让客户充分表达对京东的认可，从中挖掘现有系统的差异化价值点，把竞品对比转化为需求挖掘机会。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 参考来源 ═══ -->
+  <details class="method-box" style="margin-top:24px">
+    <summary>参考来源</summary>
+    <div class="method-content">
+      CRM 客户/商机/联系人/跟进记录。正文中的"推断/猜测"仅用于会前准备，需在现场验证。<br>
+      客户ID：68b00aaa9b6f44000125bb0a | 负责人：贺亚飞 | 数据截止：2026-05-27
+    </div>
+  </details>
+
+  <!-- ═══ Footer ═══ -->
+  <div class="report-footer">
+    <span>纷享销客 ShareCRM · 见客简报系统</span>
+    <span class="fx-brand">fx-ui Design System</span>
+  </div>
+
+</div>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>

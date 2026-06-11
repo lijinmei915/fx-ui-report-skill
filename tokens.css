@@ -1,0 +1,74 @@
+/* fx-ui/tokens.css — Alias 层快照，供报告 HTML 整段粘贴到 :root 使用
+ * 真相源：design-tokens.json；主题变更时重新导出，不要手动改值。
+ */
+
+:root {
+  /* ── Seed ────────────────────────────────────── */
+  --seed-primary: #FF8000; --seed-success: #22C55E; --seed-warning: #F59E0B;
+  --seed-danger:  #EF4444; --seed-info:    #2563EB; --seed-bg:      #FFFCF7;
+
+  /* ── Map · 颜色 ──────────────────────────────── */
+  --map-primary-50:#FFF7E6; --map-primary-100:#FFE9C0; --map-primary-500:#FF8000; --map-primary-700:#D96500;
+  --map-success-50:#F0FDF4; --map-success-100:#DCFCE7; --map-success-500:#22C55E; --map-success-700:#15803D;
+  --map-warning-50:#FFFBEB; --map-warning-100:#FEF3C7; --map-warning-500:#F59E0B; --map-warning-700:#B45309;
+  --map-danger-50:#FFF1F2;  --map-danger-100:#FEE2E2;  --map-danger-500:#EF4444;  --map-danger-700:#B91C1C;
+  --map-info-50:#EFF6FF;    --map-info-100:#DBEAFE;    --map-info-500:#2563EB;    --map-info-700:#1D4ED8;
+  --map-neutral-50:#F8F9FA; --map-neutral-100:#F2F3F5; --map-neutral-200:#EAEBEE; --map-neutral-300:#DEE1E8;
+  --map-neutral-400:#C1C5CE;--map-neutral-600:#91959E; --map-neutral-700:#545861; --map-neutral-900:#181C25;
+
+  /* ── Map · 字号 ──────────────────────────────── */
+  --map-text-xs:11px; --map-text-sm:12px; --map-text-md:14px;
+  --map-text-lg:15px; --map-text-xl:16px; --map-text-2xl:20px; --map-heading:34px;
+
+  /* ── Map · 圆角 ──────────────────────────────── */
+  --map-radius-sm:8px; --map-radius-md:12px; --map-radius-lg:16px; --map-radius-xl:20px;
+
+  /* ── Alias · 文字 ────────────────────────────── */
+  --text-1: var(--map-neutral-900);
+  --text-2: var(--map-neutral-700);
+  --text-3: var(--map-neutral-600);
+  --text-4: var(--map-neutral-400);
+
+  /* ── Alias · 表面 ────────────────────────────── */
+  --bg-page:   var(--seed-bg);
+  --bg-card:   #FFFFFF;
+  --bg-subtle: var(--map-neutral-100);
+  --bg-inset:  var(--map-neutral-50);
+
+  /* ── Alias · 边框 ────────────────────────────── */
+  --border-base:   var(--map-neutral-300);
+  --border-subtle: var(--map-neutral-200);
+
+  /* ── Alias · 品牌 ────────────────────────────── */
+  --brand:        var(--map-primary-500);
+  --brand-subtle: var(--map-primary-50);
+
+  /* ── Alias · 语义色 ──────────────────────────── */
+  --success: var(--map-success-500); --success-bg: var(--map-success-50); --success-soft: var(--map-success-100);
+  --warning: var(--map-warning-500); --warning-bg: var(--map-warning-50); --warning-soft: var(--map-warning-100);
+  --danger:  var(--map-danger-500);  --danger-bg:  var(--map-danger-50);  --danger-soft:  var(--map-danger-100);
+  --info:    var(--map-info-500);    --info-bg:    var(--map-info-50);    --info-soft:    var(--map-info-100);
+
+  /* ── Alias · 形状 ────────────────────────────── */
+  --radius:    var(--map-radius-lg);
+  --radius-sm: var(--map-radius-md);
+
+  /* ── Alias · 间距 ────────────────────────────── */
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+  --space-5:20px; --space-6:24px; --space-8:32px; --space-10:40px;
+
+  /* ── Alias · 字体 ────────────────────────────── */
+  --font: 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+  --font-numeric: 'Barlow Condensed', 'DIN Alternate', 'Arial Narrow', sans-serif;
+
+  /* ── Header Aurora（各主题覆盖） ─────────────── */
+  --hd-blob-1: rgba(255,220,80,0.60);
+  --hd-blob-2: rgba(220,80,20,0.50);
+  --hd-blob-3: rgba(255,160,40,0.35);
+  --hd-text: #fff;
+  --hd-text-soft: rgba(255,255,255,0.80);
+
+  /* ── 图表色 ──────────────────────────────────── */
+  --chart-1:#FF7383;--chart-2:#FF7752;--chart-3:#FF9B29;--chart-4:#FFDA54;--chart-5:#DDF2BB;
+  --chart-6:#55D48C;--chart-7:#5BCFC1;--chart-8:#40B6FF;--chart-9:#368DFF;--chart-10:#976AEB;
+}

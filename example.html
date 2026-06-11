@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商机预测报告 · 2026年5月 | fx-ui</title>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&display=swap');
+  :root {
+    /* ── Seed ── */
+    --seed-primary:#FF8000; --seed-bg:#FFFCF7;
+
+    /* ── Map · 颜色 ── */
+    --map-primary-50:#FFF7E6; --map-primary-100:#FFE9C0; --map-primary-500:#FF8000; --map-primary-700:#D96500;
+
+    /* ── Alias · 文字 ── */
+    --text-1:#181C25; --text-2:#545861; --text-3:#91959E; --text-4:#C1C5CE;
+
+    /* ── Alias · 表面 ── */
+    --bg-page:#FFFCF7; --bg-card:#FFFFFF; --bg-subtle:#F2F3F5; --bg-inset:#F8F9FA;
+
+    /* ── Alias · 边框 ── */
+    --border-base:#DEE1E8; --border-subtle:#EAEBEE;
+
+    /* ── Alias · 品牌 ── */
+    --brand:#FF8000; --brand-subtle:#FFF7E6; --brand-shadow:rgba(255,128,0,0.25); --brand-gradient-end:var(--map-primary-100);
+    --motion-fast:100ms; --motion-mid:200ms; --motion-slow:300ms;
+    --motion-easing:cubic-bezier(0.215,0.61,0.355,1); --motion-easing-in:cubic-bezier(0.55,0.055,0.675,0.19);
+    --shadow-1:0 2px 12px rgba(0,0,0,0.03);
+    --shadow-2:0 4px 20px -2px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.03);
+    --shadow-3:0 8px 28px -4px rgba(0,0,0,0.10);
+
+    /* ── 语义色 ── */
+    --success:#22C55E; --success-soft:#DCFCE7;
+    --warning:#F59E0B; --warning-soft:#FEF3C7;
+    --danger:#EF4444;  --danger-soft:#FEE2E2;
+    --info:#2563EB;    --info-soft:#DBEAFE;
+
+    /* ── 图表色 ── */
+    --chart-1:#FF7383; --chart-2:#FF7752; --chart-3:#FF9B29;
+    --chart-4:#FFDA54; --chart-5:#DDF2BB; --chart-6:#55D48C;
+    --chart-7:#5BCFC1; --chart-8:#40B6FF; --chart-9:#368DFF; --chart-10:#976AEB;
+
+    /* ── Bridge: old token names → new (保持 CSS 兼容) ── */
+    --fg-1:var(--text-1); --fg-2:var(--text-2); --fg-3:var(--text-3); --fg-4:var(--text-4);
+    --surface:var(--bg-card); --surface-sub:var(--bg-subtle);
+    --primary:var(--brand); --primary-soft:var(--brand-subtle);
+    --border-soft:var(--border-subtle);
+    /* 形状 */
+    --radius:16px; --radius-sm:12px; --radius-lg:20px; --radius-full:9999px;
+
+    /* Header Aurora 色块（各主题覆盖） */
+    --hd-blob-1: rgba(255,220,80,0.60);
+    --hd-blob-2: rgba(220,80,20,0.50);
+    --hd-blob-3: rgba(255,160,40,0.35);
+
+    /* Header 文字颜色（对比度兜底，深/浅主色自动切换） */
+    --hd-text: #fff;
+    --hd-text-soft: rgba(255,255,255,0.80);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+    background: #F0F2F5;
+    color: var(--fg-1);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding: 40px 24px;
+  }
+
+  .page {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 32px 40px;
+    background: var(--bg-page);
+    border-radius: var(--radius-lg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Header */
+  .report-header {
+    position: relative;
+    margin: 0 -32px 16px;
+    padding: 32px 32px 40px;
+    background: linear-gradient(180deg, var(--map-primary-700) 0%, var(--map-primary-500) 35%, var(--map-primary-100) 75%, var(--bg-page) 100%);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+  /* 极光色块 */
+  .hd-blob {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    mix-blend-mode: soft-light; will-change: transform;
+  }
+  .hd-blob-1 {
+    width: 500px; height: 380px;
+    top: -180px; left: -100px;
+    background: radial-gradient(ellipse, var(--hd-blob-1) 0%, rgba(255,220,80,0) 68%);
+    filter: blur(52px);
+    animation: hdb1 14s ease-in-out infinite;
+  }
+  .hd-blob-2 {
+    width: 360px; height: 200px;
+    top: -120px; right: 40px;
+    background: radial-gradient(ellipse, var(--hd-blob-2) 0%, rgba(220,80,20,0) 68%);
+    filter: blur(40px);
+    animation: hdb2 18s ease-in-out infinite;
+  }
+  .hd-blob-3 {
+    width: 300px; height: 220px;
+    bottom: -60px; left: 35%;
+    background: radial-gradient(ellipse, var(--hd-blob-3) 0%, rgba(255,160,40,0) 68%);
+    filter: blur(44px);
+    animation: hdb3 11s ease-in-out infinite;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes gradientFlow {
+    0%, 100% { background-position: 0% 0%; }
+    50%       { background-position: 100% 100%; }
+  }
+  .report-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.07) 50%, transparent 100%);
+    background-size: 200% 200%;
+    animation: gradientFlow 7s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .report-header .eyebrow { animation: fadeInUp 0.6s ease both; }
+  .report-header h1       { animation: fadeInUp 0.6s 0.15s ease both; }
+  .report-header .meta    { animation: fadeInUp 0.6s 0.30s ease both; }
+
+  @keyframes dotBob {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+  @keyframes lineFade {
+    0%,100% { opacity: 0.4; }
+    50%      { opacity: 1; }
+  }
+  @keyframes circlePulse {
+    0%,100% { opacity: 1; }
+    50%      { opacity: 0.5; }
+  }
+  .hd-dot { transform-box: fill-box; transform-origin: center; }
+  .hd-dot-1 { animation: dotBob 3.5s ease-in-out infinite; }
+  .hd-dot-2 { animation: dotBob 2.8s 0.6s ease-in-out infinite; }
+  .hd-dot-3 { animation: dotBob 4.2s 1.3s ease-in-out infinite; }
+  .hd-line-1 { animation: lineFade 6s ease-in-out infinite; }
+  .hd-line-2 { animation: lineFade 8s 2s ease-in-out infinite; }
+  .hd-circle-bg { animation: circlePulse 7s ease-in-out infinite; }
+  .hd-circle-sm { animation: circlePulse 9s 2s ease-in-out infinite; }
+
+  @keyframes hdb1 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    40%     { transform: translate(70px,30px) scale(1.12); }
+    70%     { transform: translate(-30px,15px) scale(0.92); }
+  }
+  @keyframes hdb2 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    35%     { transform: translate(-55px,25px) scale(0.88); }
+    68%     { transform: translate(40px,-15px) scale(1.10); }
+  }
+  @keyframes hdb3 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50%     { transform: translate(30px,-20px) scale(1.08); }
+  }
+  /* 噪声颗粒质感层 */
+  .hd-noise {
+    position: absolute; inset: 0;
+    opacity: 0.055;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+  .report-header .header-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .report-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 72px;
+    background: linear-gradient(to bottom, transparent, var(--bg-page));
+    pointer-events: none;
+    z-index: 1;
+  }
+  .report-header .header-body {
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+    position: relative;
+    z-index: 10;
+  }
+  .report-header .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--hd-text-soft, rgba(255,255,255,0.80));
+    margin-bottom: 8px;
+  }
+  .report-header h1 {
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--hd-text, #fff);
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.12);
+  }
+  .report-header .meta {
+    font-size: 13px;
+    color: rgba(0,0,0,0.7);
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.35);
+    padding: 8px 20px;
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .report-header .meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .report-header .meta .divider {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.3);
+    margin: 0 6px;
+    display: inline-block;
+  }
+
+
+  /* Section title */
+  .section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--fg-1);
+    margin: 44px 0 24px;
+    display: flex;
+    align-items: center;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 12px;
+    background: var(--primary);
+    border-radius: 3px;
+    margin-right: 12px;
+    box-shadow: 0 0 0 3px var(--primary-soft);
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-base) 0%, transparent 100%);
+    margin-left: 20px;
+  }
+
+  /* KPI */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; position: relative; z-index: 1; }
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--motion-mid) var(--motion-easing);
+  }
+  .kpi-card:hover { transform: translateY(-2px); }
+  .kpi-label { font-size: 13px; color: var(--fg-2); font-weight: 500; }
+  .kpi-icon {
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .kpi-icon svg { width: 16px; height: 16px; color: #fff; }
+  .kpi-icon.c-orange  { background: linear-gradient(135deg, #FF8000, #FFB347); box-shadow: 0 4px 12px rgba(255,128,0,0.30); }
+  .kpi-icon.c-blue    { background: linear-gradient(135deg, #2563EB, #60A5FA); box-shadow: 0 4px 12px rgba(37,99,235,0.30); }
+  .kpi-icon.c-green   { background: linear-gradient(135deg, #16A34A, #4ADE80); box-shadow: 0 4px 12px rgba(22,163,74,0.30); }
+  .kpi-icon.c-purple  { background: linear-gradient(135deg, #8B5CF6, #C4B5FD); box-shadow: 0 4px 12px rgba(139,92,246,0.30); }
+  .kpi-value { font-size: 36px; font-weight: 700; font-family: 'Barlow Condensed', 'DIN Alternate', 'Arial Narrow', sans-serif; color: var(--text-1); margin-top: 12px; letter-spacing: 0; line-height: 1; font-variant-numeric: tabular-nums; }
+  .kpi-value small { font-size: 15px; font-weight: 600; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; color: var(--text-1); margin-left: 4px; letter-spacing: 0; }
+  .kpi-sub { margin-top: 8px; font-size: 12px; color: var(--fg-3); }
+
+  /* Charts */
+  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .card-title { font-size: 16px; font-weight: 600; color: var(--fg-1); margin-bottom: 4px; }
+  .card-sub { font-size: 13px; color: var(--fg-3); margin-bottom: 24px; }
+
+  /* Table */
+  .table-card {
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .table-card table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .table-card thead tr { background: var(--bg-subtle); border-bottom: 2px solid var(--border-soft); }
+  .table-card th { padding: 16px 20px; font-size: 13px; font-weight: 600; color: var(--fg-2); white-space: nowrap; text-align: left; }
+  .table-card td { padding: 16px 20px; border-bottom: 1px dashed var(--border-soft); color: var(--fg-1); vertical-align: middle; transition: background 0.15s; }
+  .table-card tr:last-child td { border-bottom: none; }
+  .table-card tbody tr:hover td { background: var(--primary-soft); }
+  .text-right { text-align: right; }
+  .text-center { text-align: center; }
+  .amount { font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  /* Badge */
+  .badge { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: var(--radius-full); font-size: 11.5px; font-weight: 600; line-height: 18px; white-space: nowrap; }
+  .badge-danger   { background: var(--danger-soft);  color: var(--danger);  }
+  .badge-warning  { background: var(--warning-soft); color: var(--warning); }
+  .badge-success  { background: var(--success-soft); color: var(--success); }
+  .badge-info     { background: var(--info-soft);    color: var(--info);    }
+  .badge-default  { background: var(--surface-sub);  color: var(--fg-2);    }
+  .badge-primary  { background: var(--primary-soft); color: var(--primary); }
+
+  /* Insights */
+  .insights { display: flex; flex-direction: column; gap: 12px; }
+  .insight { display: flex; gap: 16px; align-items: flex-start; background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 20px 24px; transition: background var(--motion-mid), transform var(--motion-mid) var(--motion-easing); }
+  .insight:hover { background: var(--bg-subtle); transform: translateX(2px); }
+  .insight-icon { flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+  .insight-icon svg { width: 16px; height: 16px; }
+  .insight-icon.danger  { background: linear-gradient(135deg, var(--danger)  0%, #FCA5A5 100%); color: #fff; box-shadow: 0 4px 12px rgba(239,68,68,0.25); }
+  .insight-icon.warning { background: linear-gradient(135deg, var(--warning) 0%, #FCD34D 100%); color: #fff; box-shadow: 0 4px 12px rgba(245,158,11,0.25); }
+  .insight-icon.info    { background: linear-gradient(135deg, var(--info)    0%, #93C5FD 100%); color: #fff; box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+  .insight-icon.primary { background: linear-gradient(135deg, var(--map-primary-500) 0%, var(--brand-gradient-end) 100%); color: #fff; box-shadow: 0 4px 12px var(--brand-shadow); }
+  .insight-icon.success { background: linear-gradient(135deg, var(--success) 0%, #86EFAC 100%); color: #fff; box-shadow: 0 4px 12px rgba(34,197,94,0.25); }
+  .insight-body { flex: 1; min-width: 0; padding-top: 6px; }
+  .insight-title { font-size: 14px; font-weight: 700; color: var(--fg-1); margin-bottom: 4px; }
+  .insight-text  { font-size: 14px; line-height: 1.65; color: var(--fg-2); margin: 0; }
+  .cell-clamp { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+  /* Methodology */
+  .method-box { margin-top: 24px; background: var(--bg-subtle); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden; }
+  .method-box summary { cursor: pointer; padding: 16px 20px; font-size: 14px; font-weight: 600; color: var(--fg-2); list-style: none; display: flex; align-items: center; gap: 8px; user-select: none; }
+  .method-box summary::before { content: '›'; font-size: 18px; color: var(--fg-3); transition: transform var(--motion-mid); line-height: 1; display: inline-block; padding-bottom: 2px; }
+  .method-box[open] summary::before { transform: rotate(90deg); }
+  .method-box .method-content { padding: 0 20px 16px; font-size: 13px; color: var(--fg-3); line-height: 1.7; border-top: 1px dashed var(--border-soft); padding-top: 16px; }
+
+  /* Footer */
+  .report-footer { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-soft); display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--fg-3); }
+  .report-footer .fx-brand { display: flex; align-items: center; gap: 8px; color: var(--fg-3); font-weight: 500; letter-spacing: 0.02em; }
+  .report-footer .fx-brand::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
+
+  @media (max-width: 860px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .chart-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<script src="theme-toolbar.js"></script>
+
+<div class="page">
+
+  <!-- Header -->
+  <div class="report-header">
+    <div class="header-deco">
+      <div class="hd-blob hd-blob-1"></div>
+      <div class="hd-blob hd-blob-2"></div>
+      <div class="hd-blob hd-blob-3"></div>
+      <div class="hd-noise"></div>
+      <svg width="100%" height="100%" viewBox="0 0 1160 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <circle class="hd-circle-bg" cx="980" cy="-20" r="220" fill="rgba(255,255,255,0.10)"/>
+        <circle class="hd-circle-sm" cx="1100" cy="160" r="140" fill="rgba(255,255,255,0.12)"/>
+        <path class="hd-line-1" d="M600,180 Q750,80 1000,120 Q1100,140 1160,100" stroke="rgba(255,255,255,0.18)" stroke-width="2" fill="none"/>
+        <path class="hd-line-2" d="M500,200 Q680,100 920,150 Q1060,170 1160,140" stroke="rgba(255,255,255,0.10)" stroke-width="1.5" fill="none"/>
+        <circle class="hd-dot hd-dot-1" cx="860" cy="40" r="3" fill="rgba(255,255,255,0.3)"/>
+        <circle class="hd-dot hd-dot-2" cx="920" cy="60" r="2" fill="rgba(255,255,255,0.2)"/>
+        <circle class="hd-dot hd-dot-3" cx="800" cy="70" r="2" fill="rgba(255,255,255,0.2)"/>
+      </svg>
+    </div>
+    <div class="header-body">
+      <div>
+        <div class="eyebrow">Opportunity Forecast · ShareCRM</div>
+        <h1>商机预测报告</h1>
+      </div>
+      <div class="meta">
+        <span>
+          <i data-lucide="calendar" style="width:14px;height:14px"></i>
+          数据截止 2026-05-28 12:03
+        </span>
+        <span class="divider"></span>
+        <span>
+          <i data-lucide="user" style="width:14px;height:14px"></i>
+          制表人：赵丹 Mandy
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="section-title">核心指标</div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-icon c-orange"><i data-lucide="clipboard-check"></i></div>
+      <div class="kpi-label">进行中商机</div>
+      <div class="kpi-value">192<small>个</small></div>
+      <div class="kpi-sub">赢单 220 · 输单 2</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon c-blue"><i data-lucide="credit-card"></i></div>
+      <div class="kpi-label">Pipeline 总金额</div>
+      <div class="kpi-value">6,007<small>万</small></div>
+      <div class="kpi-sub">所有进行中商机合计</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon c-green"><i data-lucide="trending-up"></i></div>
+      <div class="kpi-label">加权预测金额</div>
+      <div class="kpi-value">2,645<small>万</small></div>
+      <div class="kpi-sub">金额 × 赢率加权</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon c-purple"><i data-lucide="percent"></i></div>
+      <div class="kpi-label">加权赢率</div>
+      <div class="kpi-value">44.0<small>%</small></div>
+      <div class="kpi-sub">预测金额 ÷ 总金额</div>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="section-title">商机阶段 & 负责人分布</div>
+  <div class="chart-row">
+    <div class="chart-card">
+      <div class="card-title">各阶段商机数量与金额</div>
+      <div class="card-sub">柱：数量（个）· 折线：总金额（万）</div>
+      <div style="position:relative;height:220px"><canvas id="chart-stage"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="card-title">负责人 Pipeline 金额占比</div>
+      <div class="card-sub">圆环面积代表该负责人 Pipeline 权重</div>
+      <div style="position:relative;height:220px"><canvas id="chart-owner"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="section-title">未来 30 天预计成交商机 <span style="font-size:11px;color:var(--fg-3);font-weight:400;text-transform:none;letter-spacing:0;margin-left:10px">2026-05-28 ~ 2026-06-28</span></div>
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>商机名称</th>
+          <th>客户名称</th>
+          <th class="text-right">商机金额</th>
+          <th class="text-right">预测金额</th>
+          <th class="text-center">赢率</th>
+          <th>阶段</th>
+          <th>结单日期</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="cell-clamp">输变电设备招标项目</div></td>
+          <td><div class="cell-clamp">国家电网浙江电力公司</div></td>
+          <td class="text-right amount">800 万</td>
+          <td class="text-right amount">144 万</td>
+          <td class="text-center"><span class="badge badge-danger">18%</span></td>
+          <td><span class="badge badge-default">方案/报价</span></td>
+          <td style="white-space:nowrap">2026-06-03</td>
+        </tr>
+        <tr>
+          <td><div class="cell-clamp">河北延庆科技城完美生态网络科技有限公司</div></td>
+          <td><div class="cell-clamp">重庆海淀创新港时代印刷有限公司</div></td>
+          <td class="text-right amount">100 万</td>
+          <td class="text-right amount">80 万</td>
+          <td class="text-center"><span class="badge badge-success">80%</span></td>
+          <td><span class="badge badge-success">谈判审核</span></td>
+          <td style="white-space:nowrap">2026-05-31</td>
+        </tr>
+        <tr>
+          <td><div class="cell-clamp">陕西丰台科技城长江广告智能科技有限公司</div></td>
+          <td><div class="cell-clamp">海南宝山工业园卓越新能源网络科技有限公司</div></td>
+          <td class="text-right amount">100 万</td>
+          <td class="text-right amount">80 万</td>
+          <td class="text-center"><span class="badge badge-success">80%</span></td>
+          <td><span class="badge badge-success">谈判审核</span></td>
+          <td style="white-space:nowrap">2026-06-02</td>
+        </tr>
+        <tr>
+          <td><div class="cell-clamp">山西朝阳金融街华山传媒科技有限公司</div></td>
+          <td><div class="cell-clamp">云南宁河中心黄河信息数据科技有限公司</div></td>
+          <td class="text-right amount">100 万</td>
+          <td class="text-right amount">60 万</td>
+          <td class="text-center"><span class="badge badge-info">60%</span></td>
+          <td><span class="badge badge-default">方案/报价</span></td>
+          <td style="white-space:nowrap">2026-05-28</td>
+        </tr>
+        <tr>
+          <td><div class="cell-clamp">山东长宁开发区现代咨询云计算有限公司</div></td>
+          <td><div class="cell-clamp">山东普陀中心现代工程信息技术有限公司</div></td>
+          <td class="text-right amount">100 万</td>
+          <td class="text-right amount">60 万</td>
+          <td class="text-center"><span class="badge badge-info">60%</span></td>
+          <td><span class="badge badge-default">方案/报价</span></td>
+          <td style="white-space:nowrap">2026-05-29</td>
+        </tr>
+        <tr>
+          <td><div class="cell-clamp">山西宝坻金融街夏荷皮革智能科技有限公司</div></td>
+          <td><div class="cell-clamp">广东武清物流园泰山商业网络科技有限公司</div></td>
+          <td class="text-right amount">100 万</td>
+          <td class="text-right amount">60 万</td>
+          <td class="text-center"><span class="badge badge-info">60%</span></td>
+          <td><span class="badge badge-default">方案/报价</span></td>
+          <td style="white-space:nowrap">2026-06-01</td>
+        </tr>
+        <tr>
+          <td><div class="cell-clamp">广西海淀创新港大地云计算数据科技有限公司</div></td>
+          <td><div class="cell-clamp">山东大兴商务港华山工业数码科技有限公司</div></td>
+          <td class="text-right amount">100 万</td>
+          <td class="text-right amount">30 万</td>
+          <td class="text-center"><span class="badge badge-warning">30%</span></td>
+          <td><span class="badge badge-warning">需求确定</span></td>
+          <td style="white-space:nowrap">2026-06-03</td>
+        </tr>
+        <tr>
+          <td><div class="cell-clamp">安徽静安开发区理想建筑电子科技有限公司</div></td>
+          <td><div class="cell-clamp">湖北平谷总部基地新纪元仓储股份有限公司</div></td>
+          <td class="text-right amount">100 万</td>
+          <td class="text-right amount">30 万</td>
+          <td class="text-center"><span class="badge badge-warning">30%</span></td>
+          <td><span class="badge badge-warning">需求确定</span></td>
+          <td style="white-space:nowrap">2026-06-04</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Insights -->
+  <div class="section-title">洞察 · Insights</div>
+  <div class="insights">
+    <div class="insight">
+      <div class="insight-icon danger"><i data-lucide="alert-circle"></i></div>
+      <div class="insight-body">
+        <div class="insight-title">人员交接风险</div>
+        <p class="insight-text">贾攀攀、xt1、肖俊三人已停用，名下合计 <strong>162 个</strong>商机处于无人负责状态，建议立即安排交接，避免客户跟进断层。</p>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-icon warning"><i data-lucide="alert-triangle"></i></div>
+      <div class="insight-body">
+        <div class="insight-title">Pipeline 集中度偏高</div>
+        <p class="insight-text">王建新一人持有 68%（<strong>4,090 万</strong>）的 Pipeline 金额，且最大单笔「国家电网浙江电力公司 800 万」当前赢率仅 18%，需要重点攻坚。</p>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-icon info"><i data-lucide="file-text"></i></div>
+      <div class="insight-body">
+        <div class="insight-title">方案/报价阶段是成交主力池</div>
+        <p class="insight-text">该阶段 51 个商机合计 <strong>2,581 万</strong>，金额占比最高；谈判审核阶段虽有 69 个商机，但平均金额仅 16.6 万/个，呈现"小额堆积"特征。</p>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-icon success"><i data-lucide="activity"></i></div>
+      <div class="insight-body">
+        <div class="insight-title">测试数据需清理</div>
+        <p class="insight-text">xt1 名下 151 个商机均为测试数据（金额合计仅 <strong>1.4 万</strong>），建议批量清理以保证 Pipeline 数据准确性。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Methodology -->
+  <details class="method-box" style="margin-top:24px">
+    <summary>方法论 · Methodology</summary>
+    <div class="method-content">
+      预测金额 = 商机金额 × 当前阶段加权赢率；加权赢率为预测金额占总金额的比例。"未来 30 天预计成交"按结单日期落在 2026-05-28 ~ 2026-06-28 区间筛选。数据来源：纷享销客 ShareCRM 导出，截止 2026-05-28 12:03。
+    </div>
+  </details>
+
+  <!-- Footer -->
+  <div class="report-footer">
+    <span>纷享销客 ShareCRM · 商机预测报告系统</span>
+    <span class="fx-brand">fx-ui Design System</span>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script>
+  function cssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  var chartStage, chartOwner;
+
+  function renderCharts() {
+    if (chartStage) chartStage.destroy();
+    if (chartOwner) chartOwner.destroy();
+
+    var t = {
+      brand:   cssVar('--brand'),
+      line:    cssVar('--chart-7'),   // 固定青色 #5BCFC1，与所有主题色形成对比
+      fg1:     cssVar('--text-1'),
+      fg3:     cssVar('--text-3'),
+      border:  cssVar('--border-base'),
+      bgCard:  cssVar('--bg-card'),
+      danger:  cssVar('--danger'),
+      success: cssVar('--success'),
+      info:    cssVar('--info'),
+      neutral: cssVar('--text-3'),
+    };
+
+    Chart.defaults.font.family = "'PingFang SC', 'Microsoft YaHei', sans-serif";
+    Chart.defaults.font.size   = 12;
+    Chart.defaults.color       = t.fg3;
+
+    chartStage = new Chart(document.getElementById('chart-stage'), {
+      type: 'bar',
+      data: {
+        labels: ['验证客户', '需求确定', '方案/报价', '谈判审核'],
+        datasets: [
+          {
+            label: '商机数量（个）',
+            data: [17, 55, 51, 69],
+            backgroundColor: t.brand,
+            borderRadius: 4,
+            borderSkipped: false,
+            yAxisID: 'y',
+          },
+          {
+            label: '总金额（万）',
+            data: [908, 1375, 2581, 1143],
+            type: 'line',
+            borderColor: t.line,
+            backgroundColor: t.line + '22',
+            pointBackgroundColor: t.line,
+            pointRadius: 4,
+            borderWidth: 2,
+            tension: 0.35,
+            fill: false,
+            yAxisID: 'y1',
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 10, usePointStyle: true, padding: 14 } },
+          tooltip: { backgroundColor: t.bgCard, titleColor: t.fg1, bodyColor: t.fg3, borderColor: t.border, borderWidth: 1, padding: 10 }
+        },
+        scales: {
+          x:  { grid: { display: false }, border: { display: false }, ticks: { color: t.fg3 } },
+          y:  { beginAtZero: true, grid: { color: t.border + '88', drawTicks: false }, border: { display: false }, ticks: { color: t.fg3 }, title: { display: true, text: '数量（个）', color: t.fg3 } },
+          y1: { beginAtZero: true, position: 'right', grid: { drawOnChartArea: false }, border: { display: false }, ticks: { color: t.fg3 }, title: { display: true, text: '金额（万）', color: t.fg3 } }
+        }
+      }
+    });
+
+    chartOwner = new Chart(document.getElementById('chart-owner'), {
+      type: 'doughnut',
+      data: {
+        labels: ['王建新（4090万）', '赵丹Mandy（1864万）', '肖俊·停用（50万）', '张曼（2万）', 'xt1·测试（1万）'],
+        datasets: [{
+          data: [4090, 1864, 50, 2.3, 1.4],
+          backgroundColor: [t.brand, t.info, t.danger, t.success, t.neutral],
+          borderWidth: 2,
+          borderColor: t.bgCard,
+          hoverOffset: 6,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '62%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { boxWidth: 10, usePointStyle: true, padding: 10, font: { size: 11 } }
+          },
+          tooltip: {
+            backgroundColor: t.bgCard,
+            titleColor: t.fg1,
+            bodyColor: t.fg3,
+            borderColor: t.border,
+            borderWidth: 1,
+            padding: 10,
+            callbacks: {
+              label: (ctx) => ` ${ctx.label}  ${ctx.formattedValue} 万`
+            }
+          }
+        }
+      }
+    });
+  }
+
+  renderCharts();
+</script>
+<script>lucide.createIcons();</script>
+<script>
+document.addEventListener('fxthemechange', renderCharts);
+</script>
+</body>
+</html>

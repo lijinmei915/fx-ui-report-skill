@@ -1,0 +1,61 @@
+/* skills/fx-ui-report/tailwind-v4.css
+ * 把报告 token 映射进 Tailwind v4 的 @theme，供用 React+Tailwind 构建报告页的场景使用。
+ * 派生自 tokens.css，真相源是 theme/fx-theme.css。
+ * 注意：Tailwind v4 编译期限制 —— @theme 内不能用 var() 引用具体色值，
+ * 这里通过 @import tokens.css 再用 var() 间接引用语义槽来规避。
+ */
+@import "tailwindcss";
+@import "./tokens.css";
+
+@theme inline {
+  /* ── 页面与表面 ─────────────────────── */
+  --color-bg:          var(--bg);
+  --color-surface:     var(--surface);
+  --color-surface-sub: var(--surface-sub);
+
+  /* ── 文字四级 ──────────────────────── */
+  --color-fg-1: var(--fg-1);
+  --color-fg-2: var(--fg-2);
+  --color-fg-3: var(--fg-3);
+  --color-fg-4: var(--fg-4);
+
+  /* ── 边框 ──────────────────────────── */
+  --color-border:      var(--border);
+  --color-border-soft: var(--border-soft);
+
+  /* ── 品牌色 ────────────────────────── */
+  --color-primary:       var(--primary);
+  --color-primary-soft:  var(--primary-soft);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-click: var(--primary-click);
+
+  /* ── 功能色 ────────────────────────── */
+  --color-success:      var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning:      var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger:       var(--danger);
+  --color-danger-soft:  var(--danger-soft);
+  --color-info:         var(--info);
+  --color-info-soft:    var(--info-soft);
+
+  /* ── BI 图表色板 ────────────────────── */
+  --color-chart-1:  var(--chart-1);
+  --color-chart-2:  var(--chart-2);
+  --color-chart-3:  var(--chart-3);
+  --color-chart-4:  var(--chart-4);
+  --color-chart-5:  var(--chart-5);
+  --color-chart-6:  var(--chart-6);
+  --color-chart-7:  var(--chart-7);
+  --color-chart-8:  var(--chart-8);
+  --color-chart-9:  var(--chart-9);
+  --color-chart-10: var(--chart-10);
+
+  /* ── 列表高亮 ───────────────────────── */
+  --color-list-orange: var(--list-orange);
+  --color-list-blue:   var(--list-blue);
+
+  /* ── 基础 ──────────────────────────── */
+  --radius-report: var(--radius);
+  --font-report:   var(--font);
+}

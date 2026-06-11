@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>fx-ui Report — 图表色板预览</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+:root {
+  --bg:#F7F8FA;--surface:#FFFFFF;--surface-sub:#F2F3F5;
+  --fg-1:#181C25;--fg-2:#545861;--fg-3:#91959E;--fg-4:#C1C5CE;
+  --border:#DEE1E8;
+  --primary:#FF8000;--primary-soft:#FFF7E6;
+  --chart-1:#FF7383;--chart-2:#FF7752;--chart-3:#FF9B29;--chart-4:#FFDA54;--chart-5:#DDF2BB;
+  --chart-6:#55D48C;--chart-7:#5BCFC1;--chart-8:#40B6FF;--chart-9:#368DFF;--chart-10:#976AEB;
+  --radius:10px;--font:'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--fg-1);padding:40px 24px 80px}
+h1{font-size:20px;font-weight:700;margin-bottom:4px}
+.sub{font-size:12px;color:var(--fg-3);margin-bottom:32px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+.card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);padding:20px}
+.card-title{font-size:13px;font-weight:600;color:var(--fg-1);margin-bottom:3px}
+.card-sub{font-size:11px;color:var(--fg-3);margin-bottom:16px}
+.rule{font-size:11px;color:var(--fg-3);margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+<h1>fx-ui Report 图表预览</h1>
+<p class="sub">所有图表使用 Chart.js 4 + fx-ui token 色板，canvas 外层必须有显式高度父容器</p>
+
+<!-- 柱图 + 折线图 -->
+<div class="grid">
+  <div class="card">
+    <div class="card-title">柱图 Bar Chart</div>
+    <div class="card-sub">主色 --primary，多系列从 chart-1 顺序取色</div>
+    <div style="position:relative;height:200px">
+      <canvas id="barChart"></canvas>
+    </div>
+    <div class="rule">单系列用 --primary (#FF8000)，多系列按 chart-1→10 顺序</div>
+  </div>
+  <div class="card">
+    <div class="card-title">折线图 Line Chart</div>
+    <div class="card-sub">折线用 --chart-9 (Deep Blue)，柱对比用 --primary</div>
+    <div style="position:relative;height:200px">
+      <canvas id="lineChart"></canvas>
+    </div>
+    <div class="rule">折线默认色 --chart-9 (#368DFF)；与柱图组合时，柱=primary，线=chart-9</div>
+  </div>
+</div>
+
+<!-- 圆环图 + 堆叠柱图 -->
+<div class="grid">
+  <div class="card">
+    <div class="card-title">圆环图 Donut Chart</div>
+    <div class="card-sub">cutout 62%，白色 2px 段间距，多色取 chart-1→10</div>
+    <div style="position:relative;height:200px">
+      <canvas id="donutChart"></canvas>
+    </div>
+    <div class="rule">cutout: '62%' · borderColor: '#fff' · borderWidth: 2</div>
+  </div>
+  <div class="card">
+    <div class="card-title">堆叠柱图 Stacked Bar</div>
+    <div class="card-sub">多系列从 chart-1 顺序取色</div>
+    <div style="position:relative;height:200px">
+      <canvas id="stackedChart"></canvas>
+    </div>
+    <div class="rule">stacked: true · 各系列按 chart-1→10 顺序</div>
+  </div>
+</div>
+
+<!-- 水平柱图 -->
+<div class="grid-3">
+  <div class="card">
+    <div class="card-title">水平柱图 Horizontal Bar</div>
+    <div class="card-sub">适合排行榜/对比场景</div>
+    <div style="position:relative;height:200px">
+      <canvas id="hbarChart"></canvas>
+    </div>
+    <div class="rule">indexAxis: 'y' · 主色 --primary</div>
+  </div>
+  <div class="card">
+    <div class="card-title">面积图 Area Chart</div>
+    <div class="card-sub">线+填充，fill: true，透明度 15%</div>
+    <div style="position:relative;height:200px">
+      <canvas id="areaChart"></canvas>
+    </div>
+    <div class="rule">fill: true · backgroundColor: rgba(chart-9, .15)</div>
+  </div>
+  <div class="card">
+    <div class="card-title">组合图 Combo Chart</div>
+    <div class="card-sub">柱+折线双系列，type 混用</div>
+    <div style="position:relative;height:200px">
+      <canvas id="comboChart"></canvas>
+    </div>
+    <div class="rule">bar type=bar color=primary · line type=line color=chart-9</div>
+  </div>
+</div>
+
+<script>
+const MONTHS = ['1月','2月','3月','4月','5月','6月'];
+const gridColor = '#DEE1E8';
+const tickColor = '#91959E';
+const tooltipOpts = {
+  backgroundColor: '#fff',
+  titleColor: '#181C25',
+  bodyColor: '#545861',
+  borderColor: '#DEE1E8',
+  borderWidth: 1,
+  padding: 10,
+};
+const baseScales = {
+  x: { grid: { color: gridColor }, ticks: { color: tickColor } },
+  y: { grid: { color: gridColor }, ticks: { color: tickColor } }
+};
+
+// 柱图
+new Chart(document.getElementById('barChart'), {
+  type: 'bar',
+  data: {
+    labels: MONTHS,
+    datasets: [{
+      label: '商机数',
+      data: [28, 35, 42, 38, 55, 62],
+      backgroundColor: '#FF8000',
+      borderRadius: 4,
+    }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false},tooltip:tooltipOpts}, scales: baseScales }
+});
+
+// 折线图
+new Chart(document.getElementById('lineChart'), {
+  type: 'line',
+  data: {
+    labels: MONTHS,
+    datasets: [{
+      label: '赢率',
+      data: [42, 45, 51, 48, 58, 64],
+      borderColor: '#368DFF',
+      backgroundColor: 'rgba(54,141,255,.1)',
+      borderWidth: 2,
+      pointRadius: 3,
+      tension: 0.3,
+    }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false},tooltip:tooltipOpts}, scales: baseScales }
+});
+
+// 圆环图
+new Chart(document.getElementById('donutChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['谈判审核','方案/报价','需求确定','验证客户','其他'],
+    datasets: [{
+      data: [24, 51, 38, 19, 60],
+      backgroundColor: ['#FF7383','#FF9B29','#FFDA54','#55D48C','#368DFF'],
+      borderColor: '#fff',
+      borderWidth: 2,
+    }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    cutout: '62%',
+    plugins: { legend: { position:'right', labels:{ color: tickColor, font:{size:11}, boxWidth:12 } }, tooltip: tooltipOpts }
+  }
+});
+
+// 堆叠柱图
+new Chart(document.getElementById('stackedChart'), {
+  type: 'bar',
+  data: {
+    labels: MONTHS,
+    datasets: [
+      { label: '谈判审核', data: [8,10,12,9,14,18], backgroundColor: '#FF7383', borderRadius:2 },
+      { label: '方案/报价', data: [12,14,18,16,22,26], backgroundColor: '#FF9B29', borderRadius:2 },
+      { label: '需求确定', data: [8,11,12,13,19,18], backgroundColor: '#FFDA54', borderRadius:2 },
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins: { legend:{ labels:{ color: tickColor, font:{size:11}, boxWidth:12 } }, tooltip: tooltipOpts },
+    scales: {
+      x: { stacked:true, grid:{color:gridColor}, ticks:{color:tickColor} },
+      y: { stacked:true, grid:{color:gridColor}, ticks:{color:tickColor} }
+    }
+  }
+});
+
+// 水平柱图
+new Chart(document.getElementById('hbarChart'), {
+  type: 'bar',
+  data: {
+    labels: ['王建新','张明','李华','王芳','陈刚'],
+    datasets: [{
+      label: 'Pipeline (万)',
+      data: [4090, 820, 560, 320, 217],
+      backgroundColor: '#FF8000',
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip: tooltipOpts },
+    scales: {
+      x: { grid:{color:gridColor}, ticks:{color:tickColor} },
+      y: { grid:{display:false}, ticks:{color:tickColor} }
+    }
+  }
+});
+
+// 面积图
+new Chart(document.getElementById('areaChart'), {
+  type: 'line',
+  data: {
+    labels: MONTHS,
+    datasets: [{
+      label: '预测金额(万)',
+      data: [1800,2100,2300,2050,2640,2845],
+      borderColor: '#368DFF',
+      backgroundColor: 'rgba(54,141,255,.15)',
+      borderWidth: 2,
+      pointRadius: 3,
+      tension: 0.4,
+      fill: true,
+    }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false},tooltip:tooltipOpts}, scales: baseScales }
+});
+
+// 组合图
+new Chart(document.getElementById('comboChart'), {
+  type: 'bar',
+  data: {
+    labels: MONTHS,
+    datasets: [
+      { type:'bar',  label:'商机数', data:[28,35,42,38,55,62], backgroundColor:'#FF8000', borderRadius:4, yAxisID:'y' },
+      { type:'line', label:'赢率%',  data:[42,45,51,48,58,64], borderColor:'#368DFF', backgroundColor:'transparent', borderWidth:2, pointRadius:3, tension:0.3, yAxisID:'y1' },
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ labels:{ color:tickColor, font:{size:11}, boxWidth:12 } }, tooltip: tooltipOpts },
+    scales: {
+      x:  { grid:{color:gridColor}, ticks:{color:tickColor} },
+      y:  { grid:{color:gridColor}, ticks:{color:tickColor}, position:'left' },
+      y1: { grid:{display:false},   ticks:{color:'#368DFF'}, position:'right' },
+    }
+  }
+});
+</script>
+</body>
+</html>

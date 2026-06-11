@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "od-skill/v1",
+  "id": "fx-ui-design-re",
+  "name": "fx-ui Design Re",
+  "category": "Data Report / 数据报告美化",
+  "description": "把任意格式的报告数据（HTML/JSON/Markdown/纯文字）转成符合 fx-ui 设计规范的独立 HTML 报告页。职责边界：只管视觉，不修改数据事实。",
+  "source": {
+    "type": "skill",
+    "origin": "fx-ui 项目（theme/fx-theme.css），token 值完全来自真相源，非手工猜测"
+  },
+  "files": {
+    "skill": "SKILL.md",
+    "design": "DESIGN.md",
+    "tokens": "tokens.css",
+    "designTokens": "design-tokens.json",
+    "tailwind": "tailwind-v4.css",
+    "components": "components.html",
+    "iconSnippet": "lucide-snippet.html",
+    "themeToolbar": "theme-toolbar.js",
+    "example": "example.html"
+  },
+  "usage": "USAGE.md",
+  "componentsManifest": "components.manifest.json",
+  "importMode": "normalized",
+  "craft": {
+    "applies": ["color"],
+    "suggested": ["accessibility-baseline"],
+    "exemptions": []
+  },
+  "preview": {
+    "dir": "preview",
+    "pages": [
+      { "path": "preview/index.html",      "role": "example",    "title": "报告整体预览" },
+      { "path": "preview/colors.html",     "role": "colors",     "title": "色板预览" },
+      { "path": "preview/typography.html", "role": "typography", "title": "文字层级预览" },
+      { "path": "preview/charts.html",     "role": "charts",     "title": "图表色板预览" }
+    ]
+  },
+  "inputFormats": ["html", "json", "markdown", "plaintext"],
+  "outputFormat": "standalone-html",
+  "sourceFiles": {
+    "evidence": "source/evidence.md",
+    "tokens": "source/tokens.source.json",
+    "report": "source/token-contract.report.json"
+  }
+}

@@ -1,0 +1,19 @@
+/* fx-ui Theme · Orange（默认）
+ * 用法：将此文件的 :root 块替换 tokens.css 中的 Seed + Map primary 部分
+ */
+:root {
+  --seed-primary: #FF8000;
+  --seed-bg:      #FFFCF7;
+
+  --map-primary-50:  #FFF7E6;
+  --map-primary-100: #FFE9C0;
+  --map-primary-500: #FF8000;
+  --map-primary-700: #D96500;
+}
+
+/* Header Aurora */
+:root {
+  --hd-blob-1: rgba(255,220,80,0.60);
+  --hd-blob-2: rgba(220,80,20,0.50);
+  --hd-blob-3: rgba(255,160,40,0.35);
+}

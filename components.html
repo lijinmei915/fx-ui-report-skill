@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>fx-ui Design Re — 组件库</title>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+:root {
+  /* ── Seed ── */
+  --seed-primary: #FF8000; --seed-success: #22C55E; --seed-warning: #F59E0B;
+  --seed-danger: #EF4444;  --seed-info: #2563EB;    --seed-bg: #FFFCF7;
+
+  /* ── Map · 颜色 ── */
+  --map-primary-50:#FFF7E6; --map-primary-100:#FFE9C0; --map-primary-500:#FF8000; --map-primary-700:#D96500;
+  --map-success-50:#F0FDF4; --map-success-100:#DCFCE7; --map-success-500:#22C55E; --map-success-700:#15803D;
+  --map-warning-50:#FFFBEB; --map-warning-100:#FEF3C7; --map-warning-500:#F59E0B; --map-warning-700:#B45309;
+  --map-danger-50:#FFF1F2;  --map-danger-100:#FEE2E2;  --map-danger-500:#EF4444;  --map-danger-700:#B91C1C;
+  --map-info-50:#EFF6FF;    --map-info-100:#DBEAFE;    --map-info-500:#2563EB;    --map-info-700:#1D4ED8;
+  --map-neutral-50:#F8F9FA; --map-neutral-100:#F2F3F5; --map-neutral-200:#EAEBEE; --map-neutral-300:#DEE1E8;
+  --map-neutral-400:#C1C5CE;--map-neutral-600:#91959E; --map-neutral-700:#545861; --map-neutral-900:#181C25;
+
+  /* ── Map · 字号 ── */
+  --map-text-xs:11px; --map-text-sm:12px; --map-text-md:14px;
+  --map-text-lg:15px; --map-text-xl:16px; --map-text-2xl:20px; --map-heading:34px;
+
+  /* ── Map · 圆角 ── */
+  --map-radius-sm:8px; --map-radius-md:12px; --map-radius-lg:16px; --map-radius-xl:20px; --map-radius-full:9999px;
+
+  /* ── Alias · 文字 ── */
+  --text-1: var(--map-neutral-900);
+  --text-2: var(--map-neutral-700);
+  --text-3: var(--map-neutral-600);
+  --text-4: var(--map-neutral-400);
+
+  /* ── Alias · 表面 ── */
+  --bg-page:   var(--seed-bg);
+  --bg-card:   #FFFFFF;
+  --bg-subtle: var(--map-neutral-100);
+  --bg-inset:  var(--map-neutral-50);
+
+  /* ── Alias · 边框 ── */
+  --border-base:   var(--map-neutral-300);
+  --border-subtle: var(--map-neutral-200);
+
+  /* ── Alias · 品牌 ── */
+  --brand:        var(--map-primary-500);
+  --brand-subtle: var(--map-primary-50);
+
+  /* ── Alias · 语义色 ── */
+  --success: var(--map-success-500); --success-bg: var(--map-success-50); --success-soft: var(--map-success-100);
+  --warning: var(--map-warning-500); --warning-bg: var(--map-warning-50); --warning-soft: var(--map-warning-100);
+  --danger:  var(--map-danger-500);  --danger-bg:  var(--map-danger-50);  --danger-soft:  var(--map-danger-100);
+  --info:    var(--map-info-500);    --info-bg:    var(--map-info-50);    --info-soft:    var(--map-info-100);
+
+  /* ── Alias · 形状 ── */
+  --radius:      var(--map-radius-lg);
+  --radius-sm:   var(--map-radius-md);
+  --radius-lg:   var(--map-radius-xl);
+  --radius-full: var(--map-radius-full);
+
+  /* ── Alias · 间距 ── */
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+  --space-5:20px; --space-6:24px; --space-8:32px; --space-10:40px;
+
+  /* ── Alias · 字体 ── */
+  --font: 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+
+  /* ── Alias · 品牌投影 & 渐变尾色 ── */
+  --brand-shadow: rgba(255,128,0,0.25);
+  --brand-gradient-end: var(--map-primary-100);
+
+  /* ── Alias · 动效 ── */
+  --motion-fast: 100ms; --motion-mid: 200ms; --motion-slow: 300ms;
+  --motion-easing:    cubic-bezier(0.215,0.61,0.355,1);
+  --motion-easing-in: cubic-bezier(0.55,0.055,0.675,0.19);
+
+  /* ── Alias · 阴影分级 ── */
+  --shadow-1: 0 2px 12px rgba(0,0,0,0.03);
+  --shadow-2: 0 4px 20px -2px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.03);
+  --shadow-3: 0 8px 28px -4px rgba(0,0,0,0.10);
+
+  /* ── 图表色 ── */
+  --chart-1:#FF7383;--chart-2:#FF7752;--chart-3:#FF9B29;--chart-4:#FFDA54;--chart-5:#DDF2BB;
+  --chart-6:#55D48C;--chart-7:#5BCFC1;--chart-8:#40B6FF;--chart-9:#368DFF;--chart-10:#976AEB;
+  /* ── Header Aurora ── */
+  --hd-blob-1:rgba(255,220,80,0.60); --hd-blob-2:rgba(220,80,20,0.50); --hd-blob-3:rgba(255,160,40,0.35);
+  --hd-text:#fff; --hd-text-soft:rgba(255,255,255,0.80);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font); background: var(--bg-page); color: var(--text-1); padding: 40px 32px 80px; max-width: 960px; margin: 0 auto; }
+.page-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.page-sub { font-size: 13px; color: var(--text-3); margin-bottom: 48px; }
+.section { margin-bottom: 56px; }
+.section-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--text-3); margin-bottom: 20px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-base);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.component-name { font-size: 11px; color: var(--text-3); margin-top: 10px; }
+/* 变体 tab */
+.variant-tabs { display: flex; gap: 6px; }
+.variant-tab {
+  font-size: 11px; font-weight: 600; padding: 3px 12px;
+  border-radius: var(--radius-lg); border: 1px solid var(--border-base);
+  background: var(--bg-card); color: var(--text-3);
+  cursor: pointer; letter-spacing: 0; text-transform: none;
+  transition: background var(--motion-fast), color var(--motion-fast), border-color var(--motion-fast);
+}
+.variant-tab.active { background: var(--brand); color: #fff; border-color: var(--brand); }
+.variant-panel { display: none; }
+.variant-panel.active { display: block; }
+
+/* ── 01 报告头 @report-header @score-card ── */
+@keyframes fadeInUp   { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+@keyframes gradientFlow { 0%,100%{background-position:0% 0%} 50%{background-position:100% 100%} }
+@keyframes hdb1 { 0%,100%{transform:translate(0,0) scale(1)} 40%{transform:translate(70px,30px) scale(1.12)} 70%{transform:translate(-30px,15px) scale(0.92)} }
+@keyframes hdb2 { 0%,100%{transform:translate(0,0) scale(1)} 35%{transform:translate(-55px,25px) scale(0.88)} 68%{transform:translate(40px,-15px) scale(1.10)} }
+@keyframes hdb3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(30px,-20px) scale(1.08)} }
+@keyframes dotBob     { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+@keyframes lineFade   { 0%,100%{opacity:0.4} 50%{opacity:1} }
+@keyframes circlePulse{ 0%,100%{opacity:1} 50%{opacity:0.5} }
+.report-header {
+  position: relative; overflow: hidden;
+  padding: 32px 32px 40px;
+  background: linear-gradient(180deg, var(--map-primary-700) 0%, var(--map-primary-500) 35%, var(--map-primary-100) 75%, var(--bg-page) 100%);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.report-header::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,transparent 0%,rgba(255,255,255,0.07) 50%,transparent 100%);
+  background-size:200% 200%; animation:gradientFlow 7s ease-in-out infinite;
+  pointer-events:none; z-index:0;
+}
+.report-header::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:72px;
+  background:linear-gradient(to bottom, transparent, var(--bg-page));
+  pointer-events:none; z-index:1;
+}
+.header-deco { position: absolute; inset: 0; pointer-events: none; }
+.hd-blob { position:absolute; border-radius:50%; pointer-events:none; mix-blend-mode:soft-light; will-change:transform; }
+.hd-blob-1 { width:500px; height:380px; top:-180px; left:-100px; background:radial-gradient(ellipse, var(--hd-blob-1) 0%, rgba(255,220,80,0) 68%); filter:blur(52px); animation:hdb1 14s ease-in-out infinite; }
+.hd-blob-2 { width:360px; height:200px; top:-120px; right:40px; background:radial-gradient(ellipse, var(--hd-blob-2) 0%, rgba(220,80,20,0) 68%); filter:blur(40px); animation:hdb2 18s ease-in-out infinite; }
+.hd-blob-3 { width:300px; height:220px; bottom:-60px; left:35%; background:radial-gradient(ellipse, var(--hd-blob-3) 0%, rgba(255,160,40,0) 68%); filter:blur(44px); animation:hdb3 11s ease-in-out infinite; }
+.hd-noise { position:absolute; inset:0; opacity:0.055; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); background-size:180px 180px; mix-blend-mode:overlay; pointer-events:none; }
+.hd-dot { transform-box:fill-box; transform-origin:center; }
+.hd-dot-1 { animation:dotBob 3.5s ease-in-out infinite; }
+.hd-dot-2 { animation:dotBob 2.8s 0.6s ease-in-out infinite; }
+.hd-dot-3 { animation:dotBob 4.2s 1.3s ease-in-out infinite; }
+.hd-line-1  { animation:lineFade 6s ease-in-out infinite; }
+.hd-line-2  { animation:lineFade 8s 2s ease-in-out infinite; }
+.hd-circle-bg { animation:circlePulse 7s ease-in-out infinite; }
+.hd-circle-sm { animation:circlePulse 9s 2s ease-in-out infinite; }
+.header-body { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; position: relative; z-index: 10; }
+.header-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,0.85); animation: fadeInUp 0.6s ease both; }
+.report-header h1 { font-size: 34px; font-weight: 700; color: #fff; text-shadow: 0 2px 16px rgba(0,0,0,0.12); letter-spacing: -0.02em; animation: fadeInUp 0.6s 0.15s ease both; }
+.header-meta {
+  display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;
+  background: rgba(255,255,255,0.35); color: rgba(0,0,0,0.7);
+  backdrop-filter: blur(16px); border-radius: var(--radius-full); padding: 8px 20px; font-size: 13px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 2px 12px rgba(0,0,0,0.08);
+  animation: fadeInUp 0.6s 0.30s ease both;
+}
+.header-meta span { display: flex; align-items: center; gap: 6px; }
+.header-meta .divider { width: 4px; height: 4px; border-radius: 50%; background: rgba(0,0,0,0.3); }
+/* score-card：头部可选插槽，无数据时整块删除 */
+.score-card {
+  background: var(--bg-card); border-radius: var(--radius);
+  padding: 16px 28px 18px;
+  display: inline-flex; flex-direction: column; align-items: center; gap: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+}
+.score-card .sc-num { font-size: 40px; font-weight: 900; color: var(--text-1); line-height: 1; letter-spacing: -0.03em; }
+.score-card .sc-label { font-size: 12px; color: var(--text-3); line-height: 1.4; margin-top: -6px; }
+.score-card .sc-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; }
+
+/* ── 02 Section 标题 @section-title ── */
+.section-subtitle { font-size: 13px; color: var(--text-3); font-weight: 400; margin-left: 12px; flex-shrink: 0; }
+.section-title {
+  display: flex; align-items: center;
+  font-size: 16px; font-weight: 600; color: var(--text-1);
+  margin: 44px 0 24px;
+}
+.section-title::before {
+  content: ''; display: inline-block; width: 6px; height: 12px;
+  background: var(--brand); border-radius: 3px; margin-right: 12px; flex-shrink: 0;
+  box-shadow: 0 0 0 3px var(--brand-subtle);
+}
+.section-title::after {
+  content: ''; flex: 1; height: 1px; margin-left: 20px;
+  background: linear-gradient(90deg, var(--border-base) 0%, transparent 100%);
+}
+
+/* ── 03 KPI 卡片 @kpi-card ── */
+.kpi-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+.kpi-card {
+  background: var(--bg-card); border-radius: var(--radius);
+  border: 1px solid var(--border-subtle); padding: 24px; position: relative;
+  transition: transform var(--motion-mid) var(--motion-easing);
+}
+.kpi-card:hover { transform: translateY(-2px); }
+.kpi-icon {
+  position: absolute; top: 20px; right: 20px;
+  width: 34px; height: 34px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; color: #fff;
+}
+.kpi-icon svg { width: 16px; height: 16px; }
+.kpi-icon.c-orange { background: linear-gradient(135deg, #FF8000, #FFB347); box-shadow: 0 4px 12px rgba(255,128,0,0.30); }
+.kpi-icon.c-blue   { background: linear-gradient(135deg, #2563EB, #60A5FA); box-shadow: 0 4px 12px rgba(37,99,235,0.30); }
+.kpi-icon.c-green  { background: linear-gradient(135deg, #16A34A, #4ADE80); box-shadow: 0 4px 12px rgba(22,163,74,0.30); }
+.kpi-icon.c-purple { background: linear-gradient(135deg, #8B5CF6, #C4B5FD); box-shadow: 0 4px 12px rgba(139,92,246,0.30); }
+.kpi-label { font-size: 13px; font-weight: 500; color: var(--text-2); margin-bottom: 12px; }
+.kpi-value { font-size: 32px; font-weight: 700; color: var(--text-1); }
+.kpi-unit { font-size: 14px; color: var(--text-3); margin-left: 6px; }
+.kpi-note { font-size: 12px; color: var(--text-3); margin-top: 8px; }
+.kpi-delta-up   { font-size: 12px; color: var(--success); margin-left: 8px; }
+.kpi-delta-down { font-size: 12px; color: var(--danger);  margin-left: 8px; }
+
+/* ── 04 图表容器 @chart-card ── */
+.chart-card { background: var(--bg-card); border-radius: var(--radius); border: 1px solid var(--border-subtle); padding: 24px; }
+.chart-card-title { font-size: 16px; font-weight: 600; color: var(--text-1); margin-bottom: 4px; }
+.chart-card-sub { font-size: 13px; color: var(--text-3); margin-bottom: 24px; }
+.chart-placeholder { height: 180px; background: var(--bg-page); border-radius: 8px; border: 1px dashed var(--border-base); display: flex; align-items: center; justify-content: center; color: var(--text-4); font-size: 12px; }
+
+/* ── 05 数据表 @data-table @badge ── */
+.table-card { background: var(--bg-card); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border-subtle); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table thead tr { background: var(--bg-subtle); }
+.data-table th { padding: 16px 20px; font-size: 13px; font-weight: 600; color: var(--text-2); border-bottom: 2px solid var(--border-subtle); text-align: left; }
+.data-table th.text-right { text-align: right; }
+.data-table td { padding: 16px 20px; border-bottom: 1px dashed var(--border-subtle); color: var(--text-1); }
+.data-table td.text-right { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.data-table td.nowrap { white-space: nowrap; }
+.cell-clamp { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.data-table tr:hover td { background: var(--brand-subtle); transition: background var(--motion-fast); }
+.badge { display: inline-flex; align-items: center; gap: 4px; border-radius: var(--radius-full); padding: 2px 10px; font-size: 11.5px; font-weight: 600; }
+.badge-success { background: var(--success-soft); color: var(--success); }
+.badge-warning { background: var(--warning-soft); color: var(--warning); }
+.badge-info    { background: var(--info-soft);    color: var(--info);    }
+.badge-danger  { background: var(--danger-soft);  color: var(--danger);  }
+.badge-default { background: var(--bg-subtle);  color: var(--text-3);    }
+
+/* ── 06 图标行列表 Icon Row @icon-row ── */
+.icon-row-list { display: flex; flex-direction: column; gap: 12px; }
+.icon-row-item {
+  display: flex; align-items: flex-start; gap: 16px;
+  background: var(--bg-card); border-radius: var(--radius);
+  border: 1px solid var(--border-subtle); padding: 20px 24px;
+  transition: background var(--motion-mid), transform var(--motion-mid) var(--motion-easing);
+}
+.icon-row-item:hover { background: var(--bg-subtle); transform: translateX(2px); }
+/* 左槽 */
+.icon-row-lead { flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #fff; }
+.icon-row-lead.icon { width: 32px; height: 32px; border-radius: 8px; }
+.icon-row-lead.icon svg { width: 16px; height: 16px; }
+.icon-row-lead.num  { width: 28px; height: 28px; border-radius: 8px; font-size: 13px; font-weight: 700; margin-top: 4px; background: linear-gradient(135deg, var(--map-primary-500), var(--brand-gradient-end)); box-shadow: 0 2px 8px var(--brand-shadow); }
+/* 颜色语义 */
+.icon-row-lead.danger  { background: linear-gradient(135deg, var(--danger),  #FCA5A5); box-shadow: 0 4px 12px rgba(239,68,68,0.25); }
+.icon-row-lead.warning { background: linear-gradient(135deg, var(--warning), #FCD34D); box-shadow: 0 4px 12px rgba(245,158,11,0.25); }
+.icon-row-lead.info    { background: linear-gradient(135deg, var(--info),    #93C5FD); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+.icon-row-lead.success { background: linear-gradient(135deg, var(--success), #86EFAC); box-shadow: 0 4px 12px rgba(34,197,94,0.25); }
+.icon-row-lead.primary { background: linear-gradient(135deg, var(--map-primary-500), var(--brand-gradient-end)); box-shadow: 0 4px 12px var(--brand-shadow); }
+/* 内容区 */
+.icon-row-body  { flex: 1; min-width: 0; }
+.icon-row-title { font-size: 16px; font-weight: 700; color: var(--text-1); margin-bottom: 4px; display: block; }
+.icon-row-text  { font-size: 14px; line-height: 1.65; color: var(--text-3); margin: 0; }
+/* num 变体：头部行 + 引导语 */
+.icon-row-head  { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.icon-row-head strong { font-size: 16px; font-weight: 700; color: var(--text-1); }
+.icon-row-quote { font-size: 14px; color: var(--text-3); line-height: 1.6; }
+/* callout 块 */
+.icon-row-callout {
+  padding: 16px 20px;
+  background: var(--brand-subtle); border-radius: var(--radius);
+  border: 1px solid var(--border-subtle);
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.icon-row-callout.danger  { background: var(--danger-bg);  border-color: rgba(239,68,68,0.15); }
+.icon-row-callout.warning { background: var(--warning-bg); border-color: rgba(245,158,11,0.15); }
+.icon-row-callout.info    { background: var(--info-bg);    border-color: rgba(37,99,235,0.15); }
+.icon-row-callout.success { background: var(--success-bg); border-color: rgba(34,197,94,0.15); }
+.icon-row-callout-lead {
+  width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--map-primary-500), var(--brand-gradient-end)); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 12px var(--brand-shadow);
+}
+.icon-row-callout.danger  .icon-row-callout-lead { background: linear-gradient(135deg, var(--danger),  #FCA5A5); box-shadow: 0 4px 12px rgba(239,68,68,0.25); }
+.icon-row-callout.warning .icon-row-callout-lead { background: linear-gradient(135deg, var(--warning), #FCD34D); box-shadow: 0 4px 12px rgba(245,158,11,0.25); }
+.icon-row-callout.info    .icon-row-callout-lead { background: linear-gradient(135deg, var(--info),    #93C5FD); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+.icon-row-callout.success .icon-row-callout-lead { background: linear-gradient(135deg, var(--success), #86EFAC); box-shadow: 0 4px 12px rgba(34,197,94,0.25); }
+.icon-row-callout-lead svg { width: 18px; height: 18px; }
+.icon-row-callout-body { flex: 1; min-width: 0; }
+.icon-row-callout-title { font-size: 15px; font-weight: 700; color: var(--text-1); line-height: 1.5; margin-bottom: 6px; }
+.icon-row-callout-text  { font-size: 14px; color: var(--text-3); line-height: 1.65; }
+.icon-row-callout-action { margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--brand); display: flex; align-items: center; gap: 6px; }
+.icon-row-callout-action svg { width: 13px; height: 13px; flex-shrink: 0; }
+/* variant: list-card */
+.icon-row-card { background: var(--bg-card); border-radius: var(--radius); border: 1px solid var(--border-subtle); padding: 20px 24px; }
+.icon-row-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.icon-row-items { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.icon-row-items li { font-size: 14px; color: var(--text-1); line-height: 1.6; padding-left: 14px; position: relative; }
+.icon-row-items li::before { content: ''; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--text-4); }
+
+/* ── 07 摘要块 @summary-block ── */
+.summary-block {
+  background: var(--bg-card); border-left: 4px solid var(--brand);
+  border: 1px solid var(--border-subtle); border-left: 4px solid var(--brand);
+  border-radius: var(--radius); padding: 20px 24px;
+  font-size: 15px; font-weight: 500; color: var(--text-1); line-height: 1.7;
+}
+
+/* ── 08 人员卡 @person-card ── */
+.person-list { display: flex; flex-direction: column; gap: 12px; }
+.person-card {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--bg-card); border-radius: var(--radius);
+  border: 1px solid var(--border-subtle); padding: 16px 20px;
+}
+.person-avatar {
+  width: 40px; height: 40px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.person-avatar.eb    { background: linear-gradient(135deg, #FF522A, #FCA5A5); }
+.person-avatar.coach { background: linear-gradient(135deg, #30C776, #86EFAC); }
+.person-avatar.tb    { background: linear-gradient(135deg, #0C6CFF, #93C5FD); }
+.person-avatar.gk    { background: linear-gradient(135deg, #FF7C19, #FCD34D); }
+.person-info { flex: 1; min-width: 0; }
+.person-name { font-size: 16px; font-weight: 700; color: var(--text-1); display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.person-role { font-size: 13px; font-weight: 400; color: var(--text-3); }
+.person-note { font-size: 14px; color: var(--text-3); margin-top: 2px; }
+
+
+/* ── 09 KV 网格 @inner-grid ── */
+.inner-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.inner-card { background: var(--bg-inset); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 14px 16px; }
+.inner-card.danger  { background: var(--danger-bg);  border-color: rgba(239,68,68,0.15); }
+.inner-card.warning { background: var(--warning-bg); border-color: rgba(245,158,11,0.15); }
+.inner-card.success { background: var(--success-bg); border-color: rgba(34,197,94,0.15); }
+.inner-card.info    { background: #EFF6FF; border-color: rgba(37,99,235,0.15); }
+.inner-label { font-size: 11px; color: var(--text-3); font-weight: 500; margin-bottom: 6px; }
+.inner-value { font-size: 14px; font-weight: 600; color: var(--text-1); line-height: 1.5; }
+
+/* ── 10 时间轴 @timeline ── */
+.timeline { display: flex; flex-direction: column; gap: 12px; }
+.timeline-item { display: flex; gap: 16px; align-items: center; }
+.timeline-left { flex-shrink: 0; width: 28px; display: flex; justify-content: center; align-items: center; align-self: stretch; position: relative; }
+.timeline-item:not(:first-child) .timeline-left::before { content: ''; position: absolute; width: 2px; top: -6px; height: calc(50% + 6px); background: var(--border-subtle); left: 50%; transform: translateX(-1px); }
+.timeline-item:not(:last-child) .timeline-left::after { content: ''; position: absolute; width: 2px; top: 50%; bottom: -6px; background: var(--border-subtle); left: 50%; transform: translateX(-1px); }
+.timeline-dot { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #fff; position: relative; z-index: 1; }
+.dot-done   { background: linear-gradient(135deg, var(--success), #86EFAC); box-shadow: 0 2px 8px rgba(34,197,94,0.3); }
+.dot-danger { background: linear-gradient(135deg, var(--danger), #FCA5A5); box-shadow: 0 2px 8px rgba(239,68,68,0.3); }
+.dot-warn   { background: linear-gradient(135deg, var(--warning), #FCD34D); box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.dot-now    { background: linear-gradient(135deg, var(--map-primary-500), var(--brand-gradient-end)); box-shadow: 0 2px 8px var(--brand-shadow); }
+.dot-todo   { background: var(--bg-card); border: 2px solid var(--text-4); color: var(--text-4); box-shadow: none; }
+.timeline-body { flex: 1; min-width: 0; background: var(--bg-card); border-radius: var(--radius); border: 1px solid var(--border-subtle); padding: 16px 20px; }
+.timeline-date { font-size: 11px; color: var(--text-3); font-weight: 500; margin-bottom: 4px; letter-spacing: 0.3px; }
+.timeline-title { font-size: 15px; font-weight: 700; color: var(--text-1); margin-bottom: 8px; line-height: 1.4; }
+.timeline-impact { font-size: 13px; color: var(--text-3); line-height: 1.6; padding-left: 10px; border-left: 3px solid var(--border-base); }
+
+/* ── 11 正文高亮 @highlight ── */
+.hl-danger  { background: var(--danger-soft);  color: var(--danger);  border-radius: 3px; padding: 1px 4px; font-weight: 600; }
+.hl-warning { background: var(--warning-soft); color: var(--warning); border-radius: 3px; padding: 1px 4px; font-weight: 600; }
+.hl-info    { background: var(--info-soft);    color: var(--info);    border-radius: 3px; padding: 1px 4px; font-weight: 600; }
+.hl-success { background: var(--success-soft); color: var(--success); border-radius: 3px; padding: 1px 4px; font-weight: 600; }
+.hl-default { background: var(--bg-subtle);  color: var(--text-2);   border-radius: 3px; padding: 1px 4px; font-weight: 600; }
+
+/* ── 12 方法论折叠 @methodology ── */
+details { background: var(--bg-card); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); }
+summary { padding: 16px 20px; font-size: 14px; font-weight: 600; color: var(--text-2); cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; }
+summary::before { content: '›'; font-size: 18px; color: var(--text-3); transition: transform var(--motion-mid); display: inline-block; }
+details[open] summary::before { transform: rotate(90deg); }
+.methodology-body { padding: 0 20px 16px; font-size: 13px; color: var(--text-3); line-height: 1.7; border-top: 1px dashed var(--border-subtle); padding-top: 16px; }
+
+/* ── 13 图标盒 Icon Box @icon-box ── */
+.icon-box {
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+/* 尺寸 */
+.icon-box.sm { width: 24px; height: 24px; border-radius: var(--map-radius-sm); }
+.icon-box.sm svg { width: 12px; height: 12px; }
+.icon-box.md { width: 32px; height: 32px; border-radius: 8px; }
+.icon-box.md svg { width: 16px; height: 16px; }
+.icon-box.lg { width: 40px; height: 40px; border-radius: 10px; }
+.icon-box.lg svg { width: 20px; height: 20px; }
+/* L1：渐变实底 + 白图标 + 彩色光晕 */
+.icon-box.l1 { color: #fff; }
+.icon-box.l1.orange  { background: linear-gradient(135deg,#FF8000,#FFB347);   box-shadow: 0 4px 12px rgba(255,128,0,0.30); }
+.icon-box.l1.blue    { background: linear-gradient(135deg,#2563EB,#60A5FA);   box-shadow: 0 4px 12px rgba(37,99,235,0.30); }
+.icon-box.l1.green   { background: linear-gradient(135deg,#16A34A,#4ADE80);   box-shadow: 0 4px 12px rgba(22,163,74,0.30); }
+.icon-box.l1.purple  { background: linear-gradient(135deg,#8B5CF6,#C4B5FD);   box-shadow: 0 4px 12px rgba(139,92,246,0.30); }
+.icon-box.l1.danger  { background: linear-gradient(135deg,var(--danger),#FCA5A5);   box-shadow: 0 4px 12px rgba(239,68,68,0.25); }
+.icon-box.l1.warning { background: linear-gradient(135deg,var(--warning),#FCD34D); box-shadow: 0 4px 12px rgba(245,158,11,0.25); }
+.icon-box.l1.success { background: linear-gradient(135deg,var(--success),#86EFAC); box-shadow: 0 4px 12px rgba(34,197,94,0.25); }
+.icon-box.l1.info    { background: linear-gradient(135deg,var(--info),#93C5FD);     box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+/* L2：soft 色底 + 彩色图标 */
+.icon-box.l2.orange  { background: rgba(255,128,0,0.12);   color: #FF8000; }
+.icon-box.l2.blue    { background: rgba(37,99,235,0.10);   color: #2563EB; }
+.icon-box.l2.green   { background: rgba(22,163,74,0.10);   color: #16A34A; }
+.icon-box.l2.purple  { background: rgba(139,92,246,0.10);  color: #8B5CF6; }
+.icon-box.l2.danger  { background: var(--danger-soft);  color: var(--danger); }
+.icon-box.l2.warning { background: var(--warning-soft); color: var(--warning); }
+.icon-box.l2.success { background: var(--success-soft); color: var(--success); }
+.icon-box.l2.info    { background: var(--info-soft);    color: var(--info); }
+/* L3：无底色 + 彩色图标 */
+.icon-box.l3.orange  { color: #FF8000; }
+.icon-box.l3.blue    { color: #2563EB; }
+.icon-box.l3.green   { color: #16A34A; }
+.icon-box.l3.purple  { color: #8B5CF6; }
+.icon-box.l3.danger  { color: var(--danger); }
+.icon-box.l3.warning { color: var(--warning); }
+.icon-box.l3.success { color: var(--success); }
+.icon-box.l3.info    { color: var(--info); }
+
+/* ── Footer ── */
+/* ── 14 Footer @footer ── */
+.footer-bar { border-top: 1px solid var(--border-base); padding: 16px 0 0; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--text-3); }
+.footer-brand { display: flex; align-items: center; gap: 5px; }
+.footer-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); }
+</style>
+</head>
+<body>
+<div style="position:fixed;top:16px;right:16px;z-index:9999;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.9);padding:8px 10px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.1);backdrop-filter:blur(8px)">
+  <button onclick="setTheme('orange')"    style="padding:4px 10px;border-radius:6px;border:none;cursor:pointer;font-size:12px;font-weight:600;background:#FF8000;color:#fff">橙</button>
+  <button onclick="setTheme('blue')"      style="padding:4px 10px;border-radius:6px;border:none;cursor:pointer;font-size:12px;font-weight:600;background:#2563EB;color:#fff">蓝</button>
+  <button onclick="setTheme('green')"     style="padding:4px 10px;border-radius:6px;border:none;cursor:pointer;font-size:12px;font-weight:600;background:#16A34A;color:#fff">绿</button>
+  <button onclick="setTheme('purple')"    style="padding:4px 10px;border-radius:6px;border:none;cursor:pointer;font-size:12px;font-weight:600;background:#8B5CF6;color:#fff">紫</button>
+  <button onclick="setTheme('blackgold')" style="padding:4px 10px;border-radius:6px;border:none;cursor:pointer;font-size:12px;font-weight:600;background:#1C1A14;color:#D4AF37">黑金</button>
+  <span style="width:1px;height:20px;background:rgba(0,0,0,0.12);margin:0 2px"></span>
+  <input type="color" id="colorPicker" value="#FF8000" onchange="setCustomTheme(this.value)" style="width:28px;height:28px;border:none;border-radius:6px;cursor:pointer;padding:2px;background:none">
+  <span style="font-size:11px;color:#666">自定义</span>
+</div>
+<div class="page-title">fx-ui Design Re — 组件库</div>
+<p class="page-sub">结合 DESIGN.md 规则使用 · 每个组件附 CSS class 说明</p>
+
+<!-- 01 报告头 -->
+<div class="section">
+  <div class="section-label">
+    <span>01 · 报告头 Report Header</span>
+    <div class="variant-tabs">
+      <button class="variant-tab active" onclick="switchTab('header', 0, this)">基础版</button>
+      <button class="variant-tab" onclick="switchTab('header', 1, this)">带评分</button>
+    </div>
+  </div>
+
+  <!-- 变体 0：基础版 -->
+  <div class="variant-panel active" data-group="header" data-index="0">
+    <div class="report-header">
+      <div class="header-deco">
+        <div class="hd-blob hd-blob-1"></div>
+        <div class="hd-blob hd-blob-2"></div>
+        <div class="hd-blob hd-blob-3"></div>
+        <div class="hd-noise"></div>
+        <svg width="100%" height="100%" viewBox="0 0 1160 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <circle class="hd-circle-bg" cx="980" cy="-20" r="220" fill="rgba(255,255,255,0.10)"/>
+          <circle class="hd-circle-sm" cx="1100" cy="160" r="140" fill="rgba(255,255,255,0.12)"/>
+          <path class="hd-line-1" d="M600,180 Q750,80 1000,120 Q1100,140 1160,100" stroke="rgba(255,255,255,0.18)" stroke-width="2" fill="none"/>
+          <path class="hd-line-2" d="M500,200 Q680,100 920,150 Q1060,170 1160,140" stroke="rgba(255,255,255,0.10)" stroke-width="1.5" fill="none"/>
+          <circle class="hd-dot hd-dot-1" cx="860" cy="40" r="3" fill="rgba(255,255,255,0.3)"/>
+          <circle class="hd-dot hd-dot-2" cx="920" cy="60" r="2" fill="rgba(255,255,255,0.2)"/>
+          <circle class="hd-dot hd-dot-3" cx="800" cy="70" r="2" fill="rgba(255,255,255,0.2)"/>
+        </svg>
+      </div>
+      <div class="header-body">
+        <div class="header-eyebrow">Sales Report · 2026</div>
+        <h1>商机预测报告 · 2026 年 5 月</h1>
+        <div class="header-meta">
+          <span><i data-lucide="calendar" style="width:14px;height:14px"></i>数据截止 2026-05-28 12:03</span>
+          <span class="divider"></span>
+          <span><i data-lucide="user" style="width:14px;height:14px"></i>制表人：赵丹 Mandy</span>
+        </div>
+      </div>
+    </div>
+    <div class="component-name">渐变 #F06A00→#FF8800→#FFEBD6→#FFFCF7 · 装饰 SVG 绝对定位 · eyebrow 12px uppercase · 标题 34px 700 · meta 毛玻璃胶囊 backdrop-filter:blur(16px)</div>
+  </div>
+
+  <!-- 变体 1：带 score-card -->
+  <div class="variant-panel" data-group="header" data-index="1">
+    <div class="report-header">
+      <div class="header-deco">
+        <div class="hd-blob hd-blob-1"></div>
+        <div class="hd-blob hd-blob-2"></div>
+        <div class="hd-blob hd-blob-3"></div>
+        <div class="hd-noise"></div>
+        <svg width="100%" height="100%" viewBox="0 0 1160 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <circle class="hd-circle-bg" cx="980" cy="-20" r="220" fill="rgba(255,255,255,0.10)"/>
+          <circle class="hd-circle-sm" cx="1100" cy="160" r="140" fill="rgba(255,255,255,0.12)"/>
+          <circle cx="60" cy="40" r="160" fill="rgba(255,255,255,0.08)"/>
+          <path class="hd-line-1" d="M600,220 Q750,100 1000,140 Q1100,160 1160,120" stroke="rgba(255,255,255,0.18)" stroke-width="2" fill="none"/>
+          <path class="hd-line-2" d="M500,240 Q680,120 920,170 Q1060,190 1160,160" stroke="rgba(255,255,255,0.10)" stroke-width="1.5" fill="none"/>
+          <circle class="hd-dot hd-dot-1" cx="860" cy="40" r="3" fill="rgba(255,255,255,0.3)"/>
+          <circle class="hd-dot hd-dot-2" cx="920" cy="70" r="2" fill="rgba(255,255,255,0.2)"/>
+          <circle class="hd-dot hd-dot-3" cx="800" cy="80" r="2" fill="rgba(255,255,255,0.2)"/>
+        </svg>
+      </div>
+      <div class="header-body">
+        <div class="header-eyebrow">Pre-Visit Briefing · ShareCRM</div>
+        <h1>见客简报 · 示例客户有限公司</h1>
+        <div class="header-meta">
+          <span><i data-lucide="calendar" style="width:14px;height:14px"></i>数据截止 2026-05-27</span>
+          <span class="divider"></span>
+          <span><i data-lucide="user" style="width:14px;height:14px"></i>负责人：张三</span>
+        </div>
+        <!-- score-card：可选插槽，无数据时删除整个 div -->
+        <div class="score-card">
+          <div class="sc-num">42</div>
+          <div class="sc-label">就绪度评分</div>
+          <div class="sc-tags">
+            <span class="badge badge-warning">不足</span>
+            <span class="badge badge-default">谈判审核</span>
+            <span class="badge badge-default">1000万</span>
+            <span class="badge badge-success">赢率 80%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="component-name">score-card 白底卡片插槽 · 竖向布局：大数字 → 标签文字 → badge 组 · 无数据时删除整块 · 不用毛玻璃（橙色背景对比度不足）</div>
+  </div>
+</div>
+
+<!-- 02 Section 标题 -->
+<div class="section">
+  <div class="section-label">
+    <span>02 · Section 标题 Section Title</span>
+    <div class="variant-tabs">
+      <button class="variant-tab active" onclick="switchTab('sectitle', 0, this)">基础版</button>
+      <button class="variant-tab" onclick="switchTab('sectitle', 1, this)">带副标题</button>
+    </div>
+  </div>
+
+  <div class="variant-panel active" data-group="sectitle" data-index="0">
+    <div style="background:var(--bg-card);border-radius:var(--radius);padding:24px 32px;border:1px solid var(--border-subtle)">
+      <div class="section-title" style="margin:0">核心指标</div>
+    </div>
+    <div class="component-name">16px 600 fg-1 · ::before 6×12px primary 竖条 + primary-soft 光晕 · ::after 渐变延伸线 · 不用 uppercase</div>
+  </div>
+
+  <div class="variant-panel" data-group="sectitle" data-index="1">
+    <div style="background:var(--bg-card);border-radius:var(--radius);padding:24px 32px;border:1px solid var(--border-subtle)">
+      <div class="section-title" style="margin:0">核心指标<span class="section-subtitle">2026年第23周</span></div>
+    </div>
+    <div class="component-name">section-subtitle 13px fg-3 · 行内插在标题文字后，::after 延伸线自动推到右侧</div>
+  </div>
+</div>
+
+<!-- 03 卡片 -->
+<div class="section">
+  <div class="section-label">
+    <span>03 · 卡片 Cards</span>
+    <div class="variant-tabs">
+      <button class="variant-tab active" onclick="switchTab('cards', 0, this)">KPI 卡片</button>
+      <button class="variant-tab" onclick="switchTab('cards', 1, this)">内部卡片</button>
+    </div>
+  </div>
+  <div class="variant-panel active" data-group="cards" data-index="0">
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-icon c-orange"><i data-lucide="activity"></i></div>
+        <div class="kpi-label">本周拜访数</div>
+        <div><span class="kpi-value">38</span><span class="kpi-unit">次</span><span class="kpi-delta-up">↑ 12%</span></div>
+        <div class="kpi-note">较上周增加 4 次</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon c-blue"><i data-lucide="credit-card"></i></div>
+        <div class="kpi-label">新增商机金额</div>
+        <div><span class="kpi-value">2,840</span><span class="kpi-unit">万</span></div>
+        <div class="kpi-note">置信区间 ±12%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon c-green"><i data-lucide="trending-up"></i></div>
+        <div class="kpi-label">平均赢率</div>
+        <div><span class="kpi-value">64</span><span class="kpi-unit">%</span><span class="kpi-delta-down">↓ 3%</span></div>
+        <div class="kpi-note">低于目标 5pp</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon c-purple"><i data-lucide="clock"></i></div>
+        <div class="kpi-label">平均销售周期</div>
+        <div><span class="kpi-value">47</span><span class="kpi-unit">天</span></div>
+        <div class="kpi-note">缩短 5 天 vs 上期</div>
+      </div>
+    </div>
+    <div class="component-name">白底 · 阴影 0 4px 20px -2px rgba(0,0,0,0.04) · 图标 34×34 绝对定位右上角 渐变实底 · 数值 32px 700 · 环比 ↑success / ↓danger · 无对比数据时不输出</div>
+  </div>
+  <div class="variant-panel" data-group="cards" data-index="1">
+    <div class="inner-grid">
+      <div class="inner-card">
+        <div class="inner-label">今天主目标</div>
+        <div class="inner-value">锁定意向，确认满意度与时间窗口</div>
+      </div>
+      <div class="inner-card">
+        <div class="inner-label">最大风险</div>
+        <div class="inner-value">竞品已明确渗透，客户主动提及</div>
+      </div>
+      <div class="inner-card">
+        <div class="inner-label">最关键的人</div>
+        <div class="inner-value">赵大 · 关键决策人（EB候选）</div>
+      </div>
+      <div class="inner-card">
+        <div class="inner-label">第一句话</div>
+        <div class="inner-value">"上次合作最顺的功能是哪个？"</div>
+      </div>
+      <div class="inner-card danger">
+        <div class="inner-label">绝对不要做</div>
+        <div class="inner-value">未确认满意度前不谈续约价格</div>
+      </div>
+    </div>
+    <div class="component-name">内部卡片：surface-sub 灰底 + border-soft 细边框 + radius-sm，无投影 · 嵌套在其他卡片/区块内 · 独立卡片（KPI）才用白底+阴影 · 变体 danger/warning/success/info 加左侧 4px 彩色边框</div>
+  </div>
+</div>
+
+<!-- 04 图表容器 -->
+<div class="section">
+  <div class="section-label">04 · 图表容器 Chart Container</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div class="chart-card">
+      <div class="chart-card-title">各阶段商机数量</div>
+      <div class="chart-card-sub">按销售阶段分布</div>
+      <div class="chart-placeholder">柱图 Chart.js · canvas 外层须有显式高度父容器</div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-card-title">金额占比</div>
+      <div class="chart-card-sub">按商机规模分布</div>
+      <div class="chart-placeholder">圆环图 Chart.js · cutout 62% · 白色 2px 边框</div>
+    </div>
+  </div>
+  <div class="component-name">白底 · padding 24px · 柱图 --primary · 折线 --chart-9 · 多系列从 --chart-1 顺序取色 · canvas 父容器需显式 height</div>
+</div>
+
+<!-- 05 数据表 -->
+<div class="section">
+  <div class="section-label">05 · 数据表 Data Table</div>
+  <div class="table-card">
+    <table class="data-table">
+      <thead>
+        <tr><th>商机名称</th><th>负责人</th><th class="text-right">金额</th><th>赢率</th><th>阶段</th><th class="nowrap">结单日期</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><div class="cell-clamp">河北延庆科技城完美生态网络科技有限公司 ERP 采购项目</div></td><td>张明</td><td class="text-right">¥ 320,000</td><td><span class="badge badge-success">82%</span></td><td><span class="badge badge-success">谈判审核</span></td><td class="nowrap">2026-06-03</td></tr>
+        <tr><td><div class="cell-clamp">区域经销商系统升级</div></td><td>李华</td><td class="text-right">¥ 180,000</td><td><span class="badge badge-info">55%</span></td><td><span class="badge badge-info">方案/报价</span></td><td class="nowrap">2026-05-31</td></tr>
+        <tr><td><div class="cell-clamp">中型制造企业导入</div></td><td>王芳</td><td class="text-right">¥ 95,000</td><td><span class="badge badge-warning">32%</span></td><td><span class="badge badge-warning">需求确定</span></td><td class="nowrap">2026-06-01</td></tr>
+        <tr><td><div class="cell-clamp">初创公司试用转化</div></td><td style="color:var(--text-3)">陈刚</td><td class="text-right" style="color:var(--text-3)">¥ 28,000</td><td><span class="badge badge-danger">15%</span></td><td><span class="badge badge-default">已停用</span></td><td class="nowrap">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="component-name">所有文字列统一 fg-1 · 名称列 .cell-clamp 3行截断 · 数字/金额 600 tabular-nums nowrap · 日期 nowrap · 百分比/阶段用 badge · 停用人员名字 fg-3 + badge-default</div>
+</div>
+
+<!-- 06 图标行列表 -->
+<div class="section">
+  <div class="section-label">
+    <span>06 · 图标行列表 Icon Row</span>
+    <div class="variant-tabs">
+      <button class="variant-tab active" onclick="switchTab('iconrow', 0, this)">洞察（图标）</button>
+      <button class="variant-tab" onclick="switchTab('iconrow', 1, this)">行动·基础</button>
+      <button class="variant-tab" onclick="switchTab('iconrow', 2, this)">行动·引导语</button>
+      <button class="variant-tab" onclick="switchTab('iconrow', 3, this)">行动·唯一行动</button>
+      <button class="variant-tab" onclick="switchTab('iconrow', 4, this)">清单列表</button>
+    </div>
+  </div>
+
+  <!-- 变体 0：洞察（图标） -->
+  <div class="variant-panel active" data-group="iconrow" data-index="0">
+    <div class="icon-row-list">
+      <div class="icon-row-item">
+        <div class="icon-row-lead icon danger"><i data-lucide="alert-circle"></i></div>
+        <div class="icon-row-body">
+          <span class="icon-row-title">人员流失风险</span>
+          <p class="icon-row-text">3 名高绩效销售员工共持有 <strong>¥ 820 万</strong>在途商机，占总额 29%，集中度偏高。</p>
+        </div>
+      </div>
+      <div class="icon-row-item">
+        <div class="icon-row-lead icon warning"><i data-lucide="alert-triangle"></i></div>
+        <div class="icon-row-body">
+          <span class="icon-row-title">行业集中度偏高</span>
+          <p class="icon-row-text">制造业商机占比 62%，建议适当拓展金融、零售等行业以分散风险。</p>
+        </div>
+      </div>
+      <div class="icon-row-item">
+        <div class="icon-row-lead icon info"><i data-lucide="bar-chart-2"></i></div>
+        <div class="icon-row-body">
+          <span class="icon-row-title">模型置信度说明</span>
+          <p class="icon-row-text">本次预测基于近 12 个月历史数据，置信区间 ±12%，受季节性因素影响。</p>
+        </div>
+      </div>
+      <div class="icon-row-item">
+        <div class="icon-row-lead icon success"><i data-lucide="target"></i></div>
+        <div class="icon-row-body">
+          <span class="icon-row-title">建议行动</span>
+          <p class="icon-row-text">优先推进"谈判审核"阶段的 24 个商机，预计可在本季度贡献 <strong>¥ 1,200 万</strong>收入。</p>
+        </div>
+      </div>
+    </div>
+    <div class="component-name">lead.icon 40×40 · 语义色 danger/warning/info/success/primary · icon-row-title 14px 700 block · icon-row-text 14px fg-2</div>
+  </div>
+
+  <!-- 变体 1：行动·基础 -->
+  <div class="variant-panel" data-group="iconrow" data-index="1">
+    <div class="icon-row-list">
+      <div class="icon-row-item">
+        <div class="icon-row-lead num">1</div>
+        <div class="icon-row-body">
+          <span class="icon-row-title">与王书记建立对等连接</span>
+          <p class="icon-row-text">以"智慧农业数字化专家"身份，分享行业趋势和标杆案例，帮助其理解项目战略价值。</p>
+        </div>
+      </div>
+      <div class="icon-row-item">
+        <div class="icon-row-lead num">2</div>
+        <div class="icon-row-body">
+          <span class="icon-row-title">探测上级审批链</span>
+          <p class="icon-row-text">以关心项目推进节奏的方式，自然了解审批流程和关键节点。</p>
+        </div>
+      </div>
+      <div class="icon-row-item">
+        <div class="icon-row-lead num">3</div>
+        <div class="icon-row-body">
+          <span class="icon-row-title">巩固技术信任</span>
+          <p class="icon-row-text">与李副局长深入交流技术方案，展示数字孪生和物联网领域落地能力。</p>
+        </div>
+      </div>
+    </div>
+    <div class="component-name">lead.num 28×28 渐变实底 · icon-row-title block + icon-row-text 各占一行</div>
+  </div>
+
+  <!-- 变体 2：行动·带引导语 -->
+  <div class="variant-panel" data-group="iconrow" data-index="2">
+    <div class="icon-row-list">
+      <div class="icon-row-item">
+        <div class="icon-row-lead num">1</div>
+        <div class="icon-row-body">
+          <div class="icon-row-head"><strong>打开"30天没结论"这个结</strong><span class="badge badge-danger">P0 首要</span></div>
+          <div class="icon-row-quote">"上次您说一周内给结论，后来发生了什么？"</div>
+        </div>
+      </div>
+      <div class="icon-row-item">
+        <div class="icon-row-lead num">2</div>
+        <div class="icon-row-body">
+          <div class="icon-row-head"><strong>探明预算批复时间</strong><span class="badge badge-warning">P0 关键</span></div>
+          <div class="icon-row-quote">"这个预算现在是走到哪一步了？预计什么时候能批复？"</div>
+        </div>
+      </div>
+      <div class="icon-row-item">
+        <div class="icon-row-lead num">3</div>
+        <div class="icon-row-body">
+          <div class="icon-row-head"><strong>确认无网移动端必选条件</strong><span class="badge badge-info">会前</span></div>
+          <div class="icon-row-quote">会前联系 SE 确认能力边界，现场只说"正在核实中"，不做承诺。</div>
+        </div>
+      </div>
+    </div>
+    <div class="component-name">icon-row-head = strong + badge 优先级 · icon-row-quote 13px fg-3 italic</div>
+  </div>
+
+  <!-- 变体 3：行动·带唯一行动 -->
+  <div class="variant-panel" data-group="iconrow" data-index="3">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="icon-row-callout">
+        <div class="icon-row-callout-lead">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div class="icon-row-callout-body">
+          <div class="icon-row-callout-title">如果今天只能做一件事</div>
+          <div class="icon-row-callout-action">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            让林姐亲口说出"这个项目现在卡在哪里"
+          </div>
+        </div>
+      </div>
+      <div class="icon-row-callout danger">
+        <div class="icon-row-callout-lead">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="icon-row-callout-body">
+          <div class="icon-row-callout-title">竞品风险：客户明确表达对竞品的好感</div>
+          <div class="icon-row-callout-text">需求调研中客户主动提及，且用词积极。这不是随口一提，而是有意识的对比信号，今天必须正面回应。</div>
+          <div class="icon-row-callout-action">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            今天 P0：先让客户展开"竞品哪里好"，再引导对比差异化价值
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="component-name">icon-row-callout · 默认橙色 / 变体 .danger .warning .info .success · callout-title 15px 700 + callout-text 14px fg-3 + callout-action 13px primary（可选）</div>
+  </div>
+
+  <!-- 变体 4：清单列表 -->
+  <div class="variant-panel" data-group="iconrow" data-index="4">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div class="icon-row-card">
+        <div class="icon-row-header">
+          <div class="icon-row-lead icon danger"><i data-lucide="x-circle"></i></div>
+          <span class="icon-row-title">底线（不得触碰）</span>
+        </div>
+        <ul class="icon-row-items">
+          <li>不推签约（预算申请中）</li>
+          <li>不承诺无网移动端（未确认）</li>
+          <li>不替备件数据问题背锅</li>
+        </ul>
+      </div>
+      <div class="icon-row-card">
+        <div class="icon-row-header">
+          <div class="icon-row-lead icon success"><i data-lucide="check-square"></i></div>
+          <span class="icon-row-title">必选条件</span>
+        </div>
+        <ul class="icon-row-items">
+          <li>移动端在无网环境下可用</li>
+          <li>价格在预算范围内</li>
+        </ul>
+      </div>
+    </div>
+    <div class="component-name">icon-row-card = 单卡片容器 · icon-row-header = lead + title · icon-row-items = 无序列表，— 前缀，14px fg-1</div>
+  </div>
+</div>
+
+<!-- 07 摘要块 -->
+<div class="section">
+  <div class="section-label">07 · 摘要块 Summary Block</div>
+  <div class="summary-block">
+    项目总规模约 <strong>680 万</strong>，<mark class="hl-warning">决策人态度中立</mark>，竞品已在接触。
+    <mark class="hl-info">需领导以行业专家身份介入破局</mark>，探测上级审批链并推动态度转化。
+  </div>
+  <div class="component-name">白底 + border-left 4px --primary · border-radius 16px · 15px 500 fg-1 行高 1.7 · 金额 &lt;strong&gt; · 关键短语 hl-* 高亮（每段≤3处）</div>
+</div>
+
+<!-- 08 人员卡 -->
+<div class="section">
+  <div class="section-label">08 · 人员卡 Person Card</div>
+  <div class="person-list">
+    <div class="person-card">
+      <div class="person-avatar eb">王</div>
+      <div class="person-info">
+        <div class="person-name">王书记 · 党委书记<span class="person-role">最高决策者 · EB</span></div>
+        <div class="person-note">项目最终审批人，需领导重点攻克</div>
+      </div>
+      <span class="badge badge-warning">中立</span>
+    </div>
+    <div class="person-card">
+      <div class="person-avatar coach">李</div>
+      <div class="person-info">
+        <div class="person-name">李副局长 · 副局长<span class="person-role">技术分管 · 项目推动者</span></div>
+        <div class="person-note">支持我方方案，可作为内部推动力</div>
+      </div>
+      <span class="badge badge-success">支持</span>
+    </div>
+  </div>
+  <div class="component-name">头像 40×40 border-radius:12px · 角色渐变：EB=红 / Coach=绿 / TB=蓝 / GK=橙 · person-name 14px 700 · 右侧 badge 标注态度</div>
+</div>
+
+<!-- 09 时间轴 -->
+<div class="section">
+  <div class="section-label">09 · 时间轴 Timeline</div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-dot dot-done"><i data-lucide="check" style="width:14px;height:14px"></i></div>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-date">2024-01</div>
+        <div class="timeline-title">已完成里程碑标题</div>
+        <div class="timeline-impact">今天影响：说明对今天准备的具体影响。</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-dot dot-danger"><i data-lucide="x-circle" style="width:13px;height:13px"></i></div>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-date">2025-03-28</div>
+        <div class="timeline-title">已过期 / 未完成节点标题</div>
+        <div class="timeline-impact">今天影响：说明超期对今天的具体影响。</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-dot dot-now"><i data-lucide="calendar" style="width:13px;height:13px"></i></div>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-date">今天</div>
+        <div class="timeline-title">进行中节点标题</div>
+        <div class="timeline-impact">今天动作：说明今天要做的具体动作。</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-dot dot-todo"></div>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-date">待定</div>
+        <div class="timeline-title">未进行节点标题</div>
+        <div class="timeline-impact">尚未开始，无今日影响。</div>
+      </div>
+    </div>
+  </div>
+  <div class="component-name">dot-done=已完成(绿) · dot-danger=已过期/未完成(红) · dot-now=进行中(橙) · dot-todo=未进行(hollow灰) · dot-warn=风险(黄，非时间态)</div>
+</div>
+
+<!-- 11 正文高亮 hl-* -->
+<div class="section">
+  <div class="section-label">10 · 正文高亮 Highlight Marks</div>
+  <div style="background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-subtle);padding:24px;font-size:14px;line-height:2">
+    <mark class="hl-danger">已确认负面事实</mark> · "已经坏了"（失败/缺失/归零/逾期）<br>
+    <mark class="hl-warning">存在但未爆发的风险</mark> · "可能会坏"（隐患/态度中立/待跟进）<br>
+    <mark class="hl-info">明确的行动建议</mark> · "该做这个"（next step/需要做的事）<br>
+    <mark class="hl-success">已确认正面事实</mark> · "这个好了"（达标/支持我方/已解决）<br>
+    <mark class="hl-default">中性强调</mark> · "注意看这"（关键数字/时间节点/专有名词）
+  </div>
+  <div class="component-name">每段≤3处高亮 · 金额优先 &lt;strong&gt; 加粗不加底色 · 若需语义强调（如"亏损680万"）可叠加 hl-danger</div>
+</div>
+
+
+<!-- 12 方法论折叠 -->
+<div class="section">
+  <div class="section-label">11 · 方法论折叠 Methodology</div>
+  <details open>
+    <summary>预测方法论</summary>
+    <div class="methodology-body">
+      本报告采用加权漏斗模型，结合历史赢单率和当前销售阶段进行收入预测。赢率计算基于近 12 个月同阶段历史成交数据，按行业、商机规模、销售代表历史表现三维加权。置信区间通过蒙特卡洛模拟（1,000 次迭代）得出。
+    </div>
+  </details>
+  <div class="component-name">&lt;details&gt; + &lt;summary&gt; · 箭头 › 旋转动画 0.2s · 正文 13px fg-3 行高 1.7 · border-top dashed</div>
+</div>
+
+<!-- 13 图标盒 -->
+<div class="section">
+  <div class="section-label">13 · 图标盒 Icon Box · 3级 × 4色 × 3尺寸</div>
+
+  <!-- L1 渐变实底 -->
+  <div style="margin-bottom:8px;font-size:12px;font-weight:600;color:var(--text-3)">L1 · 渐变实底（KPI 卡、洞察块主标题）</div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px">
+    <div class="icon-box l1 sm orange"><i data-lucide="zap"></i></div>
+    <div class="icon-box l1 md orange"><i data-lucide="zap"></i></div>
+    <div class="icon-box l1 lg orange"><i data-lucide="zap"></i></div>
+    <div style="width:1px;height:32px;background:var(--border-base)"></div>
+    <div class="icon-box l1 md orange"><i data-lucide="zap"></i></div>
+    <div class="icon-box l1 md blue"><i data-lucide="bar-chart-2"></i></div>
+    <div class="icon-box l1 md green"><i data-lucide="trending-up"></i></div>
+    <div class="icon-box l1 md purple"><i data-lucide="sparkles"></i></div>
+    <div style="width:1px;height:32px;background:var(--border-base)"></div>
+    <div class="icon-box l1 md danger"><i data-lucide="alert-triangle"></i></div>
+    <div class="icon-box l1 md warning"><i data-lucide="clock"></i></div>
+    <div class="icon-box l1 md success"><i data-lucide="check-circle"></i></div>
+    <div class="icon-box l1 md info"><i data-lucide="info"></i></div>
+  </div>
+
+  <!-- L2 soft 色底 -->
+  <div style="margin-bottom:8px;font-size:12px;font-weight:600;color:var(--text-3)">L2 · soft 色底（列表项、次要说明、表格状态）</div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px">
+    <div class="icon-box l2 sm orange"><i data-lucide="zap"></i></div>
+    <div class="icon-box l2 md orange"><i data-lucide="zap"></i></div>
+    <div class="icon-box l2 lg orange"><i data-lucide="zap"></i></div>
+    <div style="width:1px;height:32px;background:var(--border-base)"></div>
+    <div class="icon-box l2 md orange"><i data-lucide="zap"></i></div>
+    <div class="icon-box l2 md blue"><i data-lucide="bar-chart-2"></i></div>
+    <div class="icon-box l2 md green"><i data-lucide="trending-up"></i></div>
+    <div class="icon-box l2 md purple"><i data-lucide="sparkles"></i></div>
+    <div style="width:1px;height:32px;background:var(--border-base)"></div>
+    <div class="icon-box l2 md danger"><i data-lucide="alert-triangle"></i></div>
+    <div class="icon-box l2 md warning"><i data-lucide="clock"></i></div>
+    <div class="icon-box l2 md success"><i data-lucide="check-circle"></i></div>
+    <div class="icon-box l2 md info"><i data-lucide="info"></i></div>
+  </div>
+
+  <!-- L3 无底色 -->
+  <div style="margin-bottom:8px;font-size:12px;font-weight:600;color:var(--text-3)">L3 · 无底色（正文内嵌、tab 标签、辅助说明）</div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+    <div class="icon-box l3 sm orange"><i data-lucide="zap"></i></div>
+    <div class="icon-box l3 md orange"><i data-lucide="zap"></i></div>
+    <div class="icon-box l3 lg orange"><i data-lucide="zap"></i></div>
+    <div style="width:1px;height:32px;background:var(--border-base)"></div>
+    <div class="icon-box l3 md orange"><i data-lucide="zap"></i></div>
+    <div class="icon-box l3 md blue"><i data-lucide="bar-chart-2"></i></div>
+    <div class="icon-box l3 md green"><i data-lucide="trending-up"></i></div>
+    <div class="icon-box l3 md purple"><i data-lucide="sparkles"></i></div>
+    <div style="width:1px;height:32px;background:var(--border-base)"></div>
+    <div class="icon-box l3 md danger"><i data-lucide="alert-triangle"></i></div>
+    <div class="icon-box l3 md warning"><i data-lucide="clock"></i></div>
+    <div class="icon-box l3 md success"><i data-lucide="check-circle"></i></div>
+    <div class="icon-box l3 md info"><i data-lucide="info"></i></div>
+  </div>
+
+  <div class="component-name">.icon-box · 级别 l1/l2/l3 · 尺寸 sm(24)/md(32)/lg(40) · 固定色 orange/blue/green/purple · 语义色 danger/warning/success/info</div>
+</div>
+
+<!-- Footer -->
+<div class="section">
+  <div class="section-label">12 · Footer</div>
+  <div style="background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-subtle);padding:16px 20px">
+    <div class="footer-bar">
+      <span>数据来源：纷享销客 ShareCRM · 仅供内部决策参考</span>
+      <div class="footer-brand">
+        <div class="footer-dot"></div>
+        <span>fx-ui Design Re</span>
+      </div>
+    </div>
+  </div>
+  <div class="component-name">border-top border · 11.5px fg-3 · 右侧橙点 + 系统名</div>
+</div>
+
+<script>
+lucide.createIcons();
+var themes = {
+  orange:    {'--seed-primary':'#FF8000','--seed-bg':'#FFFCF7','--map-primary-50':'#FFF7E6','--map-primary-100':'#FFE9C0','--map-primary-500':'#FF8000','--map-primary-700':'#D96500','--brand':'#FF8000','--brand-subtle':'#FFF7E6','--brand-shadow':'rgba(255,128,0,0.25)','--brand-gradient-end':'#FFE9C0','--text-1':'#181C25','--text-2':'#545861','--text-3':'#91959E','--text-4':'#C1C5CE','--bg-page':'#FFFCF7','--bg-card':'#FFFFFF','--bg-subtle':'#F2F3F5','--bg-inset':'#F8F9FA','--border-base':'#DEE1E8','--border-subtle':'#EAEBEE','--danger-bg':'#FFF1F2','--warning-bg':'#FFFBEB','--success-bg':'#F0FDF4','--info-bg':'#EFF6FF','--danger-soft':'#FEE2E2','--warning-soft':'#FEF3C7','--success-soft':'#DCFCE7','--info-soft':'#DBEAFE'},
+  blue:      {'--seed-primary':'#2563EB','--seed-bg':'#F8FAFF','--map-primary-50':'#EFF6FF','--map-primary-100':'#DBEAFE','--map-primary-500':'#2563EB','--map-primary-700':'#1D4ED8','--brand':'#2563EB','--brand-subtle':'#EFF6FF','--brand-shadow':'rgba(37,99,235,0.25)','--brand-gradient-end':'#DBEAFE','--text-1':'#181C25','--text-2':'#545861','--text-3':'#91959E','--text-4':'#C1C5CE','--bg-page':'#F8FAFF','--bg-card':'#FFFFFF','--bg-subtle':'#F2F3F5','--bg-inset':'#F8F9FA','--border-base':'#DEE1E8','--border-subtle':'#EAEBEE','--danger-bg':'#FFF1F2','--warning-bg':'#FFFBEB','--success-bg':'#F0FDF4','--info-bg':'#EFF6FF','--danger-soft':'#FEE2E2','--warning-soft':'#FEF3C7','--success-soft':'#DCFCE7','--info-soft':'#DBEAFE'},
+  green:     {'--seed-primary':'#16A34A','--seed-bg':'#F7FDF9','--map-primary-50':'#F0FDF4','--map-primary-100':'#DCFCE7','--map-primary-500':'#16A34A','--map-primary-700':'#15803D','--brand':'#16A34A','--brand-subtle':'#F0FDF4','--brand-shadow':'rgba(22,163,74,0.25)','--brand-gradient-end':'#DCFCE7','--text-1':'#181C25','--text-2':'#545861','--text-3':'#91959E','--text-4':'#C1C5CE','--bg-page':'#F7FDF9','--bg-card':'#FFFFFF','--bg-subtle':'#F2F3F5','--bg-inset':'#F8F9FA','--border-base':'#DEE1E8','--border-subtle':'#EAEBEE','--danger-bg':'#FFF1F2','--warning-bg':'#FFFBEB','--success-bg':'#F0FDF4','--info-bg':'#EFF6FF','--danger-soft':'#FEE2E2','--warning-soft':'#FEF3C7','--success-soft':'#DCFCE7','--info-soft':'#DBEAFE'},
+  purple:    {'--seed-primary':'#8B5CF6','--seed-bg':'#FDFAFF','--map-primary-50':'#F5F3FF','--map-primary-100':'#EDE9FE','--map-primary-500':'#8B5CF6','--map-primary-700':'#6D28D9','--brand':'#8B5CF6','--brand-subtle':'#F5F3FF','--brand-shadow':'rgba(139,92,246,0.25)','--brand-gradient-end':'#EDE9FE','--text-1':'#181C25','--text-2':'#545861','--text-3':'#91959E','--text-4':'#C1C5CE','--bg-page':'#FDFAFF','--bg-card':'#FFFFFF','--bg-subtle':'#F2F3F5','--bg-inset':'#F8F9FA','--border-base':'#DEE1E8','--border-subtle':'#EAEBEE','--danger-bg':'#FFF1F2','--warning-bg':'#FFFBEB','--success-bg':'#F0FDF4','--info-bg':'#EFF6FF','--danger-soft':'#FEE2E2','--warning-soft':'#FEF3C7','--success-soft':'#DCFCE7','--info-soft':'#DBEAFE'},
+  blackgold: {'--seed-primary':'#D4AF37','--seed-bg':'#0F0E0B','--map-primary-50':'#2A2510','--map-primary-100':'#4A4120','--map-primary-500':'#D4AF37','--map-primary-700':'#F0D060','--brand':'#D4AF37','--brand-subtle':'#2A2510','--brand-shadow':'rgba(212,175,55,0.25)','--text-1':'#F5F0E8','--text-2':'#C8C0A8','--text-3':'#8A8070','--text-4':'#4A4540','--bg-page':'#0F0E0B','--bg-card':'#1C1A14','--bg-subtle':'#252218','--bg-inset':'#2A2720','--border-base':'#3A3520','--border-subtle':'#302C1C','--danger-bg':'#2A1215','--warning-bg':'#2A2010','--success-bg':'#0F2418','--info-bg':'#101828','--danger-soft':'#3A1820','--warning-soft':'#332510','--success-soft':'#1A3525','--info-soft':'#152030','--brand-gradient-end':'#F0D060','--shadow-1':'0 2px 12px rgba(0,0,0,0.20)','--shadow-2':'0 4px 20px -2px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.20)','--shadow-3':'0 8px 28px -4px rgba(0,0,0,0.50)'}
+};
+function setTheme(name) {
+  var t = themes[name]; var r = document.documentElement.style;
+  Object.keys(t).forEach(function(k){ r.setProperty(k, t[k]); });
+}
+
+/* ── 色阶自动推导 ── */
+function hexToHsl(hex) {
+  var r=parseInt(hex.slice(1,3),16)/255, g=parseInt(hex.slice(3,5),16)/255, b=parseInt(hex.slice(5,7),16)/255;
+  var max=Math.max(r,g,b), min=Math.min(r,g,b), h,s,l=(max+min)/2;
+  if(max===min){h=s=0;}
+  else{var d=max-min; s=l>0.5?d/(2-max-min):d/(max+min);
+    switch(max){case r:h=((g-b)/d+(g<b?6:0))/6;break; case g:h=((b-r)/d+2)/6;break; default:h=((r-g)/d+4)/6;}
+  }
+  return{h:h*360, s:s*100, l:l*100};
+}
+function hslToHex(h,s,l){
+  h/=360; s/=100; l/=100;
+  var r,g,b;
+  if(s===0){r=g=b=l;}
+  else{
+    var q=l<0.5?l*(1+s):l+s-l*s, p=2*l-q;
+    var hue2rgb=function(p,q,t){if(t<0)t+=1;if(t>1)t-=1;if(t<1/6)return p+(q-p)*6*t;if(t<1/2)return q;if(t<2/3)return p+(q-p)*(2/3-t)*6;return p;};
+    r=hue2rgb(p,q,h+1/3); g=hue2rgb(p,q,h); b=hue2rgb(p,q,h-1/3);
+  }
+  return'#'+[r,g,b].map(function(x){return Math.round(x*255).toString(16).padStart(2,'0');}).join('');
+}
+function generatePalette(hex) {
+  var c=hexToHsl(hex), h=c.h, s=c.s, l=c.l;
+  var ri=parseInt(hex.slice(1,3),16), gi=parseInt(hex.slice(3,5),16), bi=parseInt(hex.slice(5,7),16);
+  var p50 =hslToHex(h, Math.max(s*0.12,4), Math.min(l+(100-l)*0.93,98));
+  var p100=hslToHex(h, Math.max(s*0.22,7), Math.min(l+(100-l)*0.78,95));
+  var p700=hslToHex(h, Math.min(s*1.05,100), Math.max(l*0.72,15));
+  var bgHex=hslToHex(h, Math.max(s*0.08,3), Math.min(l+(100-l)*0.96,99));
+  return {
+    '--seed-primary':hex, '--seed-bg':bgHex,
+    '--map-primary-50':p50, '--map-primary-100':p100, '--map-primary-500':hex, '--map-primary-700':p700,
+    '--brand':hex, '--brand-subtle':p50, '--brand-gradient-end':p100,
+    '--brand-shadow':'rgba('+ri+','+gi+','+bi+',0.25)',
+    '--bg-page':bgHex, '--bg-card':'#FFFFFF', '--bg-subtle':'#F2F3F5', '--bg-inset':'#F8F9FA',
+    '--text-1':'#181C25','--text-2':'#545861','--text-3':'#91959E','--text-4':'#C1C5CE',
+    '--border-base':'#DEE1E8','--border-subtle':'#EAEBEE',
+    '--danger-bg':'#FFF1F2','--warning-bg':'#FFFBEB','--success-bg':'#F0FDF4','--info-bg':'#EFF6FF',
+    '--danger-soft':'#FEE2E2','--warning-soft':'#FEF3C7','--success-soft':'#DCFCE7','--info-soft':'#DBEAFE',
+    '--shadow-1':'0 2px 12px rgba(0,0,0,0.03)','--shadow-2':'0 4px 20px -2px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.03)','--shadow-3':'0 8px 28px -4px rgba(0,0,0,0.10)'
+  };
+}
+function setCustomTheme(hex) {
+  var t=generatePalette(hex), r=document.documentElement.style;
+  Object.keys(t).forEach(function(k){r.setProperty(k,t[k]);});
+}
+
+function switchTab(group, index, btn) {
+  // 切换面板
+  document.querySelectorAll('.variant-panel[data-group="' + group + '"]').forEach(function(p) {
+    p.classList.toggle('active', +p.dataset.index === index);
+  });
+  // 切换 tab 高亮
+  btn.closest('.variant-tabs').querySelectorAll('.variant-tab').forEach(function(t, i) {
+    t.classList.toggle('active', i === index);
+  });
+}
+</script>
+</body>
+</html>
