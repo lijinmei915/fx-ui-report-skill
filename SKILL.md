@@ -30,14 +30,16 @@ example_prompt: "用「fx-ui 报告美化」技能把我的报告数据做成一
 
 | 文件 | 默认动作 |
 |------|----------|
-| `assets/data/components.manifest.json` | 优先读取。用于了解组件目录、使用场景和 HTML 片段 |
-| `assets/templates/starter.html` | 作为完整 HTML 底稿复制或引用。不要为了理解 CSS 而分段续读全文 |
+| `assets/data/components.manifest.json` | 优先读取。只用于了解组件目录、使用场景和 HTML 片段，不作为 CSS 真源 |
+| `assets/templates/starter.html` | CSS 与页面骨架唯一真源，作为完整 HTML 底稿复制或引用。不要为了理解 CSS 而分段续读全文 |
 | `references/design.md` | 仅在需要确认视觉规则、主题、间距、排版时读取相关章节 |
 | `references/charts.html` | 仅在需要 Chart.js 配置时读取 |
 | `assets/templates/components.html` | 默认不读；仅当 manifest 片段不足、需要核对某个组件真实结构或 CSS selector 时，按关键词定位后读取相关区段 |
 | `assets/templates/example.html` | 默认不读；仅在需要理解完整报告节奏和信息密度时读取 |
 
 如果运行环境支持文件复制，应直接复制 `starter.html` 作为输出文件，再替换内容区。不要连续多次读取 `starter.html` / `components.html` 的 CSS 区段；这会浪费上下文，并增加生成偏差。
+
+防跑偏规则：`starter.html` 内置 CSS 是最终样式基准；manifest 只提供组件 HTML 片段和用途说明。生成报告时只填真实内容、组合组件、调整 token，不重写组件 CSS，不按记忆自造 class。
 
 ## 通用生成协议
 
