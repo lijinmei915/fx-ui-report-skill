@@ -82,7 +82,7 @@ python3 scripts/build-dist.py
 
 - 先运行 `python3 scripts/check-sync.py` 校验源码；
 - 清空并重建 `dist/fx-ui-report-skill/`；
-- 只复制 skill 必要文件：`SKILL.md`、`CHANGELOG.md`、`USAGE.md`、`agents/`、`assets/`、`references/`、`scripts/check-sync.py`；
+- 只复制 skill 必要文件：`SKILL.md`、`CHANGELOG.md`、`agents/`、`assets/`、`references/`、`scripts/check-sync.py`；
 - 自动给分发包里的 `SKILL.md` frontmatter 追加 `version`、`updated_at`、`build_commit`、`download_url`；
 - 移除 `.DS_Store` 和 `__pycache__`；
 - 在分发目录内再次运行 `scripts/check-sync.py`；
@@ -105,7 +105,7 @@ download_url: "https://github.com/lijinmei915/fx-ui-report-skill/releases/latest
 
 ### 更新说明
 
-对外分发包包含 `CHANGELOG.md`。它用于告诉接入方每个版本改了什么、是否影响使用方式、是否建议重新下载替换。
+对外分发包包含 `CHANGELOG.md`，不包含 `USAGE.md`。`CHANGELOG.md` 用于告诉接入方每个版本改了什么、是否影响使用方式、是否建议重新下载替换；`USAGE.md` 只作为源码仓库内的维护手册。
 
 维护规则：
 

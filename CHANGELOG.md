@@ -2,6 +2,12 @@
 
 All notable changes to `fx-ui-report-skill` are documented here.
 
+## v1.0.6 - 2026-06-12
+
+- Removed `USAGE.md` from the distributed package.
+- Kept `USAGE.md` as a source-repository maintenance guide only.
+- Distribution now keeps user-facing files to `SKILL.md` and `CHANGELOG.md` plus required runtime assets.
+
 ## v1.0.5 - 2026-06-12
 
 - Added `CHANGELOG.md` to the distributed package so users can review update notes after download.
