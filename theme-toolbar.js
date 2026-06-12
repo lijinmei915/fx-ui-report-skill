@@ -47,6 +47,9 @@
     return '#' + [r, g, b].map(function (x) { return Math.round(x * 255).toString(16).padStart(2, '0'); }).join('');
   }
   function h2(n) { return n.toString(16).padStart(2, '0'); }
+  function rgbString(hex) {
+    return parseInt(hex.slice(1, 3), 16) + ',' + parseInt(hex.slice(3, 5), 16) + ',' + parseInt(hex.slice(5, 7), 16);
+  }
   function contentSoftFor(tokens) {
     if (tokens['--brand-content-soft']) return tokens['--brand-content-soft'];
     if (tokens['--bg-card'] && tokens['--bg-card'] !== '#FFFFFF') {
@@ -152,6 +155,35 @@
       '--chart-tooltip-bg': tokens['--bg-card'] || '#FFFFFF'
     };
   }
+  function headerTokensFor(tokens) {
+    var seed = tokens['--seed-primary'] || tokens['--map-primary-500'] || tokens['--brand'] || '#FF8000';
+    var c = hexToHsl(seed);
+    var p50 = tokens['--header-primary-50'] || tokens['--map-primary-50'] || hslToHex(c.h, Math.max(c.s * 0.12, 4), Math.min(c.l + (100 - c.l) * 0.93, 98));
+    var p100 = tokens['--header-primary-100'] || tokens['--map-primary-100'] || hslToHex(c.h, Math.max(c.s * 0.22, 7), Math.min(c.l + (100 - c.l) * 0.78, 95));
+    var p500 = tokens['--header-primary-500'] || seed;
+    var p700 = tokens['--header-primary-700'] || tokens['--map-primary-700'] || hslToHex(c.h, Math.min(c.s * 1.05, 100), Math.max(c.l * 0.72, 15));
+    var headerMid = tokens['--header-primary-mid'];
+    var headerWash = tokens['--header-primary-wash'];
+    if (!headerMid) {
+      headerMid = isDarkTokens(tokens)
+        ? hslToHex(c.h, Math.max(c.s * 0.34, 0), Math.max(c.l * 0.24, 5))
+        : p100;
+    }
+    if (!headerWash) {
+      headerWash = isDarkTokens(tokens)
+        ? hslToHex(c.h, Math.max(c.s * 0.14, 0), 10)
+        : p50;
+    }
+    return {
+      '--header-primary-50': p50,
+      '--header-primary-100': p100,
+      '--header-primary-500': p500,
+      '--header-primary-700': p700,
+      '--header-primary-mid': headerMid,
+      '--header-primary-wash': headerWash,
+      '--header-primary-rgb': rgbString(p500)
+    };
+  }
 
   /* ── 调色板生成 ───────────────────────────────────────────── */
   function generatePalette(hex) {
@@ -162,6 +194,8 @@
     var p50 = hslToHex(h, Math.max(s * 0.12, 4), Math.min(l + (100 - l) * 0.93, 98));
     var p100 = hslToHex(h, Math.max(s * 0.22, 7), Math.min(l + (100 - l) * 0.78, 95));
     var p700 = hslToHex(h, Math.min(s * 1.05, 100), Math.max(l * 0.72, 15));
+    var headerMid = hslToHex(h, Math.max(s * 0.50, 16), Math.min(l + (100 - l) * 0.34, 76));
+    var headerWash = hslToHex(h, Math.max(s * 0.18, 6), Math.min(l + (100 - l) * 0.78, 94));
     var bgHex = hslToHex(h, Math.max(s * 0.08, 3), Math.min(l + (100 - l) * 0.96, 99));
     var lum500 = relLuminance(ri, gi, bi), tooLight = lum500 > 0.30;
     var brandHex = tooLight ? accentLight : hex;
@@ -172,7 +206,7 @@
     var b1r = Math.min(255, ri + 60), b1g = Math.min(255, gi + 60), b1b = Math.min(255, bi + 20);
     var b2r = Math.max(0, ri - 20), b2g = Math.max(0, gi - 40), b2b = Math.min(255, bi + 30);
     var b3r = Math.min(255, ri + 30), b3g = Math.min(255, gi + 30), b3b = Math.min(255, bi + 50);
-    return Object.assign({'--seed-primary': hex, '--seed-bg': bgHex, '--accent-light': accentLight, '--accent-dark': accentDark, '--header-primary-50': p50, '--header-primary-100': p100, '--header-primary-500': hex, '--header-primary-700': p700, '--map-primary-50': p50, '--map-primary-100': p100, '--map-primary-500': hex, '--map-primary-700': p700, '--brand': brandHex, '--brand-subtle': p50, '--brand-content-soft': brandContentSoft, '--brand-gradient-end': p100, '--brand-shadow': 'rgba(' + bR + ',' + bG + ',' + bB + ',0.25)', '--bg-page': bgHex, '--bg-card': '#FFFFFF', '--bg-subtle': '#F2F3F5', '--bg-inset': '#F8F9FA', '--text-1': '#181C25', '--text-2': '#545861', '--text-3': '#91959E', '--text-4': '#C1C5CE', '--border-base': '#DEE1E8', '--border-subtle': '#EAEBEE', '--danger-bg': '#FFF1F2', '--warning-bg': '#FFFBEB', '--success-bg': '#F0FDF4', '--info-bg': '#EFF6FF', '--danger-soft': '#FEE2E2', '--warning-soft': '#FEF3C7', '--success-soft': '#DCFCE7', '--info-soft': '#DBEAFE', '--shadow-1': '0 2px 12px rgba(0,0,0,0.03)', '--shadow-2': '0 4px 20px -2px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.03)', '--shadow-3': '0 8px 28px -4px rgba(0,0,0,0.10)', '--hd-blob-1': 'rgba(' + b1r + ',' + b1g + ',' + b1b + ',0.55)', '--hd-blob-2': 'rgba(' + b2r + ',' + b2g + ',' + b2b + ',0.45)', '--hd-blob-3': 'rgba(' + b3r + ',' + b3g + ',' + b3b + ',0.30)'}, hdTextTokens(p700));
+    return Object.assign({'--seed-primary': hex, '--seed-bg': bgHex, '--accent-light': accentLight, '--accent-dark': accentDark, '--header-primary-50': p50, '--header-primary-100': p100, '--header-primary-500': hex, '--header-primary-700': p700, '--header-primary-mid': headerMid, '--header-primary-wash': headerWash, '--header-primary-rgb': rgbString(hex), '--map-primary-50': p50, '--map-primary-100': p100, '--map-primary-500': hex, '--map-primary-700': p700, '--brand': brandHex, '--brand-subtle': p50, '--brand-content-soft': brandContentSoft, '--brand-gradient-end': p100, '--brand-shadow': 'rgba(' + bR + ',' + bG + ',' + bB + ',0.25)', '--bg-page': bgHex, '--bg-card': '#FFFFFF', '--bg-subtle': '#F2F3F5', '--bg-inset': '#F8F9FA', '--text-1': '#181C25', '--text-2': '#545861', '--text-3': '#91959E', '--text-4': '#C1C5CE', '--border-base': '#DEE1E8', '--border-subtle': '#EAEBEE', '--danger-bg': '#FFF1F2', '--warning-bg': '#FFFBEB', '--success-bg': '#F0FDF4', '--info-bg': '#EFF6FF', '--danger-soft': '#FEE2E2', '--warning-soft': '#FEF3C7', '--success-soft': '#DCFCE7', '--info-soft': '#DBEAFE', '--shadow-1': '0 2px 12px rgba(0,0,0,0.03)', '--shadow-2': '0 4px 20px -2px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.03)', '--shadow-3': '0 8px 28px -4px rgba(0,0,0,0.10)', '--hd-blob-1': 'rgba(' + b1r + ',' + b1g + ',' + b1b + ',0.55)', '--hd-blob-2': 'rgba(' + b2r + ',' + b2g + ',' + b2b + ',0.45)', '--hd-blob-3': 'rgba(' + b3r + ',' + b3g + ',' + b3b + ',0.30)'}, hdTextTokens(p700));
   }
   function generateDarkPalette(hex) {
     var ri = parseInt(hex.slice(1, 3), 16), gi = parseInt(hex.slice(3, 5), 16), bi = parseInt(hex.slice(5, 7), 16);
@@ -184,6 +218,8 @@
     var p700 = hslToHex(h, Math.min(s * 1.05, 100), Math.max(c.l * 0.72, 0));
     var p50 = hslToHex(h, Math.max(s * 0.32, 0), Math.max(c.l * 0.18, 4));
     var p100 = hslToHex(h, Math.max(s * 0.45, 0), Math.max(c.l * 0.34, 7));
+    var headerMid = hslToHex(h, Math.max(s * 0.34, 0), Math.max(c.l * 0.24, 5));
+    var headerWash = hslToHex(h, Math.max(s * 0.14, 0), 10);
     var bgPage = hslToHex(h, Math.max(s * 0.08, 0), 4);
     var bgCard = hslToHex(h, Math.max(s * 0.10, 0), 8);
     var bgSubtle = hslToHex(h, Math.max(s * 0.12, 0), 11);
@@ -197,17 +233,18 @@
     var b1r = Math.min(255, br + 80), b1g = Math.min(255, bgc + 80), b1b = Math.min(255, bbc + 40);
     var b2r = Math.max(0, br - 15), b2g = Math.max(0, bgc - 25), b2b = Math.min(255, bbc + 25);
     var b3r = Math.min(255, br + 50), b3g = Math.min(255, bgc + 50), b3b = Math.min(255, bbc + 60);
-    return Object.assign({'--seed-primary': hex, '--seed-bg': bgPage, '--accent-light': accentLight, '--accent-dark': accentDark, '--header-primary-50': p50, '--header-primary-100': p100, '--header-primary-500': hex, '--header-primary-700': p700, '--map-primary-50': p50, '--map-primary-100': p100, '--map-primary-500': hex, '--map-primary-700': p700, '--brand': brandHex, '--brand-subtle': p50, '--brand-shadow': 'rgba(' + ri + ',' + gi + ',' + bi + ',0.25)', '--brand-gradient-end': p700, '--text-1': text1, '--text-2': text2, '--text-3': text3, '--text-4': text4, '--bg-page': bgPage, '--bg-card': bgCard, '--bg-subtle': bgSubtle, '--bg-inset': bgInset, '--border-base': borderBase, '--border-subtle': borderSubtle, '--danger-bg': '#2A1215', '--warning-bg': '#2A2010', '--success-bg': '#0F2418', '--info-bg': '#101828', '--danger-soft': '#3A1820', '--warning-soft': '#332510', '--success-soft': '#1A3525', '--info-soft': '#152030', '--shadow-1': '0 2px 12px rgba(0,0,0,0.20)', '--shadow-2': '0 4px 20px -2px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.20)', '--shadow-3': '0 8px 28px -4px rgba(0,0,0,0.50)', '--hd-blob-1': 'rgba(' + b1r + ',' + b1g + ',' + b1b + ',0.45)', '--hd-blob-2': 'rgba(' + b2r + ',' + b2g + ',' + b2b + ',0.38)', '--hd-blob-3': 'rgba(' + b3r + ',' + b3g + ',' + b3b + ',0.25)'}, hdTextTokens(p700));
+    return Object.assign({'--seed-primary': hex, '--seed-bg': bgPage, '--accent-light': accentLight, '--accent-dark': accentDark, '--header-primary-50': p50, '--header-primary-100': p100, '--header-primary-500': hex, '--header-primary-700': p700, '--header-primary-mid': headerMid, '--header-primary-wash': headerWash, '--header-primary-rgb': rgbString(hex), '--map-primary-50': p50, '--map-primary-100': p100, '--map-primary-500': hex, '--map-primary-700': p700, '--brand': brandHex, '--brand-subtle': p50, '--brand-shadow': 'rgba(' + ri + ',' + gi + ',' + bi + ',0.25)', '--brand-gradient-end': p700, '--text-1': text1, '--text-2': text2, '--text-3': text3, '--text-4': text4, '--bg-page': bgPage, '--bg-card': bgCard, '--bg-subtle': bgSubtle, '--bg-inset': bgInset, '--border-base': borderBase, '--border-subtle': borderSubtle, '--danger-bg': '#2A1215', '--warning-bg': '#2A2010', '--success-bg': '#0F2418', '--info-bg': '#101828', '--danger-soft': '#3A1820', '--warning-soft': '#332510', '--success-soft': '#1A3525', '--info-soft': '#152030', '--shadow-1': '0 2px 12px rgba(0,0,0,0.20)', '--shadow-2': '0 4px 20px -2px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.20)', '--shadow-3': '0 8px 28px -4px rgba(0,0,0,0.50)', '--hd-blob-1': 'rgba(' + b1r + ',' + b1g + ',' + b1b + ',0.45)', '--hd-blob-2': 'rgba(' + b2r + ',' + b2g + ',' + b2b + ',0.38)', '--hd-blob-3': 'rgba(' + b3r + ',' + b3g + ',' + b3b + ',0.25)'}, hdTextTokens(p700));
   }
 
   /* ── 应用主题（统一出口，dispatch 事件） ─────────────────── */
   function applyTokens(tokens) {
     var contentSoft = contentSoftFor(tokens);
     var contentFg = contentFgFor(tokens, contentSoft);
-    tokens = Object.assign({}, modeAccentTokens(tokens, contentSoft, contentFg), tokens, {
+    tokens = Object.assign({}, headerTokensFor(tokens), modeAccentTokens(tokens, contentSoft, contentFg), tokens, {
       '--brand-content-soft': contentSoft,
       '--brand-content-fg': contentFg
     });
+    doc.documentElement.dataset.fxMode = isDarkTokens(tokens) ? 'dark' : 'light';
     var r = doc.documentElement.style;
     Object.keys(tokens).forEach(function (k) { r.setProperty(k, tokens[k]); });
     doc.dispatchEvent(new CustomEvent('fxthemechange', {detail: tokens}));

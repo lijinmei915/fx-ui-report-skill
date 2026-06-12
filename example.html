@@ -13,7 +13,7 @@
 
     /* ── Map · 颜色 ── */
     --map-primary-50:#FFF7E6; --map-primary-100:#FFE9C0; --map-primary-500:#FF8000; --map-primary-700:#D96500;
-    --header-primary-50:var(--map-primary-50); --header-primary-100:var(--map-primary-100); --header-primary-500:var(--map-primary-500); --header-primary-700:var(--map-primary-700);
+    --header-primary-50:var(--map-primary-50); --header-primary-100:var(--map-primary-100); --header-primary-500:var(--map-primary-500); --header-primary-700:var(--map-primary-700); --header-primary-mid:var(--map-primary-100); --header-primary-wash:var(--map-primary-50); --header-primary-rgb:255,128,0;
 
     /* ── Alias · 文字 ── */
     --text-1:#181C25; --text-2:#545861; --text-3:#91959E; --text-4:#C1C5CE;
@@ -102,6 +102,11 @@
     flex-direction: column;
     overflow: hidden;
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+  :root[data-fx-mode="dark"] .report-header {
+    background:
+      radial-gradient(ellipse at 50% 18%, rgba(var(--header-primary-rgb), 0.34) 0%, rgba(var(--header-primary-rgb), 0.16) 26%, rgba(var(--header-primary-rgb), 0) 58%),
+      linear-gradient(180deg, var(--header-primary-700) 0%, var(--header-primary-mid) 58%, var(--bg-page) 100%);
   }
   /* 极光色块 */
   .hd-blob {
