@@ -1,42 +1,47 @@
-# Changelog
+# 更新说明
 
-All notable changes to `fx-ui-report-skill` are documented here.
+这里记录 `fx-ui-report-skill` 每个公开版本的主要变化。
+
+## v1.0.7 - 2026-06-12
+
+- 将 `CHANGELOG.md` 内容改为中文，便于中文使用者直接阅读。
+- 保留必要英文技术名，例如 `SKILL.md`、`CHANGELOG.md`、`download_url`。
 
 ## v1.0.6 - 2026-06-12
 
-- Removed `USAGE.md` from the distributed package.
-- Kept `USAGE.md` as a source-repository maintenance guide only.
-- Distribution now keeps user-facing files to `SKILL.md` and `CHANGELOG.md` plus required runtime assets.
+- 从对外分发包中移除 `USAGE.md`。
+- `USAGE.md` 仅作为源码仓库里的维护手册保留。
+- 分发包现在只保留用户需要看到的 `SKILL.md`、`CHANGELOG.md`，以及 skill 运行所需资源目录。
 
 ## v1.0.5 - 2026-06-12
 
-- Added `CHANGELOG.md` to the distributed package so users can review update notes after download.
-- Documented the update-note policy in `USAGE.md`.
+- 将 `CHANGELOG.md` 加入对外分发包，方便用户下载后查看更新说明。
+- 在 `USAGE.md` 中补充分发包更新说明的维护规则。
 
 ## v1.0.4 - 2026-06-12
 
-- Removed `VERSION.json` from the distributed package.
-- Kept version visibility in the distributed `SKILL.md` frontmatter:
+- 从对外分发包中移除 `VERSION.json`。
+- 在分发包的 `SKILL.md` frontmatter 中保留版本信息：
   `version`, `updated_at`, `build_commit`, and `download_url`.
 
 ## v1.0.3 - 2026-06-12
 
-- Added automatic version stamping to the distributed `SKILL.md`.
-- Release packages now show version and update date directly in the skill file.
+- 增加分发包 `SKILL.md` 自动写入版本信息的机制。
+- 发布包里的 skill 文件现在会直接显示版本号和更新日期。
 
 ## v1.0.2 - 2026-06-12
 
-- Added package metadata generation during build.
-- Added documentation for package version verification.
+- 增加构建时生成包元数据的机制。
+- 补充包版本核验相关说明。
 
 ## v1.0.1 - 2026-06-12
 
-- Added the generic report generation protocol.
-- Added information buckets, priority rules, component mapping, and hide/compress rules.
-- Included `USAGE.md` in the distributed package.
+- 增加通用报告生成协议。
+- 增加信息桶、优先级、组件映射、隐藏/压缩规则。
+- 将 `USAGE.md` 暂时加入分发包，后续版本已移除。
 
 ## v1.0.0 - 2026-06-12
 
-- Published the first GitHub Release package.
-- Added automated release workflow for tagged versions.
-- Built the minimal distribution package and fixed latest-download distribution flow.
+- 发布第一个 GitHub Release 包。
+- 增加基于 tag 的自动发布流程。
+- 建立最小分发包和 latest 固定下载链接机制。
