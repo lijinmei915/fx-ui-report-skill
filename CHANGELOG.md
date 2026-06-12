@@ -2,6 +2,11 @@
 
 这里记录 `fx-ui-report-skill` 最近 10 个公开版本的主要变化。
 
+## v1.0.9 - 2026-06-12
+
+- 优化公司 Agent 的读取策略：优先读取 `components.manifest.json`，避免反复续读 `starter.html` / `components.html` 的大段 CSS。
+- 明确 `starter.html` 用作完整底稿复制，`components.html` 仅在 manifest 不足时按组件局部读取。
+
 ## v1.0.8 - 2026-06-12
 
 - 明确 `CHANGELOG.md` 只保留最近 10 个公开版本，避免分发包文档过长。

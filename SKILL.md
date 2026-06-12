@@ -18,10 +18,26 @@ example_prompt: "用「fx-ui 报告美化」技能把我的报告数据做成一
 ## 快速工作流
 
 1. 先按“通用生成协议”把输入拆成信息桶，再识别报告头、KPI、图表、进度/评分、数据表、洞察、方法论等语义块；没有的块跳过。
-2. 复制 `assets/templates/starter.html` 作为输出底稿，只替换报告头文字和 `<!-- 内容区 -->` 后的内容。
-3. 从 `assets/templates/components.html` 按需复制组件结构，填入真实数据；不要重写整段 CSS。
-4. 有 Chart.js 图表时，参考 `references/charts.html` 的图表配置和显式 canvas 高度写法。
-5. 输出前按本文件“收尾自检”核对；修改组件时运行 `python3 scripts/check-sync.py`。
+2. 先读 `assets/data/components.manifest.json` 获取组件清单和 HTML 片段，不要先读完整 `components.html`。
+3. 复制 `assets/templates/starter.html` 作为输出底稿，只替换报告头文字和 `<!-- 内容区 -->` 后的内容；不要重写整段 CSS。
+4. 按 manifest 中的组件 HTML 片段填入真实数据；只有 manifest 不足以判断结构时，才读取 `components.html` 的对应组件区段。
+5. 有 Chart.js 图表时，参考 `references/charts.html` 的图表配置和显式 canvas 高度写法。
+6. 输出前按本文件“收尾自检”核对；修改组件时运行 `python3 scripts/check-sync.py`。
+
+## 读取策略
+
+优先轻量读取，避免反复续读大文件 CSS。
+
+| 文件 | 默认动作 |
+|------|----------|
+| `assets/data/components.manifest.json` | 优先读取。用于了解组件目录、使用场景和 HTML 片段 |
+| `assets/templates/starter.html` | 作为完整 HTML 底稿复制或引用。不要为了理解 CSS 而分段续读全文 |
+| `references/design.md` | 仅在需要确认视觉规则、主题、间距、排版时读取相关章节 |
+| `references/charts.html` | 仅在需要 Chart.js 配置时读取 |
+| `assets/templates/components.html` | 默认不读；仅当 manifest 片段不足、需要核对某个组件真实结构或 CSS selector 时，按关键词定位后读取相关区段 |
+| `assets/templates/example.html` | 默认不读；仅在需要理解完整报告节奏和信息密度时读取 |
+
+如果运行环境支持文件复制，应直接复制 `starter.html` 作为输出文件，再替换内容区。不要连续多次读取 `starter.html` / `components.html` 的 CSS 区段；这会浪费上下文，并增加生成偏差。
 
 ## 通用生成协议
 
@@ -71,12 +87,12 @@ example_prompt: "用「fx-ui 报告美化」技能把我的报告数据做成一
 
 | 文件 | 何时读取 |
 |------|----------|
-| `assets/templates/starter.html` | 每次生成报告前读取；这是 HTML/CSS/内联图标的起点骨架 |
+| `assets/data/components.manifest.json` / `assets/data/design-tokens.json` | 生成前优先读取；这是机器可读组件/Token 清单 |
+| `assets/templates/starter.html` | 作为 HTML/CSS/内联图标的起点骨架复制；不需要反复读取 CSS 全文 |
 | `references/design.md` | 需要确认视觉规则、深浅色主题、组件取舍、间距、排版时读取 |
-| `assets/templates/components.html` | 需要复制组件 HTML 结构或确认 class 名时读取 |
+| `assets/templates/components.html` | manifest 不足时，按组件关键词读取局部区段 |
 | `references/charts.html` | 需要 bar / line / donut / stacked / combo / radar 等 Chart.js 图表时读取 |
 | `assets/templates/example.html` | 只在需要理解完整报告节奏和信息密度时读取 |
-| `assets/data/components.manifest.json` / `assets/data/design-tokens.json` | 需要机器可读组件/Token 清单时读取 |
 
 规范优先级：`starter.html` > `references/design.md` > `components.html` > `example.html`。
 
