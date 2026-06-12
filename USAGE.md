@@ -82,7 +82,7 @@ python3 scripts/build-dist.py
 
 - 先运行 `python3 scripts/check-sync.py` 校验源码；
 - 清空并重建 `dist/fx-ui-report-skill/`；
-- 只复制 skill 必要文件：`SKILL.md`、`CHANGELOG.md`、`agents/`、`assets/`、`references/`、`scripts/check-sync.py`；
+- 只复制 skill 必要文件：`SKILL.md`、`CHANGELOG.md`、`agents/`、`assets/data/`、`assets/scripts/`、`assets/styles/`、`assets/templates/`、`references/`、`scripts/check-sync.py`；
 - 自动给分发包里的 `SKILL.md` frontmatter 追加 `version`、`updated_at`、`build_commit`、`download_url`；
 - 移除 `.DS_Store` 和 `__pycache__`；
 - 在分发目录内再次运行 `scripts/check-sync.py`；

@@ -2,6 +2,12 @@
 
 这里记录 `fx-ui-report-skill` 最近 10 个公开版本的主要变化。
 
+## v1.0.11 - 2026-06-12
+
+- 新增轻量组装入口 `assets/templates/starter-lite.html`，避免 Agent 默认读取大段内联 CSS。
+- 新增外置样式文件 `assets/styles/fx-ui-report.css`，与 `starter.html` 内置 CSS 同源。
+- 默认读取策略调整为 `components.manifest.json` + `starter-lite.html`；`starter.html` 仅用于必须交付单文件 HTML 时复制使用。
+
 ## v1.0.10 - 2026-06-12
 
 - 加强防跑偏规则：`starter.html` 是 CSS 与页面骨架唯一真源，manifest 只用于组件片段和用途说明。
@@ -48,9 +54,3 @@
 
 - 增加构建时生成包元数据的机制。
 - 补充包版本核验相关说明。
-
-## v1.0.1 - 2026-06-12
-
-- 增加通用报告生成协议。
-- 增加信息桶、优先级、组件映射、隐藏/压缩规则。
-- 将 `USAGE.md` 暂时加入分发包，后续版本已移除。

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>fx-ui 报告</title>
+<!-- 轻量组装入口：默认给 Agent 读取。完整单文件版本见 starter.html。 -->
+<link rel="stylesheet" href="../styles/fx-ui-report.css">
+</head>
+<body>
+<div class="page">
+
+  <!-- 报告头：可从 components.manifest.json 的 report-header.html 片段复制后填真实内容 -->
+  <div class="report-header">
+    <div class="header-deco">
+      <div class="hd-blob hd-blob-1"></div>
+      <div class="hd-blob hd-blob-2"></div>
+      <div class="hd-blob hd-blob-3"></div>
+      <div class="hd-noise"></div>
+      <svg width="100%" height="100%" viewBox="0 0 1160 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <circle class="hd-circle-bg" cx="980" cy="-20" r="220" fill="rgba(255,255,255,0.10)"/>
+        <circle class="hd-circle-sm" cx="1100" cy="160" r="140" fill="rgba(255,255,255,0.12)"/>
+        <path class="hd-line-1" d="M600,180 Q750,80 1000,120 Q1100,140 1160,100" stroke="rgba(255,255,255,0.18)" stroke-width="2" fill="none"/>
+        <path class="hd-line-2" d="M500,200 Q680,100 920,150 Q1060,170 1160,140" stroke="rgba(255,255,255,0.10)" stroke-width="1.5" fill="none"/>
+        <circle class="hd-dot hd-dot-1" cx="860" cy="40" r="3" fill="rgba(255,255,255,0.3)"/>
+        <circle class="hd-dot hd-dot-2" cx="920" cy="60" r="2" fill="rgba(255,255,255,0.2)"/>
+        <circle class="hd-dot hd-dot-3" cx="800" cy="70" r="2" fill="rgba(255,255,255,0.2)"/>
+      </svg>
+    </div>
+    <div class="header-body">
+      <div class="header-eyebrow">EYEBROW · 副标题</div>
+      <h1>报告主标题</h1>
+      <div class="header-meta">
+        <span>数据截止 YYYY-MM-DD</span>
+        <span class="divider"></span>
+        <span>制表人：XXX</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 内容区：优先从 assets/data/components.manifest.json 复制组件 html 片段填真实数据 -->
+  <div class="section-title">小标题<span class="section-subtitle">可选副标题，不需要就删 span</span></div>
+
+  <div class="footer-bar">
+    <span>数据来源：XXX · 仅供内部参考</span>
+    <div class="footer-brand">
+      <div class="footer-dot"></div>
+      <span>FX-UI-REPORT-SKILL</span>
+    </div>
+  </div>
+
+</div>
+<!-- 若需要 Lucide 图标，把 lucide-snippet.html 的脚本复制到 head，并在 body 末尾调用 lucide.createIcons()。 -->
+</body>
+</html>
