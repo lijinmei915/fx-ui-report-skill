@@ -44,6 +44,8 @@ example_prompt: "用「fx-ui 报告美化」技能把我的报告数据做成一
 
 防跑偏规则：`starter.html` 内置 CSS 与 `assets/styles/fx-ui-report.css` 同源，二者是最终样式基准；manifest 只提供组件 HTML 片段和用途说明。生成报告时只填真实内容、组合组件、调整 token，不重写组件 CSS，不按记忆自造 class。
 
+外层版式硬约束：`body` 必须是浅灰外画布 `#F0F2F5`，`.page` 必须是居中报告容器（`max-width:1160px; margin:0 auto; padding:0 32px 40px; background:var(--bg-page); border-radius:var(--radius-lg)`）。`.report-header` 必须放在 `.page` 内，并使用 `.page .report-header { margin: 0 -32px 16px; }` 破出容器内边距。不要把深色背景直接铺到 `body`，不要删除 `.page` 包裹层。
+
 ## 通用生成协议
 
 暂不预设销售、拜访、复盘、经营等固定报告类型。任何输入先归入信息桶，再由信息桶选择组件和版面。
