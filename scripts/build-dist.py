@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """Build the minimal distributable fx-ui-report-skill package."""
 import os
-import json
 import shutil
 import subprocess
 import sys
@@ -67,13 +66,6 @@ def build_metadata():
     }
 
 
-def write_version_file(metadata):
-    (PACKAGE / "VERSION.json").write_text(
-        json.dumps(metadata, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-
-
 def stamp_skill_metadata(metadata):
     skill_path = PACKAGE / "SKILL.md"
     content = skill_path.read_text(encoding="utf-8")
@@ -128,7 +120,6 @@ def main():
     run([sys.executable, "scripts/check-sync.py"], ROOT)
     copy_required_files()
     metadata = build_metadata()
-    write_version_file(metadata)
     stamp_skill_metadata(metadata)
     remove_junk()
     run([sys.executable, "scripts/check-sync.py"], PACKAGE)
