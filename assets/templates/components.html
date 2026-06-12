@@ -13,6 +13,7 @@
 
   /* ── Map · 颜色 ── */
   --map-primary-50:#FFF7E6; --map-primary-100:#FFE9C0; --map-primary-500:#FF8000; --map-primary-700:#D96500;
+  --header-primary-50:var(--map-primary-50); --header-primary-100:var(--map-primary-100); --header-primary-500:var(--map-primary-500); --header-primary-700:var(--map-primary-700);
   --map-success-50:#F0FDF4; --map-success-100:#DCFCE7; --map-success-500:#22C55E; --map-success-700:#15803D;
   --map-warning-50:#FFFBEB; --map-warning-100:#FEF3C7; --map-warning-500:#F59E0B; --map-warning-700:#B45309;
   --map-danger-50:#FFF1F2;  --map-danger-100:#FEE2E2;  --map-danger-500:#EF4444;  --map-danger-700:#B91C1C;
@@ -149,7 +150,7 @@ body { font-family: var(--font); background: var(--bg-page); color: var(--text-1
   position: relative; overflow: hidden; contain: paint;
   clip-path: inset(0 round var(--radius-lg) var(--radius-lg) 0 0);
   padding: 32px 32px 40px;
-  background: linear-gradient(180deg, var(--map-primary-700) 0%, var(--map-primary-500) 35%, var(--map-primary-100) 75%, var(--bg-page) 100%);
+  background: linear-gradient(180deg, var(--header-primary-700) 0%, var(--header-primary-500) 35%, var(--header-primary-100) 75%, var(--bg-page) 100%);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 .report-header::before {

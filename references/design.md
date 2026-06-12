@@ -109,7 +109,7 @@
 **原则**：第一眼传达报告标题和来源，渐变融入页面背景不突兀。
 
 **规格**：
-- 背景：`linear-gradient(180deg, var(--map-primary-700) 0%, var(--map-primary-500) 35%, var(--map-primary-100) 75%, var(--bg-page) 100%)`，底部渐变到 `var(--bg-page)` 无缝衔接（深浅色均适用）
+- 背景：`linear-gradient(180deg, var(--header-primary-700) 0%, var(--header-primary-500) 35%, var(--header-primary-100) 75%, var(--bg-page) 100%)`，底部渐变到 `var(--bg-page)` 无缝衔接（深浅色均适用）。`--header-primary-500` 必须等于用户选择的真实 `--seed-primary`，不使用正文适配色。
 - 布局：`margin: 0 -32px 16px`，撑满页面宽度；`contain: paint; overflow: hidden; border-radius: 20px 20px 0 0`
 - padding：`32px 32px 40px`
 - 底部淡出遮罩 `::after`：`height: 72px`，`linear-gradient(to bottom, transparent, var(--bg-page))`，`z-index: 1`，覆盖极光 blob 底部裁切痕迹
@@ -208,6 +208,8 @@
 | Action 功能强调 | `--action-callout-*` | 固定行动功能色：浅色暖底/棕橙文字，深色暗暖底/琥珀文字 | 默认“唯一行动”callout；不跟随品牌主题；语义风险类用 danger/warning/info/success |
 
 自定义主题必须先保留用户选择为 `--seed-primary`，再分模式生成实际使用色：浅色输出 `--accent-light`（同色相、适合白底的中等明度），深色输出 `--accent-dark`（同色相、适合黑底但不过亮）。选中 tab、section 小标题竖线、summary 左边框和图表主系列必须消费对应 accent，而不是直接消费极浅/极深 seed。正文高亮使用同色相浅底和更深文字。“唯一行动”callout 是固定 action 功能色，浅色和深色各一套，不跟随品牌主题。
+
+报告头和正文适配必须分开：报告头使用 `--header-primary-*`，其中 `--header-primary-500` 保留用户真实选择色；正文结构、tab、summary、图表主系列使用 `--accent-light/dark`，允许为了可读性调整明度和饱和度。
 
 ---
 
@@ -714,11 +716,12 @@ transition: transform 0.2s ease;
 | `--map-primary-50`  | 色相不变，饱和度 ×0.12，明度 → 98% |
 | `--map-primary-100` | 色相不变，饱和度 ×0.22，明度 → 95% |
 | `--map-primary-500` | seed 本身 |
+| `--header-primary-500` | seed 本身，报告头专用 |
 | `--map-primary-700` | 色相不变，饱和度 ×1.05，明度 ×0.72 |
 | `--bg-page`         | 色相不变，饱和度 ×0.08，明度 → 99%（极淡底色） |
 | `--brand-shadow`    | seed 的 RGB + 25% 透明度 |
 
-深色自定义主题的 `--map-primary-500` / `--brand` 必须保留用户选择的 seed 原色；即使 seed 是黑色、深棕、深灰，也不自动提亮、不替换成金色或灰白。报告头背景继续使用 `--map-primary-700 → --map-primary-500 → --map-primary-100 → --bg-page`，只允许文字 token `--hd-text` / `--hd-text-soft` 按对比度自动切换。
+深色自定义主题的 `--header-primary-500` 必须保留用户选择的 seed 原色；即使 seed 是黑色、深棕、深灰，也不自动提亮、不替换成金色或灰白。报告头背景使用 `--header-primary-700 → --header-primary-500 → --header-primary-100 → --bg-page`，只允许文字 token `--hd-text` / `--hd-text-soft` 按对比度自动切换。正文可读性由 `--accent-dark` 单独负责，不反向影响头部。
 
 深色自定义主题的正文色、辅助文案、边框和深色 surface 也必须从 seed 色相推导：`--text-2/3/4`、`--border-base/subtle`、`--bg-page/card/subtle/inset` 不得固定沿用 blackgold 的金棕色。用户选粉色时这些 token 应偏粉灰，选黑色时应为中性灰，选棕金时才偏棕金。
 

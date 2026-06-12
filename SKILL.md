@@ -110,6 +110,7 @@ example_prompt: "用「fx-ui 报告美化」技能把我的报告数据做成一
 - 指定主色 hex：按 `references/design.md` 的主题推导规则生成 token。
 - 指定深色：必须同时翻转 surface、text、border 等 alias token；不要只改主色。
 - 自定义主题要保留用户选择作为 `--seed-primary`；组件不要直接消费 seed，而是浅色用 `--accent-light`，深色用 `--accent-dark`。
+- 报告头必须使用用户真实选择色：`--header-primary-500` 等于 `--seed-primary`，并由 `--header-primary-700/100` 生成头部渐变；不要让正文适配色 `--accent-light/dark` 改变头部主色。
 - `--structure-accent`、`--summary-accent`、`--chart-brand` 必须同源：浅色映射 `--accent-light`，深色映射 `--accent-dark`。
 - 图表必须使用图表专用 token：`--chart-brand`、`--chart-neutral`、`--chart-grid`、`--chart-axis`、`--chart-slice-border`、`--chart-tooltip-bg`。不要把极浅色、`#000`、`#111`、黑色 `--brand` 或深灰直接用于柱、线、圆环扇区；需要映射为 `--accent-light` / `--accent-dark` / `--chart-neutral`。
 
