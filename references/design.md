@@ -189,7 +189,7 @@
 
 **规格**：
 - 16px 600 fg-1，`margin: 44px 0 24px`
-- 左侧竖条：`6×12px`，`border-radius: 3px`，`background: var(--structure-accent)`，带光晕 `box-shadow: 0 0 0 3px var(--content-accent-soft)`，`margin-right: 12px`；浅色等于 tab active 的 `--brand`，深色等于深色友好的 `--content-accent-fg`
+- 左侧竖条：`6×12px`，`border-radius: 3px`，`background: var(--structure-accent)`，带光晕 `box-shadow: 0 0 0 3px var(--content-accent-soft)`，`margin-right: 12px`；浅色等于同色相适配后的 `--accent-light`，深色等于不过亮的 `--accent-dark`
 - 右侧延伸线（`::after`）：`flex: 1`，`height: 1px`，`linear-gradient(90deg, var(--border-base) 0%, transparent 100%)`，`margin-left: 20px`
 - **不用** `text-transform: uppercase`，不用 letter-spacing 强制间距
 - 副标题（筛选条件、时间范围）：跟在主标题后用 `<span>` 包裹，11px fg-3，`margin-left: 10px`；**不加括号**，直接写文字
@@ -204,10 +204,10 @@
 |------|-------|------|------|
 | Solid 主强调 | `--brand` / `--map-primary-500` | 实色填充/实色窄线 + 白色文字或独立色条 | 选中的 tab、主按钮、当前筛选等需要一眼识别的控件状态 |
 | Soft 内容强调 | `--content-accent-soft` + `--content-accent-fg` | 浅底 + 深色文字/图标 | 正文高亮、表格 hover、L2 primary 图标、浅底上的行动文字 |
-| 结构强调 | `--structure-accent` | 实色窄线 | section 小标题竖线、summary 左边框；浅色=`--brand`，采用 tab active 同一写法；深色=`--content-accent-fg` |
+| 结构强调 | `--structure-accent` | 实色窄线 | section 小标题竖线、summary 左边框；浅色=`--accent-light`，深色=`--accent-dark` |
 | Action 功能强调 | `--action-callout-*` | 固定行动功能色：浅色暖底/棕橙文字，深色暗暖底/琥珀文字 | 默认“唯一行动”callout；不跟随品牌主题；语义风险类用 danger/warning/info/success |
 
-浅色自定义主题必须按用户选择的色相同时生成 Solid 和 Soft：例如选择浅蓝，选中 tab、section 小标题竖线和 summary 左边框都使用蓝色实色（类似 `#55CBEF`）；正文高亮使用同色相浅蓝底和更深蓝文字。深色下 section 小标题竖线和 summary 左边框必须同源，使用深色友好的 `--content-accent-fg`。“唯一行动”callout 是固定 action 功能色，浅色和深色各一套，不跟随品牌主题。深色自定义主题才把正文组件语义 token 映射到深色友好的 `--brand-content-*`。
+自定义主题必须先保留用户选择为 `--seed-primary`，再分模式生成实际使用色：浅色输出 `--accent-light`（同色相、适合白底的中等明度），深色输出 `--accent-dark`（同色相、适合黑底但不过亮）。选中 tab、section 小标题竖线、summary 左边框和图表主系列必须消费对应 accent，而不是直接消费极浅/极深 seed。正文高亮使用同色相浅底和更深文字。“唯一行动”callout 是固定 action 功能色，浅色和深色各一套，不跟随品牌主题。
 
 ---
 
@@ -250,10 +250,10 @@
 - 图表卡片 `.chart-card`：仅作为 Chart.js / canvas 图表的标准外壳；白底，`border-radius: 16px`，`padding: 24px`，`gap: 20px`
 - 卡片标题：16px 600 fg-1；副标题：13px fg-3，`margin-bottom: 24px`
 - canvas 外层必须有显式高度父容器：`<div style="position:relative;height:220px">`，否则触发 ResizeObserver 死循环
-- 柱图：优先用 `--chart-brand`，不要直接用 `--brand`；折线：`--chart-9`；多系列按 `--chart-1` → `--chart-10` 顺序取色
+- 柱图：优先用 `--chart-brand`，不要直接用 `--brand` 或 `--seed-primary`；折线：`--chart-9`；多系列按 `--chart-1` → `--chart-10` 顺序取色
 - 圆环图：cutout 62%，段间边框使用 `--chart-slice-border` 2px，不写死白色
 - 网格线：`--chart-grid`；轴标签：`--chart-axis`；Tooltip：`--chart-tooltip-bg` + `--chart-grid` + padding 10px
-- 深色模式图表专用规则：浅色模式中可用的黑色/深灰系列，深色模式必须映射为 `--chart-neutral` 或可读灰；任何图表色与 `--bg-card` 对比度不足时，必须替换为 `--chart-neutral` / `--content-accent-fg`。不要把 `#000`、`#111`、`--brand` 黑色直接用于柱、线、圆环扇区。
+- 图表主系列跟随模式适配：浅色用 `--accent-light`，深色用 `--accent-dark`。任何图表色与 `--bg-card` 对比度不足时，必须替换为 `--chart-neutral` 或对应模式 accent。不要把极浅色、`#000`、`#111`、黑色 `--brand` 直接用于柱、线、圆环扇区。
 - `preview/charts.html` 是 Chart.js 图表库示例源头；复制图表配置时必须保留 `.chart-card` + 显式高度 canvas 父容器
 - Progress / Gauge 属于正文可视化组件，默认可独立使用；只有需要进入图表网格、展示标题/副标题时，才组合进 `.chart-card`
 
@@ -514,7 +514,7 @@ Badge 形状：`border-radius: 20px`，`padding: 2px 10px`，11.5px 600，彩色
 **原则**：报告顶部的一句话/短段摘要，让读者 10 秒内抓到核心判断。
 
 **规格**：
-- `background: var(--bg-card)`，`border-left: 4px solid var(--structure-accent)`，`border-radius: 16px`，`padding: 20px 24px`。`--structure-accent` 浅色等于 tab active 的 `--brand`；深色等于 `--content-accent-fg`，必须和 section 小标题竖线一致
+- `background: var(--bg-card)`，`border-left: 4px solid var(--structure-accent)`，`border-radius: 16px`，`padding: 20px 24px`。`--structure-accent` 浅色等于 `--accent-light`；深色等于 `--accent-dark`，必须和 section 小标题竖线一致
 - 字号 15px，字重 500，fg-1，行高 1.7
 - 关键短语按 §12 加粗规则 + §13 高亮规则处理（每段不超过 3 处高亮）
 - **金额必须加粗**：报告中出现的所有金额数字（含单位）用 `<strong>` 包裹
@@ -722,7 +722,7 @@ transition: transform 0.2s ease;
 
 深色自定义主题的正文色、辅助文案、边框和深色 surface 也必须从 seed 色相推导：`--text-2/3/4`、`--border-base/subtle`、`--bg-page/card/subtle/inset` 不得固定沿用 blackgold 的金棕色。用户选粉色时这些 token 应偏粉灰，选黑色时应为中性灰，选棕金时才偏棕金。
 
-正文组件不得直接消费 `--brand-content-*`。主题源头必须先分流：浅色模式按用户所选色相输出浅色友好的 `--content-accent-*`；深色模式才把深色友好的 `--brand-content-soft` / `--brand-content-fg` 映射给这些组件语义 token。`--action-callout-*` 是固定功能色，浅色/深色各一套，不参与品牌色相映射。深色下如果 seed 和背景对比不足，只提高同色相明度，不替换色相；黑色/灰色 seed 因无色相，可提升为可见中性灰。
+正文组件不得直接消费用户选择的 `--seed-primary`。主题源头必须先分流：浅色模式输出 `--accent-light`，深色模式输出 `--accent-dark`，再映射给 `--structure-accent`、`--summary-accent`、`--chart-brand`。`--action-callout-*` 是固定功能色，浅色/深色各一套，不参与品牌色相映射。深色下如果 seed 和背景对比不足，只提高同色相明度到约 54%-62% 区间；极浅 seed 在深色下固定压到约 58% 明度并降低饱和，不替换色相；黑色/灰色 seed 因无色相，可提升为可见中性灰。
 
 ### 用法
 

@@ -2,6 +2,12 @@
 
 这里记录 `fx-ui-report-skill` 最近 10 个公开版本的主要变化。
 
+## v1.0.14 - 2026-06-12
+
+- 调整自定义主题色策略：用户选择保留为 `--seed-primary`，浅色模式生成 `--accent-light`，深色模式生成 `--accent-dark`。
+- 修复浅色主题选择极浅色时，图表主色和 section 竖线直接继承浅色导致不协调的问题。
+- 修复深色主题选择浅色时，强调色过亮的问题；深色图表、section 竖线和 summary 竖线统一使用压亮后的 `--accent-dark`。
+
 ## v1.0.13 - 2026-06-12
 
 - 增加图表专用颜色 token，拆分 `--chart-brand`、`--chart-neutral`、`--chart-grid`、`--chart-axis`、`--chart-slice-border` 和 `--chart-tooltip-bg`。
@@ -50,9 +56,3 @@
 
 - 将 `CHANGELOG.md` 加入对外分发包，方便用户下载后查看更新说明。
 - 在 `USAGE.md` 中补充分发包更新说明的维护规则。
-
-## v1.0.4 - 2026-06-12
-
-- 从对外分发包中移除 `VERSION.json`。
-- 在分发包的 `SKILL.md` frontmatter 中保留版本信息：
-  `version`, `updated_at`, `build_commit`, and `download_url`.

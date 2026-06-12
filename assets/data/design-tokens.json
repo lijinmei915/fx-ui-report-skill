@@ -47,6 +47,10 @@
     { "name": "--brand-subtle",   "from": "map.primary-50",   "value": "#FFF7E6", "note": "品牌浅底" },
     { "name": "--brand-content-soft", "value": "#FFF0D6", "note": "正文 L2 品牌浅底，与头部色阶解耦，极浅自定义主题下仍保持可见" },
     { "name": "--brand-content-fg", "value": "#A65300", "note": "正文 L2 品牌前景色；与 brand-content-soft 对比度至少 4.5:1" },
+    { "name": "--accent-light",   "from": "seed.primary",     "value": "var(--brand)", "note": "浅色模式实际强调色：同色相，明度/饱和度钳制到适合白底；tab、section 竖线、summary 竖线、chart-brand 共用" },
+    { "name": "--accent-dark",    "from": "seed.primary",     "value": "var(--brand)", "note": "深色模式实际强调色：同色相，明度钳制到适合黑底但不过亮；深色下结构强调和图表主系列共用" },
+    { "name": "--structure-accent","from": "alias.accent-light","value": "var(--accent-light)", "note": "结构强调实色：section 小标题竖线、summary 左边框；深色模式映射为 accent-dark" },
+    { "name": "--summary-accent", "from": "alias.structure-accent", "value": "var(--structure-accent)", "note": "摘要左边框，与 section 小标题竖线保持同源" },
 
     { "name": "--success",        "from": "map.success-500",  "value": "#22C55E" },
     { "name": "--success-bg",     "from": "map.success-50",   "value": "#F0FDF4" },
@@ -61,7 +65,7 @@
     { "name": "--info-bg",        "from": "map.info-50",      "value": "#EFF6FF" },
     { "name": "--info-soft",      "from": "map.info-100",     "value": "#DBEAFE", "note": "badge/icon 用" },
 
-    { "name": "--chart-brand",       "from": "alias.brand",       "value": "var(--brand)",       "note": "图表主系列色；深色模式由主题工具替换为可读正文强调色，避免黑色/深灰隐身" },
+    { "name": "--chart-brand",       "from": "alias.accent-light", "value": "var(--accent-light)", "note": "图表主系列色；浅色用 accent-light，深色用 accent-dark，不直接消费 seed/brand" },
     { "name": "--chart-neutral",     "from": "map.neutral-700",   "value": "#545861",            "note": "图表中性系列色；深色模式固定提升为 #8B909A" },
     { "name": "--chart-grid",        "from": "alias.border-base", "value": "var(--border-base)", "note": "图表网格线" },
     { "name": "--chart-axis",        "from": "alias.text-3",      "value": "var(--text-3)",      "note": "图表坐标轴、图例辅助文字" },

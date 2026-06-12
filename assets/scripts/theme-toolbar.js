@@ -79,16 +79,38 @@
     }
     return '#181C25';
   }
+  function hueAccent(hex, mode) {
+    var c = hexToHsl(hex || '#FF8000');
+    if (c.s < 8) return mode === 'dark' ? '#8B909A' : '#545861';
+    if (mode === 'dark') {
+      var darkS = c.l > 75 ? Math.min(Math.max(c.s, 46), 68) : Math.min(Math.max(c.s, 46), 80);
+      var darkL = c.l > 75 ? 58 : Math.min(Math.max(c.l, 54), 62);
+      return hslToHex(c.h, darkS, darkL);
+    }
+    var lightS = c.l > 75 ? Math.min(Math.max(c.s, 55), 78) : Math.max(c.s, 55);
+    var lightL = c.l > 75 ? 56 : Math.min(Math.max(c.l, 46), 58);
+    return hslToHex(c.h, lightS, lightL);
+  }
+  function accentTokensFor(tokens) {
+    var seed = tokens['--seed-primary'] || tokens['--map-primary-500'] || tokens['--brand'] || '#FF8000';
+    return {
+      light: tokens['--accent-light'] || hueAccent(seed, 'light'),
+      dark: tokens['--accent-dark'] || hueAccent(seed, 'dark')
+    };
+  }
   function isDarkTokens(tokens) {
     return Boolean(tokens['--bg-card'] && tokens['--bg-card'].toUpperCase() !== '#FFFFFF');
   }
   function modeAccentTokens(tokens, contentSoft, contentFg) {
+    var accents = accentTokensFor(tokens);
     if (isDarkTokens(tokens)) {
       return {
+        '--accent-light': accents.light,
+        '--accent-dark': accents.dark,
         '--content-accent-soft': contentSoft,
         '--content-accent-fg': contentFg,
-        '--structure-accent': contentFg,
-        '--summary-accent': contentFg,
+        '--structure-accent': accents.dark,
+        '--summary-accent': accents.dark,
         '--action-callout-bg': '#2A2010',
         '--action-callout-border': 'rgba(245,158,11,0.38)',
         '--action-callout-icon-bg': '#332510',
@@ -98,7 +120,7 @@
         '--person-unknown-fg': '#8B909A',
         '--badge-default-bg': '#24262B',
         '--badge-default-fg': '#A3A8B2',
-        '--chart-brand': contentFg,
+        '--chart-brand': accents.dark,
         '--chart-neutral': '#8B909A',
         '--chart-grid': tokens['--border-base'] || '#3A3520',
         '--chart-axis': tokens['--text-3'] || '#8A8070',
@@ -107,10 +129,12 @@
       };
     }
     return {
+      '--accent-light': accents.light,
+      '--accent-dark': accents.dark,
       '--content-accent-soft': contentSoft,
       '--content-accent-fg': contentFg,
-      '--structure-accent': tokens['--brand'] || tokens['--map-primary-500'],
-      '--summary-accent': tokens['--brand'] || tokens['--map-primary-500'],
+      '--structure-accent': accents.light,
+      '--summary-accent': accents.light,
       '--action-callout-bg': '#FFF7E6',
       '--action-callout-border': 'rgba(180,83,9,0.22)',
       '--action-callout-icon-bg': '#FFF0D6',
@@ -120,7 +144,7 @@
       '--person-unknown-fg': '#8B909A',
       '--badge-default-bg': '#F3F4F6',
       '--badge-default-fg': '#8B909A',
-      '--chart-brand': tokens['--brand'] || tokens['--map-primary-500'],
+      '--chart-brand': accents.light,
       '--chart-neutral': '#545861',
       '--chart-grid': '#DEE1E8',
       '--chart-axis': '#91959E',
@@ -132,13 +156,15 @@
   /* ── 调色板生成 ───────────────────────────────────────────── */
   function generatePalette(hex) {
     var c = hexToHsl(hex), h = c.h, s = c.s, l = c.l;
+    var accentLight = hueAccent(hex, 'light');
+    var accentDark = hueAccent(hex, 'dark');
     var ri = parseInt(hex.slice(1, 3), 16), gi = parseInt(hex.slice(3, 5), 16), bi = parseInt(hex.slice(5, 7), 16);
     var p50 = hslToHex(h, Math.max(s * 0.12, 4), Math.min(l + (100 - l) * 0.93, 98));
     var p100 = hslToHex(h, Math.max(s * 0.22, 7), Math.min(l + (100 - l) * 0.78, 95));
     var p700 = hslToHex(h, Math.min(s * 1.05, 100), Math.max(l * 0.72, 15));
     var bgHex = hslToHex(h, Math.max(s * 0.08, 3), Math.min(l + (100 - l) * 0.96, 99));
     var lum500 = relLuminance(ri, gi, bi), tooLight = lum500 > 0.30;
-    var brandHex = tooLight ? p700 : hex;
+    var brandHex = tooLight ? accentLight : hex;
     var brandTone = hexToHsl(brandHex);
     var brandContentSoft = hslToHex(brandTone.h, Math.max(brandTone.s * 0.45, 16), 92);
     var p7r = parseInt(p700.slice(1, 3), 16), p7g = parseInt(p700.slice(3, 5), 16), p7b = parseInt(p700.slice(5, 7), 16);
@@ -146,12 +172,14 @@
     var b1r = Math.min(255, ri + 60), b1g = Math.min(255, gi + 60), b1b = Math.min(255, bi + 20);
     var b2r = Math.max(0, ri - 20), b2g = Math.max(0, gi - 40), b2b = Math.min(255, bi + 30);
     var b3r = Math.min(255, ri + 30), b3g = Math.min(255, gi + 30), b3b = Math.min(255, bi + 50);
-    return Object.assign({'--seed-primary': hex, '--seed-bg': bgHex, '--map-primary-50': p50, '--map-primary-100': p100, '--map-primary-500': hex, '--map-primary-700': p700, '--brand': brandHex, '--brand-subtle': p50, '--brand-content-soft': brandContentSoft, '--brand-gradient-end': p100, '--brand-shadow': 'rgba(' + bR + ',' + bG + ',' + bB + ',0.25)', '--bg-page': bgHex, '--bg-card': '#FFFFFF', '--bg-subtle': '#F2F3F5', '--bg-inset': '#F8F9FA', '--text-1': '#181C25', '--text-2': '#545861', '--text-3': '#91959E', '--text-4': '#C1C5CE', '--border-base': '#DEE1E8', '--border-subtle': '#EAEBEE', '--danger-bg': '#FFF1F2', '--warning-bg': '#FFFBEB', '--success-bg': '#F0FDF4', '--info-bg': '#EFF6FF', '--danger-soft': '#FEE2E2', '--warning-soft': '#FEF3C7', '--success-soft': '#DCFCE7', '--info-soft': '#DBEAFE', '--shadow-1': '0 2px 12px rgba(0,0,0,0.03)', '--shadow-2': '0 4px 20px -2px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.03)', '--shadow-3': '0 8px 28px -4px rgba(0,0,0,0.10)', '--hd-blob-1': 'rgba(' + b1r + ',' + b1g + ',' + b1b + ',0.55)', '--hd-blob-2': 'rgba(' + b2r + ',' + b2g + ',' + b2b + ',0.45)', '--hd-blob-3': 'rgba(' + b3r + ',' + b3g + ',' + b3b + ',0.30)'}, hdTextTokens(p700));
+    return Object.assign({'--seed-primary': hex, '--seed-bg': bgHex, '--accent-light': accentLight, '--accent-dark': accentDark, '--map-primary-50': p50, '--map-primary-100': p100, '--map-primary-500': hex, '--map-primary-700': p700, '--brand': brandHex, '--brand-subtle': p50, '--brand-content-soft': brandContentSoft, '--brand-gradient-end': p100, '--brand-shadow': 'rgba(' + bR + ',' + bG + ',' + bB + ',0.25)', '--bg-page': bgHex, '--bg-card': '#FFFFFF', '--bg-subtle': '#F2F3F5', '--bg-inset': '#F8F9FA', '--text-1': '#181C25', '--text-2': '#545861', '--text-3': '#91959E', '--text-4': '#C1C5CE', '--border-base': '#DEE1E8', '--border-subtle': '#EAEBEE', '--danger-bg': '#FFF1F2', '--warning-bg': '#FFFBEB', '--success-bg': '#F0FDF4', '--info-bg': '#EFF6FF', '--danger-soft': '#FEE2E2', '--warning-soft': '#FEF3C7', '--success-soft': '#DCFCE7', '--info-soft': '#DBEAFE', '--shadow-1': '0 2px 12px rgba(0,0,0,0.03)', '--shadow-2': '0 4px 20px -2px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.03)', '--shadow-3': '0 8px 28px -4px rgba(0,0,0,0.10)', '--hd-blob-1': 'rgba(' + b1r + ',' + b1g + ',' + b1b + ',0.55)', '--hd-blob-2': 'rgba(' + b2r + ',' + b2g + ',' + b2b + ',0.45)', '--hd-blob-3': 'rgba(' + b3r + ',' + b3g + ',' + b3b + ',0.30)'}, hdTextTokens(p700));
   }
   function generateDarkPalette(hex) {
     var ri = parseInt(hex.slice(1, 3), 16), gi = parseInt(hex.slice(3, 5), 16), bi = parseInt(hex.slice(5, 7), 16);
     var c = hexToHsl(hex), h = c.h, s = c.s;
-    var brandHex = hex;
+    var accentLight = hueAccent(hex, 'light');
+    var accentDark = hueAccent(hex, 'dark');
+    var brandHex = accentDark;
     var br = parseInt(brandHex.slice(1, 3), 16), bgc = parseInt(brandHex.slice(3, 5), 16), bbc = parseInt(brandHex.slice(5, 7), 16);
     var p700 = hslToHex(h, Math.min(s * 1.05, 100), Math.max(c.l * 0.72, 0));
     var p50 = hslToHex(h, Math.max(s * 0.32, 0), Math.max(c.l * 0.18, 4));
@@ -169,7 +197,7 @@
     var b1r = Math.min(255, br + 80), b1g = Math.min(255, bgc + 80), b1b = Math.min(255, bbc + 40);
     var b2r = Math.max(0, br - 15), b2g = Math.max(0, bgc - 25), b2b = Math.min(255, bbc + 25);
     var b3r = Math.min(255, br + 50), b3g = Math.min(255, bgc + 50), b3b = Math.min(255, bbc + 60);
-    return Object.assign({'--seed-primary': brandHex, '--seed-bg': bgPage, '--map-primary-50': p50, '--map-primary-100': p100, '--map-primary-500': brandHex, '--map-primary-700': p700, '--brand': brandHex, '--brand-subtle': p50, '--brand-shadow': 'rgba(' + ri + ',' + gi + ',' + bi + ',0.25)', '--brand-gradient-end': p700, '--text-1': text1, '--text-2': text2, '--text-3': text3, '--text-4': text4, '--bg-page': bgPage, '--bg-card': bgCard, '--bg-subtle': bgSubtle, '--bg-inset': bgInset, '--border-base': borderBase, '--border-subtle': borderSubtle, '--danger-bg': '#2A1215', '--warning-bg': '#2A2010', '--success-bg': '#0F2418', '--info-bg': '#101828', '--danger-soft': '#3A1820', '--warning-soft': '#332510', '--success-soft': '#1A3525', '--info-soft': '#152030', '--shadow-1': '0 2px 12px rgba(0,0,0,0.20)', '--shadow-2': '0 4px 20px -2px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.20)', '--shadow-3': '0 8px 28px -4px rgba(0,0,0,0.50)', '--hd-blob-1': 'rgba(' + b1r + ',' + b1g + ',' + b1b + ',0.45)', '--hd-blob-2': 'rgba(' + b2r + ',' + b2g + ',' + b2b + ',0.38)', '--hd-blob-3': 'rgba(' + b3r + ',' + b3g + ',' + b3b + ',0.25)'}, hdTextTokens(p700));
+    return Object.assign({'--seed-primary': hex, '--seed-bg': bgPage, '--accent-light': accentLight, '--accent-dark': accentDark, '--map-primary-50': p50, '--map-primary-100': p100, '--map-primary-500': brandHex, '--map-primary-700': p700, '--brand': brandHex, '--brand-subtle': p50, '--brand-shadow': 'rgba(' + ri + ',' + gi + ',' + bi + ',0.25)', '--brand-gradient-end': p700, '--text-1': text1, '--text-2': text2, '--text-3': text3, '--text-4': text4, '--bg-page': bgPage, '--bg-card': bgCard, '--bg-subtle': bgSubtle, '--bg-inset': bgInset, '--border-base': borderBase, '--border-subtle': borderSubtle, '--danger-bg': '#2A1215', '--warning-bg': '#2A2010', '--success-bg': '#0F2418', '--info-bg': '#101828', '--danger-soft': '#3A1820', '--warning-soft': '#332510', '--success-soft': '#1A3525', '--info-soft': '#152030', '--shadow-1': '0 2px 12px rgba(0,0,0,0.20)', '--shadow-2': '0 4px 20px -2px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.20)', '--shadow-3': '0 8px 28px -4px rgba(0,0,0,0.50)', '--hd-blob-1': 'rgba(' + b1r + ',' + b1g + ',' + b1b + ',0.45)', '--hd-blob-2': 'rgba(' + b2r + ',' + b2g + ',' + b2b + ',0.38)', '--hd-blob-3': 'rgba(' + b3r + ',' + b3g + ',' + b3b + ',0.25)'}, hdTextTokens(p700));
   }
 
   /* ── 应用主题（统一出口，dispatch 事件） ─────────────────── */

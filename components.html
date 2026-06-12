@@ -48,9 +48,11 @@
   --brand-subtle: var(--map-primary-50);
   --brand-content-soft: #FFF0D6;
   --brand-content-fg: #A65300;
+  --accent-light: var(--brand);
+  --accent-dark: var(--brand);
   --content-accent-soft: var(--brand-subtle);
   --content-accent-fg: var(--brand);
-  --structure-accent: var(--brand);
+  --structure-accent: var(--accent-light);
   --summary-accent: var(--structure-accent);
   --action-callout-bg: #FFF7E6;
   --action-callout-border: rgba(180,83,9,0.22);
@@ -99,6 +101,12 @@
   /* ── 图表色 ── */
   --chart-1:#FF7383;--chart-2:#FF7752;--chart-3:#FF9B29;--chart-4:#FFDA54;--chart-5:#DDF2BB;
   --chart-6:#55D48C;--chart-7:#5BCFC1;--chart-8:#40B6FF;--chart-9:#368DFF;--chart-10:#976AEB;
+  --chart-brand: var(--accent-light);
+  --chart-neutral: #545861;
+  --chart-grid: var(--border-base);
+  --chart-axis: var(--text-3);
+  --chart-slice-border: var(--bg-card);
+  --chart-tooltip-bg: var(--bg-card);
   /* ── Header Aurora ── */
   --hd-blob-1:rgba(255,220,80,0.60); --hd-blob-2:rgba(220,80,20,0.50); --hd-blob-3:rgba(255,160,40,0.35);
   --hd-text:#fff; --hd-text-soft:rgba(255,255,255,0.80);
@@ -603,7 +611,7 @@ details[open] summary::before { transform: rotate(90deg); }
     <div style="background:var(--bg-card);border-radius:var(--radius);padding:24px 32px;border:1px solid var(--border-subtle)">
       <div class="section-title" style="margin:0">核心指标</div>
     </div>
-    <div class="component-name">16px 600 fg-1 · ::before 6×12px structure-accent 竖条 + content-accent-soft 光晕（浅色同 tab 的 brand，深色同正文强调） · ::after 渐变延伸线 · 不用 uppercase</div>
+    <div class="component-name">16px 600 fg-1 · ::before 6×12px structure-accent 竖条 + content-accent-soft 光晕（浅色=accent-light，深色=accent-dark） · ::after 渐变延伸线 · 不用 uppercase</div>
   </div>
 
   <div class="variant-panel" data-group="sectitle" data-index="1">
@@ -711,7 +719,7 @@ details[open] summary::before { transform: rotate(90deg); }
     <div class="chart-card">
       <div class="chart-card-title">金额占比</div>
       <div class="chart-card-sub">按商机规模分布</div>
-      <div class="chart-placeholder">圆环图 Chart.js · cutout 62% · 白色 2px 边框</div>
+      <div class="chart-placeholder">圆环图 Chart.js · cutout 62% · --chart-slice-border 2px 边框</div>
     </div>
   </div>
   <div class="component-name">chart-card 是 Chart.js/canvas 图表外壳 · 图表配置参考 preview/charts.html · Progress/Gauge 默认可独立使用，按需组合进卡片</div>
@@ -956,7 +964,7 @@ details[open] summary::before { transform: rotate(90deg); }
     项目总规模约 <strong>680 万</strong>，<mark class="hl-warning">决策人态度中立</mark>，竞品已在接触。
     <mark class="hl-info">需领导以行业专家身份介入破局</mark>，探测上级审批链并推动态度转化。
   </div>
-  <div class="component-name">白底 + border-left 4px structure-accent（浅色=brand，深色=content-accent-fg，与小标题竖线一致） · border-radius 16px · 15px 500 fg-1 行高 1.7 · 金额 &lt;strong&gt; · 关键短语 hl-* 高亮（每段≤3处）</div>
+  <div class="component-name">白底 + border-left 4px structure-accent（浅色=accent-light，深色=accent-dark，与小标题竖线一致） · border-radius 16px · 15px 500 fg-1 行高 1.7 · 金额 &lt;strong&gt; · 关键短语 hl-* 高亮（每段≤3处）</div>
 </div>
 
 <!-- 08 人员卡 -->
