@@ -82,7 +82,7 @@ python3 scripts/build-dist.py
 
 - 先运行 `python3 scripts/check-sync.py` 校验源码；
 - 清空并重建 `dist/fx-ui-report-skill/`；
-- 只复制 skill 必要文件：`SKILL.md`、`USAGE.md`、`agents/`、`assets/`、`references/`、`scripts/check-sync.py`；
+- 只复制 skill 必要文件：`SKILL.md`、`CHANGELOG.md`、`USAGE.md`、`agents/`、`assets/`、`references/`、`scripts/check-sync.py`；
 - 自动给分发包里的 `SKILL.md` frontmatter 追加 `version`、`updated_at`、`build_commit`、`download_url`；
 - 移除 `.DS_Store` 和 `__pycache__`；
 - 在分发目录内再次运行 `scripts/check-sync.py`；
@@ -103,6 +103,18 @@ download_url: "https://github.com/lijinmei915/fx-ui-report-skill/releases/latest
 
 这些字段只在分发包内自动生成，不要求手工维护源码根目录的 `SKILL.md` 版本号。`VERSION.json` 只作为源码侧曾经使用过的辅助思路，不进入对外分发包。
 
+### 更新说明
+
+对外分发包包含 `CHANGELOG.md`。它用于告诉接入方每个版本改了什么、是否影响使用方式、是否建议重新下载替换。
+
+维护规则：
+
+- 每次发布新 tag 前，先在 `CHANGELOG.md` 顶部新增一个版本段落。
+- 版本标题格式：`## vX.Y.Z - YYYY-MM-DD`。
+- 内容只写对使用者有意义的变化：新增规则、视觉修复、分发机制变化、兼容性影响。
+- 不写内部临时实验、无关测试文件、构建产物变化。
+- 分发包内的 `SKILL.md` 看当前版本；`CHANGELOG.md` 看历史更新。
+
 桌面旧目录 `/Users/heqiao/Desktop/fx-ui-report-skill-share` 只作为历史临时拷贝；后续若需要桌面副本，也应从 `dist/fx-ui-report-skill/` 复制，不再作为维护源。
 
 ## Git 管理规则
@@ -112,6 +124,7 @@ Git 只管理源码和维护脚本，不管理可再生构建产物。
 **应提交：**
 
 - `SKILL.md`
+- `CHANGELOG.md`
 - `agents/`
 - `assets/`
 - `references/`
