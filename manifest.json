@@ -1,7 +1,7 @@
 {
   "schemaVersion": "od-skill/v1",
-  "id": "fx-ui-design-re",
-  "name": "fx-ui Design Re",
+  "id": "fx-ui-report-skill",
+  "name": "FX-UI-REPORT-SKILL",
   "category": "Data Report / 数据报告美化",
   "description": "把任意格式的报告数据（HTML/JSON/Markdown/纯文字）转成符合 fx-ui 设计规范的独立 HTML 报告页。职责边界：只管视觉，不修改数据事实。",
   "source": {
@@ -30,10 +30,9 @@
   "preview": {
     "dir": "preview",
     "pages": [
-      { "path": "preview/index.html",      "role": "example",    "title": "报告整体预览" },
       { "path": "preview/colors.html",     "role": "colors",     "title": "色板预览" },
       { "path": "preview/typography.html", "role": "typography", "title": "文字层级预览" },
-      { "path": "preview/charts.html",     "role": "charts",     "title": "图表色板预览" }
+      { "path": "preview/charts.html",     "role": "charts",     "title": "Chart.js 图表库预览" }
     ]
   },
   "inputFormats": ["html", "json", "markdown", "plaintext"],

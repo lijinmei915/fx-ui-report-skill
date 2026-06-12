@@ -1,0 +1,8 @@
+interface:
+  display_name: "FX-UI Report"
+  short_description: "生成符合 fx-ui 规范的独立 HTML 报告"
+  brand_color: "#FF8000"
+  default_prompt: "Use $fx-ui-report-skill to turn my report data into a polished standalone HTML report."
+
+policy:
+  allow_implicit_invocation: true

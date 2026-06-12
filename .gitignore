@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Codex/local workspace state
+.codex/
+
+# Generated distributable package.
+# Rebuild with: python3 scripts/build-dist.py
+dist/
+
+# Dependency/cache folders if tooling is added later
+node_modules/
+.cache/

@@ -42,6 +42,8 @@
   /* ── Alias · 品牌 ────────────────────────────── */
   --brand:        var(--map-primary-500);
   --brand-subtle: var(--map-primary-50);
+  --brand-content-soft: #FFF0D6;
+  --brand-content-fg: #A65300;
 
   /* ── Alias · 语义色 ──────────────────────────── */
   --success: var(--map-success-500); --success-bg: var(--map-success-50); --success-soft: var(--map-success-100);
