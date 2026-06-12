@@ -15,6 +15,7 @@ ZIP_PATH = DIST_ROOT / "fx-ui-report-skill.zip"
 
 FILES = [
     "SKILL.md",
+    "USAGE.md",
     "agents/openai.yaml",
     "assets/data/components.manifest.json",
     "assets/data/design-tokens.json",
