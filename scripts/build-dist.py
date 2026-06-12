@@ -52,22 +52,47 @@ def package_version():
     return capture(["git", "describe", "--tags", "--exact-match"], ROOT, fallback="")
 
 
-def write_version_file():
+def build_metadata():
     version = package_version()
     commit = capture(["git", "rev-parse", "--short", "HEAD"], ROOT)
-    metadata = {
+    built_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    return {
         "name": "fx-ui-report-skill",
         "version": version or f"local-{commit}",
         "commit": commit,
-        "builtAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "builtAt": built_at,
         "downloadUrl": "https://github.com/lijinmei915/fx-ui-report-skill/releases/latest/download/fx-ui-report-skill.zip",
         "releaseUrl": "https://github.com/lijinmei915/fx-ui-report-skill/releases/latest",
         "note": "Use the latest download URL for updates. This file identifies the package version after unzip.",
     }
+
+
+def write_version_file(metadata):
     (PACKAGE / "VERSION.json").write_text(
         json.dumps(metadata, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
+
+
+def stamp_skill_metadata(metadata):
+    skill_path = PACKAGE / "SKILL.md"
+    content = skill_path.read_text(encoding="utf-8")
+    lines = content.splitlines()
+    if len(lines) < 2 or lines[0] != "---":
+        raise ValueError("SKILL.md must start with YAML frontmatter")
+    try:
+        end_index = lines[1:].index("---") + 1
+    except ValueError as exc:
+        raise ValueError("SKILL.md frontmatter must end with ---") from exc
+
+    stamp_lines = [
+        f'version: "{metadata["version"]}"',
+        f'updated_at: "{metadata["builtAt"][:10]}"',
+        f'build_commit: "{metadata["commit"]}"',
+        f'download_url: "{metadata["downloadUrl"]}"',
+    ]
+    stamped = lines[:end_index] + stamp_lines + lines[end_index:]
+    skill_path.write_text("\n".join(stamped) + "\n", encoding="utf-8")
 
 
 def copy_required_files():
@@ -102,7 +127,9 @@ def main():
     os.chdir(ROOT)
     run([sys.executable, "scripts/check-sync.py"], ROOT)
     copy_required_files()
-    write_version_file()
+    metadata = build_metadata()
+    write_version_file(metadata)
+    stamp_skill_metadata(metadata)
     remove_junk()
     run([sys.executable, "scripts/check-sync.py"], PACKAGE)
     build_zip()

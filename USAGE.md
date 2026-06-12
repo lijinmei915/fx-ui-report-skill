@@ -84,6 +84,7 @@ python3 scripts/build-dist.py
 - 清空并重建 `dist/fx-ui-report-skill/`；
 - 只复制 skill 必要文件：`SKILL.md`、`USAGE.md`、`agents/`、`assets/`、`references/`、`scripts/check-sync.py`；
 - 自动写入 `VERSION.json`，标注当前版本、commit、构建时间和 latest 下载地址；
+- 自动给分发包里的 `SKILL.md` frontmatter 追加 `version`、`updated_at`、`build_commit`、`download_url`；
 - 移除 `.DS_Store` 和 `__pycache__`；
 - 在分发目录内再次运行 `scripts/check-sync.py`；
 - 生成 `dist/fx-ui-report-skill.zip`，zip 内容与分发目录同版本。
@@ -107,6 +108,17 @@ fx-ui-report-skill/VERSION.json
 - `releaseUrl`：GitHub 最新 Release 页面。
 
 接入方只需要继续使用 latest 链接下载；需要确认版本时，解压后查看 `VERSION.json`。
+
+同时，构建脚本也会把同一套核心信息写入分发包里的 `SKILL.md` 顶部 frontmatter：
+
+```yaml
+version: "v1.0.2"
+updated_at: "2026-06-12"
+build_commit: "11cbd5a"
+download_url: "https://github.com/lijinmei915/fx-ui-report-skill/releases/latest/download/fx-ui-report-skill.zip"
+```
+
+这些字段只在分发包内自动生成，不要求手工维护源码根目录的 `SKILL.md` 版本号。
 
 桌面旧目录 `/Users/heqiao/Desktop/fx-ui-report-skill-share` 只作为历史临时拷贝；后续若需要桌面副本，也应从 `dist/fx-ui-report-skill/` 复制，不再作为维护源。
 
