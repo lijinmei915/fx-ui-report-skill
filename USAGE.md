@@ -111,6 +111,7 @@ download_url: "https://github.com/lijinmei915/fx-ui-report-skill/releases/latest
 
 - 每次发布新 tag 前，先在 `CHANGELOG.md` 顶部新增一个版本段落。
 - 版本标题格式：`## vX.Y.Z - YYYY-MM-DD`。
+- `CHANGELOG.md` 只保留最近 10 个公开版本；新增第 11 个版本段落时，删除最旧的版本段落。
 - 内容只写对使用者有意义的变化：新增规则、视觉修复、分发机制变化、兼容性影响。
 - 不写内部临时实验、无关测试文件、构建产物变化。
 - 分发包内的 `SKILL.md` 看当前版本；`CHANGELOG.md` 看历史更新。
