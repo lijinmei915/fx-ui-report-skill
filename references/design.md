@@ -250,9 +250,10 @@
 - 图表卡片 `.chart-card`：仅作为 Chart.js / canvas 图表的标准外壳；白底，`border-radius: 16px`，`padding: 24px`，`gap: 20px`
 - 卡片标题：16px 600 fg-1；副标题：13px fg-3，`margin-bottom: 24px`
 - canvas 外层必须有显式高度父容器：`<div style="position:relative;height:220px">`，否则触发 ResizeObserver 死循环
-- 柱图：`--primary`；折线：`--chart-9`；多系列按 `--chart-1` → `--chart-10` 顺序取色
-- 圆环图：cutout 62%，边框白色 2px
-- 网格线：`--border`；轴标签：fg-3；Tooltip：白底 + `--border` + padding 10px
+- 柱图：优先用 `--chart-brand`，不要直接用 `--brand`；折线：`--chart-9`；多系列按 `--chart-1` → `--chart-10` 顺序取色
+- 圆环图：cutout 62%，段间边框使用 `--chart-slice-border` 2px，不写死白色
+- 网格线：`--chart-grid`；轴标签：`--chart-axis`；Tooltip：`--chart-tooltip-bg` + `--chart-grid` + padding 10px
+- 深色模式图表专用规则：浅色模式中可用的黑色/深灰系列，深色模式必须映射为 `--chart-neutral` 或可读灰；任何图表色与 `--bg-card` 对比度不足时，必须替换为 `--chart-neutral` / `--content-accent-fg`。不要把 `#000`、`#111`、`--brand` 黑色直接用于柱、线、圆环扇区。
 - `preview/charts.html` 是 Chart.js 图表库示例源头；复制图表配置时必须保留 `.chart-card` + 显式高度 canvas 父容器
 - Progress / Gauge 属于正文可视化组件，默认可独立使用；只有需要进入图表网格、展示标题/副标题时，才组合进 `.chart-card`
 

@@ -61,6 +61,13 @@
     { "name": "--info-bg",        "from": "map.info-50",      "value": "#EFF6FF" },
     { "name": "--info-soft",      "from": "map.info-100",     "value": "#DBEAFE", "note": "badge/icon 用" },
 
+    { "name": "--chart-brand",       "from": "alias.brand",       "value": "var(--brand)",       "note": "图表主系列色；深色模式由主题工具替换为可读正文强调色，避免黑色/深灰隐身" },
+    { "name": "--chart-neutral",     "from": "map.neutral-700",   "value": "#545861",            "note": "图表中性系列色；深色模式固定提升为 #8B909A" },
+    { "name": "--chart-grid",        "from": "alias.border-base", "value": "var(--border-base)", "note": "图表网格线" },
+    { "name": "--chart-axis",        "from": "alias.text-3",      "value": "var(--text-3)",      "note": "图表坐标轴、图例辅助文字" },
+    { "name": "--chart-slice-border","from": "alias.bg-card",     "value": "var(--bg-card)",     "note": "圆环/饼图段间边框；不要写死白色" },
+    { "name": "--chart-tooltip-bg",  "from": "alias.bg-card",     "value": "var(--bg-card)",     "note": "Chart.js tooltip 背景" },
+
     { "name": "--radius",         "from": "map.radius-lg",    "value": "16px",   "note": "独立卡片圆角" },
     { "name": "--radius-sm",      "from": "map.radius-md",    "value": "12px",   "note": "内部卡片圆角" },
 

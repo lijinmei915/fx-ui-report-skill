@@ -91,6 +91,12 @@
   /* ── 图表色 ── */
   --chart-1:#FF7383;--chart-2:#FF7752;--chart-3:#FF9B29;--chart-4:#FFDA54;--chart-5:#DDF2BB;
   --chart-6:#55D48C;--chart-7:#5BCFC1;--chart-8:#40B6FF;--chart-9:#368DFF;--chart-10:#976AEB;
+  --chart-brand: var(--brand);
+  --chart-neutral: #545861;
+  --chart-grid: var(--border-base);
+  --chart-axis: var(--text-3);
+  --chart-slice-border: var(--bg-card);
+  --chart-tooltip-bg: var(--bg-card);
   /* ── Header Aurora ── */
   --hd-blob-1:rgba(255,220,80,0.60); --hd-blob-2:rgba(220,80,20,0.50); --hd-blob-3:rgba(255,160,40,0.35);
   --hd-text:#fff; --hd-text-soft:rgba(255,255,255,0.80);

@@ -110,6 +110,7 @@ example_prompt: "用「fx-ui 报告美化」技能把我的报告数据做成一
 - 指定主色 hex：按 `references/design.md` 的主题推导规则生成 token。
 - 指定深色：必须同时翻转 surface、text、border 等 alias token；不要只改主色。
 - 深色自定义主题要保留用户 seed 作为 `--brand` / `--map-primary-500`；正文品牌强调使用 `--brand-content-soft` / `--brand-content-fg`。
+- 图表必须使用图表专用 token：`--chart-brand`、`--chart-neutral`、`--chart-grid`、`--chart-axis`、`--chart-slice-border`、`--chart-tooltip-bg`。深色模式下不要把 `#000`、`#111`、黑色 `--brand` 或深灰直接用于柱、线、圆环扇区；需要映射为 `--chart-neutral` 或可读强调色。
 
 ## 组件取舍
 
@@ -136,6 +137,7 @@ example_prompt: "用「fx-ui 报告美化」技能把我的报告数据做成一
 - 每段高亮不超过 3 处；金额优先 `<strong>`，需要语义再叠加 `.hl-*`。
 - 图标层级一致：重复列表、人员头像、callout 左图标用 L2 soft；KPI 等主强调才用 L1。
 - 深色模式下不得出现固定浅底组件；unknown 头像、callout、summary、section title 竖条等使用深色友好的 token。
+- 深色图表不得出现低对比度扇区或线条；圆环/饼图段间边框使用 `--chart-slice-border`，不要写死白色。
 - 输出为完整独立 HTML；不要附解释文字。
 
 ## 维护规则

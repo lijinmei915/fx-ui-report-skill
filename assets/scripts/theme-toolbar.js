@@ -97,7 +97,13 @@
         '--person-unknown-bg': '#24262B',
         '--person-unknown-fg': '#8B909A',
         '--badge-default-bg': '#24262B',
-        '--badge-default-fg': '#A3A8B2'
+        '--badge-default-fg': '#A3A8B2',
+        '--chart-brand': contentFg,
+        '--chart-neutral': '#8B909A',
+        '--chart-grid': tokens['--border-base'] || '#3A3520',
+        '--chart-axis': tokens['--text-3'] || '#8A8070',
+        '--chart-slice-border': tokens['--bg-card'] || '#1C1A14',
+        '--chart-tooltip-bg': tokens['--bg-card'] || '#1C1A14'
       };
     }
     return {
@@ -113,7 +119,13 @@
       '--person-unknown-bg': '#F3F4F6',
       '--person-unknown-fg': '#8B909A',
       '--badge-default-bg': '#F3F4F6',
-      '--badge-default-fg': '#8B909A'
+      '--badge-default-fg': '#8B909A',
+      '--chart-brand': tokens['--brand'] || tokens['--map-primary-500'],
+      '--chart-neutral': '#545861',
+      '--chart-grid': '#DEE1E8',
+      '--chart-axis': '#91959E',
+      '--chart-slice-border': tokens['--bg-card'] || '#FFFFFF',
+      '--chart-tooltip-bg': tokens['--bg-card'] || '#FFFFFF'
     };
   }
 

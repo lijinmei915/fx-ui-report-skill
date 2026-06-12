@@ -2,6 +2,12 @@
 
 这里记录 `fx-ui-report-skill` 最近 10 个公开版本的主要变化。
 
+## v1.0.13 - 2026-06-12
+
+- 增加图表专用颜色 token，拆分 `--chart-brand`、`--chart-neutral`、`--chart-grid`、`--chart-axis`、`--chart-slice-border` 和 `--chart-tooltip-bg`。
+- 修复深色模式下黑色/深灰图表扇区在深色卡片上不可读的问题。
+- 更新 Chart.js 示例和生成规则，要求深色图表使用可读中性色，不直接继承黑色主题色。
+
 ## v1.0.12 - 2026-06-12
 
 - 修复分发样式中组件库预览页 `body` 规则残留导致的报告贴边风险。
@@ -50,8 +56,3 @@
 - 从对外分发包中移除 `VERSION.json`。
 - 在分发包的 `SKILL.md` frontmatter 中保留版本信息：
   `version`, `updated_at`, `build_commit`, and `download_url`.
-
-## v1.0.3 - 2026-06-12
-
-- 增加分发包 `SKILL.md` 自动写入版本信息的机制。
-- 发布包里的 skill 文件现在会直接显示版本号和更新日期。

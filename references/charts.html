@@ -13,6 +13,7 @@
   --primary:#FF8000;--primary-soft:#FFF7E6;
   --chart-1:#FF7383;--chart-2:#FF7752;--chart-3:#FF9B29;--chart-4:#FFDA54;--chart-5:#DDF2BB;
   --chart-6:#55D48C;--chart-7:#5BCFC1;--chart-8:#40B6FF;--chart-9:#368DFF;--chart-10:#976AEB;
+  --chart-brand:var(--primary);--chart-neutral:#545861;--chart-grid:var(--border);--chart-axis:var(--fg-3);--chart-slice-border:var(--surface);--chart-tooltip-bg:var(--surface);
   --radius:10px;--font:'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -35,19 +36,19 @@ h1{font-size:20px;font-weight:700;margin-bottom:4px}
 <div class="grid">
   <div class="card">
     <div class="card-title">柱图 Bar Chart</div>
-    <div class="card-sub">主色 --primary，多系列从 chart-1 顺序取色</div>
+    <div class="card-sub">主色 --chart-brand，多系列从 chart-1 顺序取色</div>
     <div style="position:relative;height:200px">
       <canvas id="barChart"></canvas>
     </div>
-    <div class="rule">单系列用 --primary (#FF8000)，多系列按 chart-1→10 顺序</div>
+    <div class="rule">单系列用 --chart-brand；深色下会自动避开黑色/深灰不可读色</div>
   </div>
   <div class="card">
     <div class="card-title">折线图 Line Chart</div>
-    <div class="card-sub">折线用 --chart-9 (Deep Blue)，柱对比用 --primary</div>
+    <div class="card-sub">折线用 --chart-9 (Deep Blue)，柱对比用 --chart-brand</div>
     <div style="position:relative;height:200px">
       <canvas id="lineChart"></canvas>
     </div>
-    <div class="rule">折线默认色 --chart-9 (#368DFF)；与柱图组合时，柱=primary，线=chart-9</div>
+    <div class="rule">折线默认色 --chart-9；与柱图组合时，柱=chart-brand，线=chart-9</div>
   </div>
 </div>
 
@@ -55,11 +56,11 @@ h1{font-size:20px;font-weight:700;margin-bottom:4px}
 <div class="grid">
   <div class="card">
     <div class="card-title">圆环图 Donut Chart</div>
-    <div class="card-sub">cutout 62%，白色 2px 段间距，多色取 chart-1→10</div>
+    <div class="card-sub">cutout 62%，段间距用 --chart-slice-border，多色取 chart-1→10</div>
     <div style="position:relative;height:200px">
       <canvas id="donutChart"></canvas>
     </div>
-    <div class="rule">cutout: '62%' · borderColor: '#fff' · borderWidth: 2</div>
+    <div class="rule">cutout: '62%' · borderColor: chartTokens.sliceBorder · borderWidth: 2</div>
   </div>
   <div class="card">
     <div class="card-title">堆叠柱图 Stacked Bar</div>
@@ -87,7 +88,7 @@ h1{font-size:20px;font-weight:700;margin-bottom:4px}
     <div style="position:relative;height:200px">
       <canvas id="areaChart"></canvas>
     </div>
-    <div class="rule">fill: true · backgroundColor: rgba(chart-9, .15)</div>
+    <div class="rule">fill: true · backgroundColor: chart-9 透明色</div>
   </div>
   <div class="card">
     <div class="card-title">组合图 Combo Chart</div>
@@ -95,7 +96,7 @@ h1{font-size:20px;font-weight:700;margin-bottom:4px}
     <div style="position:relative;height:200px">
       <canvas id="comboChart"></canvas>
     </div>
-    <div class="rule">bar type=bar color=primary · line type=line color=chart-9</div>
+    <div class="rule">bar type=bar color=chart-brand · line type=line color=chart-9</div>
   </div>
 </div>
 
@@ -123,13 +124,32 @@ h1{font-size:20px;font-weight:700;margin-bottom:4px}
 
 <script>
 const MONTHS = ['1月','2月','3月','4月','5月','6月'];
-const gridColor = '#DEE1E8';
-const tickColor = '#91959E';
+const cssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+const hexToRgba = (hex, alpha) => {
+  const clean = (hex || '').replace('#', '').trim();
+  if (clean.length !== 6) return `rgba(54,141,255,${alpha})`;
+  const value = parseInt(clean, 16);
+  const r = (value >> 16) & 255;
+  const g = (value >> 8) & 255;
+  const b = value & 255;
+  return `rgba(${r},${g},${b},${alpha})`;
+};
+const chartTokens = {
+  brand: cssVar('--chart-brand'),
+  neutral: cssVar('--chart-neutral'),
+  grid: cssVar('--chart-grid'),
+  axis: cssVar('--chart-axis'),
+  sliceBorder: cssVar('--chart-slice-border'),
+  tooltipBg: cssVar('--chart-tooltip-bg'),
+};
+chartTokens.blue = cssVar('--chart-9');
+const gridColor = chartTokens.grid;
+const tickColor = chartTokens.axis;
 const tooltipOpts = {
-  backgroundColor: '#fff',
-  titleColor: '#181C25',
-  bodyColor: '#545861',
-  borderColor: '#DEE1E8',
+  backgroundColor: chartTokens.tooltipBg,
+  titleColor: cssVar('--fg-1'),
+  bodyColor: cssVar('--fg-2'),
+  borderColor: chartTokens.grid,
   borderWidth: 1,
   padding: 10,
 };
@@ -146,7 +166,7 @@ new Chart(document.getElementById('barChart'), {
     datasets: [{
       label: '商机数',
       data: [28, 35, 42, 38, 55, 62],
-      backgroundColor: '#FF8000',
+      backgroundColor: chartTokens.brand,
       borderRadius: 4,
     }]
   },
@@ -161,8 +181,8 @@ new Chart(document.getElementById('lineChart'), {
     datasets: [{
       label: '赢率',
       data: [42, 45, 51, 48, 58, 64],
-      borderColor: '#368DFF',
-      backgroundColor: 'rgba(54,141,255,.1)',
+      borderColor: chartTokens.blue,
+      backgroundColor: hexToRgba(chartTokens.blue, .1),
       borderWidth: 2,
       pointRadius: 3,
       tension: 0.3,
@@ -178,8 +198,8 @@ new Chart(document.getElementById('donutChart'), {
     labels: ['谈判审核','方案/报价','需求确定','验证客户','其他'],
     datasets: [{
       data: [24, 51, 38, 19, 60],
-      backgroundColor: ['#FF7383','#FF9B29','#FFDA54','#55D48C','#368DFF'],
-      borderColor: '#fff',
+      backgroundColor: [cssVar('--chart-1'), cssVar('--chart-3'), cssVar('--chart-4'), cssVar('--chart-6'), chartTokens.blue],
+      borderColor: chartTokens.sliceBorder,
       borderWidth: 2,
     }]
   },
@@ -196,9 +216,9 @@ new Chart(document.getElementById('stackedChart'), {
   data: {
     labels: MONTHS,
     datasets: [
-      { label: '谈判审核', data: [8,10,12,9,14,18], backgroundColor: '#FF7383', borderRadius:2 },
-      { label: '方案/报价', data: [12,14,18,16,22,26], backgroundColor: '#FF9B29', borderRadius:2 },
-      { label: '需求确定', data: [8,11,12,13,19,18], backgroundColor: '#FFDA54', borderRadius:2 },
+      { label: '谈判审核', data: [8,10,12,9,14,18], backgroundColor: cssVar('--chart-1'), borderRadius:2 },
+      { label: '方案/报价', data: [12,14,18,16,22,26], backgroundColor: cssVar('--chart-3'), borderRadius:2 },
+      { label: '需求确定', data: [8,11,12,13,19,18], backgroundColor: cssVar('--chart-4'), borderRadius:2 },
     ]
   },
   options: {
@@ -219,7 +239,7 @@ new Chart(document.getElementById('hbarChart'), {
     datasets: [{
       label: 'Pipeline (万)',
       data: [4090, 820, 560, 320, 217],
-      backgroundColor: '#FF8000',
+      backgroundColor: chartTokens.brand,
       borderRadius: 4,
     }]
   },
@@ -242,8 +262,8 @@ new Chart(document.getElementById('areaChart'), {
     datasets: [{
       label: '预测金额(万)',
       data: [1800,2100,2300,2050,2640,2845],
-      borderColor: '#368DFF',
-      backgroundColor: 'rgba(54,141,255,.15)',
+      borderColor: chartTokens.blue,
+      backgroundColor: hexToRgba(chartTokens.blue, .15),
       borderWidth: 2,
       pointRadius: 3,
       tension: 0.4,
@@ -259,8 +279,8 @@ new Chart(document.getElementById('comboChart'), {
   data: {
     labels: MONTHS,
     datasets: [
-      { type:'bar',  label:'商机数', data:[28,35,42,38,55,62], backgroundColor:'#FF8000', borderRadius:4, yAxisID:'y' },
-      { type:'line', label:'赢率%',  data:[42,45,51,48,58,64], borderColor:'#368DFF', backgroundColor:'transparent', borderWidth:2, pointRadius:3, tension:0.3, yAxisID:'y1' },
+      { type:'bar',  label:'商机数', data:[28,35,42,38,55,62], backgroundColor:chartTokens.brand, borderRadius:4, yAxisID:'y' },
+      { type:'line', label:'赢率%',  data:[42,45,51,48,58,64], borderColor:chartTokens.blue, backgroundColor:'transparent', borderWidth:2, pointRadius:3, tension:0.3, yAxisID:'y1' },
     ]
   },
   options: {
@@ -269,7 +289,7 @@ new Chart(document.getElementById('comboChart'), {
     scales: {
       x:  { grid:{color:gridColor}, ticks:{color:tickColor} },
       y:  { grid:{color:gridColor}, ticks:{color:tickColor}, position:'left' },
-      y1: { grid:{display:false},   ticks:{color:'#368DFF'}, position:'right' },
+      y1: { grid:{display:false},   ticks:{color:chartTokens.blue}, position:'right' },
     }
   }
 });
@@ -282,10 +302,10 @@ new Chart(document.getElementById('radarChart'), {
     datasets: [{
       label: '评分',
       data: [63, 68, 98, 95, 65, 20],
-      borderColor: '#368DFF',
-      backgroundColor: 'rgba(54,141,255,.16)',
-      pointBackgroundColor: '#368DFF',
-      pointBorderColor: '#fff',
+      borderColor: chartTokens.blue,
+      backgroundColor: hexToRgba(chartTokens.blue, .16),
+      pointBackgroundColor: chartTokens.blue,
+      pointBorderColor: chartTokens.sliceBorder,
       pointRadius: 3,
       borderWidth: 2,
     }]
@@ -299,9 +319,9 @@ new Chart(document.getElementById('radarChart'), {
         min: 0,
         max: 100,
         ticks: { display:false, stepSize:20 },
-        grid: { color:'rgba(54,141,255,.18)' },
-        angleLines: { color:'rgba(54,141,255,.16)' },
-        pointLabels: { color:'#545861', font:{ size:12, weight:'600' } }
+        grid: { color:hexToRgba(chartTokens.blue, .18) },
+        angleLines: { color:hexToRgba(chartTokens.blue, .16) },
+        pointLabels: { color:cssVar('--fg-2'), font:{ size:12, weight:'600' } }
       }
     }
   }
